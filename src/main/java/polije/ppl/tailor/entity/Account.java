@@ -1,8 +1,20 @@
 package polije.ppl.tailor.entity;
 
-public class Account {
+public class Account implements EntityInterface {
+    public static String tableName = "accounts";
+
     private Integer id;
     private String fullname, email, username, password;
+
+    public Account() {}
+
+    public Account(Integer id, String fullname, String email, String username, String password) {
+        this.id = id;
+        this.fullname = fullname;
+        this.email = email;
+        this.username = username;
+        this.password = password;
+    }
 
     public Integer getId() {
         return id;

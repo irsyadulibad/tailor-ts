@@ -33,11 +33,6 @@
       <version>8.0.30</version>
     </dependency>
     <dependency>
-      <groupId>com.healthmarketscience.sqlbuilder</groupId>
-      <artifactId>sqlbuilder</artifactId>
-      <version>3.0.2</version>
-    </dependency>
-    <dependency>
       <groupId>org.json</groupId>
       <artifactId>json</artifactId>
       <version>20220924</version>
