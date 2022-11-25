@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import polije.ppl.tailor.entity.Account;
 import polije.ppl.tailor.util.DatabaseUtil;
@@ -25,6 +26,30 @@ public class AccountRepository {
                 accounts.add(mapToEntity(results));
             }
         } catch (SQLException e) {}
+
+        return accounts;
+    }
+
+    public static List<Account> get(Map<String, Object> values) {
+        int iterate = 0;
+        String sql = "SELECT * FROM "+ tableName +" WHERE ";
+        List<Account> accounts = new ArrayList<>();
+
+        for(String valueKey: values.keySet()) {
+            if(iterate > 0) sql += " AND ";
+            sql += valueKey +" = ?";
+
+            iterate++;
+        }
+
+        try(PreparedStatement stmt = conn.prepareStatement(sql)) {
+            DatabaseUtil.prepareStmt(stmt, values);;
+            ResultSet rs = stmt.executeQuery();
+
+            while(rs.next()) {
+                accounts.add(mapToEntity(rs));
+            }
+        }catch(SQLException e) {}
 
         return accounts;
     }
@@ -80,7 +105,7 @@ public class AccountRepository {
 
     private static Account mapToEntity(ResultSet result) throws SQLException {
         return new Account(
-            result.getInt("id"),
+            result.getInt("account_id"),
             result.getString("fullname"),
             result.getString("email"),
             result.getString("username"),

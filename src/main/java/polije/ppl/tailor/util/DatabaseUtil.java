@@ -2,7 +2,9 @@ package polije.ppl.tailor.util;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.Map;
 
 import com.mysql.cj.jdbc.Driver;
 
@@ -28,5 +30,20 @@ public class DatabaseUtil {
 
     public static Connection getConnection() {
         return conn;
+    }
+
+    public static void prepareStmt(PreparedStatement stmt, Map<String, Object> values) {
+        try {
+            int i = 1;
+
+            for(String key: values.keySet()) {
+                Object value = values.get(key);
+
+                if(value instanceof String) stmt.setString(i, String.valueOf(value));
+                if(value instanceof Integer) stmt.setInt(i, (Integer) value);
+
+                i++;
+            }
+        } catch(SQLException e) {}
     }
 }
