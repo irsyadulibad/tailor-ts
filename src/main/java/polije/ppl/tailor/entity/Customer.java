@@ -1,8 +1,20 @@
 package polije.ppl.tailor.entity;
 
-public class Customer {
+public class Customer implements EntityInterface {
+    public static String tableName = "customers";
+
     private Integer id, age;
     private String fullname, phone, address;
+
+    public Customer() {}
+
+    public Customer(Integer id, Integer age, String fullname, String phone, String address) {
+        this.id = id;
+        this.age = age;
+        this.fullname = fullname;
+        this.phone = phone;
+        this.address = address;
+    }
 
     public Integer getId() {
         return id;
