@@ -8,32 +8,32 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import polije.ppl.tailor.entity.Customer;
+import polije.ppl.tailor.entity.Package;
 import polije.ppl.tailor.util.DatabaseUtil;
 
-public class CustomerRepository {
+public class PackageRepository {
     private static Connection conn = DatabaseUtil.getConnection();
-    private static String tableName = Customer.tableName;
+    private static String tableName = Package.tableName;
 
-    public static List<Customer> get() {
+    public static List<Package> get() {
         String sql = "SELECT * FROM " + tableName;
-        List<Customer> customers = new ArrayList<>();
+        List<Package> packages = new ArrayList<>();
 
         try(PreparedStatement statement = conn.prepareStatement(sql)) {
             ResultSet results = statement.executeQuery();
 
             while(results.next()) {
-                customers.add(mapToEntity(results));
+                packages.add(mapToEntity(results));
             }
         } catch (SQLException e) {}
 
-        return customers;
+        return packages;
     }
 
-    public static List<Customer> get(Map<String, Object> values) {
+    public static List<Package> get(Map<String, Object> values) {
         int iterate = 0;
         String sql = "SELECT * FROM "+ tableName +" WHERE ";
-        List<Customer> customers = new ArrayList<>();
+        List<Package> packages = new ArrayList<>();
 
         for(String valueKey: values.keySet()) {
             if(iterate > 0) sql += " AND ";
@@ -47,21 +47,19 @@ public class CustomerRepository {
             ResultSet rs = stmt.executeQuery();
 
             while(rs.next()) {
-                customers.add(mapToEntity(rs));
+                packages.add(mapToEntity(rs));
             }
         }catch(SQLException e) {}
 
-        return customers;
+        return packages;
     }
 
-    public static boolean add(Customer cust) {
-        String sql = "INSERT INTO "+ tableName +" (`fullname`, `age`, `phone`, `address`) VALUES (?, ?, ?, ?)";
+    public static boolean add(Package pkg) {
+        String sql = "INSERT INTO "+ tableName +" (`name`, `price`) VALUES (?, ?)";
 
         try(PreparedStatement statement = conn.prepareStatement(sql)) {
-            statement.setString(1, cust.getFullname());
-            statement.setInt(2, cust.getAge());
-            statement.setString(3, cust.getPhone());
-            statement.setString(4, cust.getAddress());
+            statement.setString(1, pkg.getName());
+            statement.setInt(2, pkg.getPrice());
 
             statement.executeUpdate();
             return true;
@@ -70,15 +68,13 @@ public class CustomerRepository {
         return false;
     }
 
-    public static boolean update(Customer cust, Customer data) {
-        String sql = "UPDATE "+ tableName +" SET fullname = ?, age = ?, phone = ?, address = ? WHERE customer_id = ?";
+    public static boolean update(Package pkg, Package data) {
+        String sql = "UPDATE "+ tableName +" SET name = ?, price = ? WHERE package_id = ?";
 
         try(PreparedStatement stmt = conn.prepareStatement(sql)) {
-            stmt.setString(1, data.getFullname());
-            stmt.setInt(2, data.getAge());
-            stmt.setString(3, data.getPhone());
-            stmt.setString(4, data.getAddress());
-            stmt.setInt(5, cust.getId());
+            stmt.setString(1, data.getName());
+            stmt.setInt(2, data.getPrice());
+            stmt.setInt(3, pkg.getId());
 
             stmt.executeUpdate();
             return true;
@@ -88,7 +84,7 @@ public class CustomerRepository {
     }
 
     public static boolean delete(int id) {
-        String sql = "DELETE FROM "+ tableName +" WHERE customer_id = ?";
+        String sql = "DELETE FROM "+ tableName +" WHERE package_id = ?";
 
         try(PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setInt(1, id);
@@ -100,13 +96,11 @@ public class CustomerRepository {
         return false;
     }
 
-    private static Customer mapToEntity(ResultSet result) throws SQLException {
-        return new Customer(
-            result.getInt("customer_id"),
-            result.getInt("age"),
-            result.getString("fullname"),
-            result.getString("phone"),
-            result.getString("address")
+    private static Package mapToEntity(ResultSet result) throws SQLException {
+        return new Package(
+            result.getInt("package_id"),
+            result.getInt("price"),
+            result.getString("name")
         );
     }
 }
