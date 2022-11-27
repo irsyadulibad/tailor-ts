@@ -1,11 +1,36 @@
 package polije.ppl.tailor.entity;
 
-import org.json.JSONArray;
+import java.util.ArrayList;
+import java.util.List;
 
-public class Measure {
-    private Integer id, custId;
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import polije.ppl.tailor.data.MeasureItem;
+
+public class Measure  implements EntityInterface {
+    public static String tableName = "measures";
+
+    private Integer id;
     private String clothType;
-    private JSONArray items;
+    private JSONArray items = new JSONArray();
+    private Customer customer;
+
+    public Measure() {}
+
+    public Measure(Integer id, Customer customer, String clothType, String items) {
+        this.id = id;
+        this.customer = customer;
+        this.clothType = clothType;
+        this.items = new JSONArray(items);
+    }
+
+    public Measure(Integer id, Customer customer, String clothType, MeasureItem[] items) {
+        this.id = id;
+        this.customer = customer;
+        this.clothType = clothType;
+        this.items = new JSONArray(items);
+    }
 
     public Integer getId() {
         return id;
@@ -15,12 +40,12 @@ public class Measure {
         this.id = id;
     }
 
-    public Integer getCustId() {
-        return custId;
+    public Customer getCustomer() {
+        return customer;
     }
 
-    public void setCustId(Integer custId) {
-        this.custId = custId;
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
     }
 
     public String getClothType() {
@@ -32,10 +57,28 @@ public class Measure {
     }
 
     public JSONArray getItems() {
-        return items;
+        return this.items;
     }
 
-    public void setItems(JSONArray items) {
-        this.items = items;
+    public void setItems(String items) {
+        this.items = new JSONArray(items);
+    }
+
+    public void setItems(MeasureItem[] items) {
+        this.items = new JSONArray(items);
+    }
+
+    public List<MeasureItem> getItemsCollection() {
+        List<MeasureItem> measureItems = new ArrayList<>();
+
+        items.forEach((item) -> {
+            JSONObject obj = new JSONObject(item.toString());
+            measureItems.add(new MeasureItem(
+                (String) obj.get("name"),
+                (Integer) obj.get("value")
+            ));
+        });
+
+        return measureItems;
     }
 }
