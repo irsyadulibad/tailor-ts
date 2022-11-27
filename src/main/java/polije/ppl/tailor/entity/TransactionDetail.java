@@ -8,10 +8,6 @@ public class TransactionDetail {
         return id;
     }
 
-    public void setId(int id) {
-        this.id = id;
-    }
-
     public int getQty() {
         return qty;
     }

@@ -36,10 +36,6 @@ public class Measure  implements EntityInterface {
         return id;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
     public Customer getCustomer() {
         return customer;
     }

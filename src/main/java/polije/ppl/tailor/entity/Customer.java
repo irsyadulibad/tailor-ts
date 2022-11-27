@@ -20,10 +20,6 @@ public class Customer implements EntityInterface {
         return id;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
     public Integer getAge() {
         return age;
     }
