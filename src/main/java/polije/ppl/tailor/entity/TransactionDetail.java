@@ -1,8 +1,25 @@
 package polije.ppl.tailor.entity;
 
-public class TransactionDetail {
-    private int id, qty, price, tranId, packId;
+import polije.ppl.tailor.entity.Package;
+
+public class TransactionDetail implements EntityInterface {
+    public static String tableName = "transaction_details";
+
+    private int id, qty, price;
+    private Package pkg;
+    private Transaction transaction;
     private String clothName;
+
+    public TransactionDetail() { }
+
+    public TransactionDetail(int id, int qty, int price, Package pkg, Transaction transaction, String clothName) {
+        this.id = id;
+        this.qty = qty;
+        this.price = price;
+        this.pkg = pkg;
+        this.transaction = transaction;
+        this.clothName = clothName;
+    }
 
     public int getId() {
         return id;
@@ -20,24 +37,24 @@ public class TransactionDetail {
         return price;
     }
 
+    public void setPackage(Package pkg) {
+        this.pkg = pkg;
+    }
+
+    public Package getPackage() {
+        return pkg;
+    }
+
+    public void setTransaction(Transaction transaction) {
+        this.transaction = transaction;
+    }
+
+    public Transaction getTransaction() {
+        return transaction;
+    }
+
     public void setPrice(int price) {
         this.price = price;
-    }
-
-    public int getTranId() {
-        return tranId;
-    }
-
-    public void setTranId(int tranId) {
-        this.tranId = tranId;
-    }
-
-    public int getPackId() {
-        return packId;
-    }
-
-    public void setPackId(int packId) {
-        this.packId = packId;
     }
 
     public String getClothName() {
