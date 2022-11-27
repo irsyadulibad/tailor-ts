@@ -1,8 +1,30 @@
 package polije.ppl.tailor.entity;
 
-public class Transaction {
-    private Integer id, total, accId, custId;
-    private String date, note, status;
+import java.time.LocalDate;
+
+import polije.ppl.tailor.data.TransactionStatus;
+
+public class Transaction implements EntityInterface {
+    public static String tableName = "transactions";
+
+    private Integer id, total;
+    private String note;
+    private LocalDate date;
+    private TransactionStatus status;
+    private Account account;
+    private Customer customer;
+
+    public Transaction() {}
+
+    public Transaction(Integer id, Integer total, Account account, Customer customer, LocalDate date, String note, TransactionStatus status) {
+        this.id = id;
+        this.total = total;
+        this.account = account;
+        this.customer = customer;
+        this.date = date;
+        this.note = note;
+        this.status = status;
+    }
 
     public Integer getId() {
         return id;
@@ -20,27 +42,27 @@ public class Transaction {
         this.total = total;
     }
 
-    public Integer getAccId() {
-        return accId;
+    public Account getAccount() {
+        return account;
     }
 
-    public void setAccId(Integer accId) {
-        this.accId = accId;
+    public void setAccount(Account account) {
+        this.account = account;
     }
 
-    public Integer getCustId() {
-        return custId;
+    public Customer getCustomer() {
+        return customer;
     }
 
-    public void setCustId(Integer custId) {
-        this.custId = custId;
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
     }
 
-    public String getDate() {
-        return date;
+    public LocalDate getDate() {
+        return this.date;
     }
 
-    public void setDate(String date) {
+    public void setDate(LocalDate date) {
         this.date = date;
     }
 
@@ -52,11 +74,11 @@ public class Transaction {
         this.note = note;
     }
 
-    public String getStatus() {
+    public TransactionStatus getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(TransactionStatus status) {
         this.status = status;
     }
 }
