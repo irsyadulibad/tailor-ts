@@ -102,11 +102,13 @@ public class MeasureRepository {
         int custId = result.getInt("customer_id");
         Map<String, Object> keyword = new HashMap<>(){{ put("customer_id", custId); }};
 
-        return new Measure(
-            result.getInt("measure_id"),
+        Measure measure = new Measure(
             CustomerRepository.get(keyword).get(0),
             result.getString("cloth_type"),
             result.getString("items")
         );
+
+        measure.setId(result.getInt("measure_id"));
+        return measure;
     }
 }

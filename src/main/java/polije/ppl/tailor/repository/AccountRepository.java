@@ -104,12 +104,14 @@ public class AccountRepository {
     }
 
     private static Account mapToEntity(ResultSet result) throws SQLException {
-        return new Account(
-            result.getInt("account_id"),
+        Account account = new Account(
             result.getString("fullname"),
             result.getString("email"),
             result.getString("username"),
             result.getString("password")
         );
+
+        account.setId(result.getInt("account_id"));
+        return account;
     }
 }

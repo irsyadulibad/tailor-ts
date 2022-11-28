@@ -16,8 +16,7 @@ public class Transaction implements EntityInterface {
 
     public Transaction() {}
 
-    public Transaction(Integer id, Integer total, Account account, Customer customer, LocalDate date, String note, TransactionStatus status) {
-        this.id = id;
+    public Transaction(Integer total, Account account, Customer customer, LocalDate date, String note, TransactionStatus status) {
         this.total = total;
         this.account = account;
         this.customer = customer;
@@ -28,6 +27,10 @@ public class Transaction implements EntityInterface {
 
     public Integer getId() {
         return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public Integer getTotal() {

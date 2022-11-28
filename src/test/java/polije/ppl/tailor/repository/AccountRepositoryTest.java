@@ -26,7 +26,6 @@ public class AccountRepositoryTest {
     @Test @Order(1)
     public void testAdd() {
         Account acc = new Account(
-            1,
             "John",
             "test@gmail.com",
             "john",

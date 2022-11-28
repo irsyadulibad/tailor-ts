@@ -113,8 +113,7 @@ public class TransactionRepository {
         Map<String, Object> custKey = new HashMap<>(){{ put("customer_id", custId); }};
         Map<String, Object> accKey = new HashMap<>(){{ put("account_id", accId); }};
 
-        return new Transaction(
-            result.getInt("transaction_id"),
+        Transaction transaction = new Transaction(
             result.getInt("total"),
             AccountRepository.get(accKey).get(0),
             CustomerRepository.get(custKey).get(0),
@@ -122,5 +121,8 @@ public class TransactionRepository {
             result.getString("note"),
             TransactionStatus.valueOf(result.getString("status"))
         );
+
+        transaction.setId(result.getInt("transaction_id"));
+        return transaction;
     }
 }

@@ -12,8 +12,7 @@ public class TransactionDetail implements EntityInterface {
 
     public TransactionDetail() { }
 
-    public TransactionDetail(int id, int qty, int price, Package pkg, Transaction transaction, String clothName) {
-        this.id = id;
+    public TransactionDetail(int qty, int price, Package pkg, Transaction transaction, String clothName) {
         this.qty = qty;
         this.price = price;
         this.pkg = pkg;
@@ -23,6 +22,10 @@ public class TransactionDetail implements EntityInterface {
 
     public int getId() {
         return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public int getQty() {

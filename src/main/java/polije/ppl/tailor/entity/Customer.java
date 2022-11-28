@@ -8,8 +8,7 @@ public class Customer implements EntityInterface {
 
     public Customer() {}
 
-    public Customer(Integer id, Integer age, String fullname, String phone, String address) {
-        this.id = id;
+    public Customer(Integer age, String fullname, String phone, String address) {
         this.age = age;
         this.fullname = fullname;
         this.phone = phone;
@@ -18,6 +17,10 @@ public class Customer implements EntityInterface {
 
     public Integer getId() {
         return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public Integer getAge() {

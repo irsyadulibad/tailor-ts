@@ -108,13 +108,15 @@ public class TransactionDetailRepository {
         Map<String, Object> transKey = new HashMap<>(){{ put("transaction_id", transId); }};
         Map<String, Object> pkgKey = new HashMap<>(){{ put("package_id", pkgId); }};
 
-        return new TransactionDetail(
-            result.getInt("detail_id"),
+        TransactionDetail detail = new TransactionDetail(
             result.getInt("qty"),
             result.getInt("price"),
             PackageRepository.get(pkgKey).get(0),
             TransactionRepository.get(transKey).get(0),
             result.getString("cloth_name")
         );
+
+        detail.setId(result.getInt("detail_id"));
+        return detail;
     }
 }

@@ -8,8 +8,7 @@ public class Account implements EntityInterface {
 
     public Account() {}
 
-    public Account(Integer id, String fullname, String email, String username, String password) {
-        this.id = id;
+    public Account(String fullname, String email, String username, String password) {
         this.fullname = fullname;
         this.email = email;
         this.username = username;
@@ -18,6 +17,10 @@ public class Account implements EntityInterface {
 
     public Integer getId() {
         return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public String getFullname() {

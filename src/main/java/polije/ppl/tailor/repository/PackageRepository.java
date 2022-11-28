@@ -97,10 +97,12 @@ public class PackageRepository {
     }
 
     private static Package mapToEntity(ResultSet result) throws SQLException {
-        return new Package(
-            result.getInt("package_id"),
+        Package pkg = new Package(
             result.getInt("price"),
             result.getString("name")
         );
+
+        pkg.setId(result.getInt("package_id"));
+        return pkg;
     }
 }

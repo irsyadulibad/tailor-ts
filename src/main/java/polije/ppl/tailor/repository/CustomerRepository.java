@@ -101,12 +101,14 @@ public class CustomerRepository {
     }
 
     private static Customer mapToEntity(ResultSet result) throws SQLException {
-        return new Customer(
-            result.getInt("customer_id"),
+        Customer customer = new Customer(
             result.getInt("age"),
             result.getString("fullname"),
             result.getString("phone"),
             result.getString("address")
         );
+
+        customer.setId(result.getInt("customer_id"));
+        return customer;
     }
 }

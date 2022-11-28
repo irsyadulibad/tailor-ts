@@ -8,14 +8,17 @@ public class Package {
 
     public Package() {};
 
-    public Package(int id, int price, String name) {
-        this.id = id;
+    public Package(int price, String name) {
         this.price = price;
         this.name = name;
     }
 
     public int getId() {
         return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public int getPrice() {

@@ -18,15 +18,13 @@ public class Measure  implements EntityInterface {
 
     public Measure() {}
 
-    public Measure(Integer id, Customer customer, String clothType, String items) {
-        this.id = id;
+    public Measure(Customer customer, String clothType, String items) {
         this.customer = customer;
         this.clothType = clothType;
         this.items = new JSONArray(items);
     }
 
-    public Measure(Integer id, Customer customer, String clothType, MeasureItem[] items) {
-        this.id = id;
+    public Measure(Customer customer, String clothType, MeasureItem[] items) {
         this.customer = customer;
         this.clothType = clothType;
         this.items = new JSONArray(items);
@@ -34,6 +32,10 @@ public class Measure  implements EntityInterface {
 
     public Integer getId() {
         return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public Customer getCustomer() {
