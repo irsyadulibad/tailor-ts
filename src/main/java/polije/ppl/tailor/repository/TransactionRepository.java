@@ -1,6 +1,5 @@
 package polije.ppl.tailor.repository;
 
-import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -10,17 +9,14 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.print.attribute.SetOfIntegerSyntax;
-
 import polije.ppl.tailor.data.TransactionStatus;
 import polije.ppl.tailor.entity.Transaction;
 import polije.ppl.tailor.util.DatabaseUtil;
 
-public class TransactionRepository {
-    private static Connection conn = DatabaseUtil.getConnection();
+public class TransactionRepository implements Repository<Transaction> {
     private static String tableName = Transaction.tableName;
 
-    public static List<Transaction> get() {
+    public List<Transaction> get() {
         String sql = "SELECT * FROM " + tableName;
         List<Transaction> transactions = new ArrayList<>();
 
@@ -35,7 +31,7 @@ public class TransactionRepository {
         return transactions;
     }
 
-    public static List<Transaction> get(Map<String, Object> values) {
+    public List<Transaction> get(Map<String, Object> values) {
         int iterate = 0;
         String sql = "SELECT * FROM "+ tableName +" WHERE ";
         List<Transaction> transactions = new ArrayList<>();
@@ -59,7 +55,7 @@ public class TransactionRepository {
         return transactions;
     }
 
-    public static boolean add(Transaction trans) {
+    public boolean add(Transaction trans) {
         String sql = "INSERT INTO "+ tableName +" (`status`, `date`, `total`, `note`, `account_id`, `customer_id`) VALUES (?, ?, ?, ?, ?, ?)";
 
         try(PreparedStatement stmt = conn.prepareStatement(sql)) {
@@ -77,7 +73,7 @@ public class TransactionRepository {
         return false;
     }
 
-    public static boolean update(Transaction trans, Transaction data) {
+    public boolean update(Transaction trans, Transaction data) {
         String sql = "UPDATE "+ tableName +" SET status = ?, total = ?, note = ? WHERE transaction_id = ?";
 
         try(PreparedStatement stmt = conn.prepareStatement(sql)) {
@@ -93,7 +89,7 @@ public class TransactionRepository {
         return false;
     }
 
-    public static boolean delete(int id) {
+    public boolean delete(int id) {
         String sql = "DELETE FROM "+ tableName +" WHERE transaction_id = ?";
 
         try(PreparedStatement stmt = conn.prepareStatement(sql)) {
@@ -106,7 +102,7 @@ public class TransactionRepository {
         return false;
     }
 
-    private static Transaction mapToEntity(ResultSet result) throws SQLException {
+    private Transaction mapToEntity(ResultSet result) throws SQLException {
         int custId = result.getInt("customer_id");
         int accId = result.getInt("account_id");
 
@@ -115,8 +111,8 @@ public class TransactionRepository {
 
         Transaction transaction = new Transaction(
             result.getInt("total"),
-            AccountRepository.get(accKey).get(0),
-            CustomerRepository.get(custKey).get(0),
+            new AccountRepository().get(accKey).get(0),
+            new CustomerRepository().get(custKey).get(0),
             result.getDate("date").toLocalDate(),
             result.getString("note"),
             TransactionStatus.valueOf(result.getString("status"))

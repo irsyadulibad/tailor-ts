@@ -1,6 +1,5 @@
 package polije.ppl.tailor.repository;
 
-import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -12,11 +11,10 @@ import java.util.Map;
 import polije.ppl.tailor.entity.TransactionDetail;
 import polije.ppl.tailor.util.DatabaseUtil;
 
-public class TransactionDetailRepository {
-    private static Connection conn = DatabaseUtil.getConnection();
+public class TransactionDetailRepository implements Repository<TransactionDetail> {
     private static String tableName = TransactionDetail.tableName;
 
-    public static List<TransactionDetail> get() {
+    public List<TransactionDetail> get() {
         String sql = "SELECT * FROM " + tableName;
         List<TransactionDetail> details = new ArrayList<>();
 
@@ -31,7 +29,7 @@ public class TransactionDetailRepository {
         return details;
     }
 
-    public static List<TransactionDetail> get(Map<String, Object> values) {
+    public List<TransactionDetail> get(Map<String, Object> values) {
         int iterate = 0;
         String sql = "SELECT * FROM "+ tableName +" WHERE ";
         List<TransactionDetail> details = new ArrayList<>();
@@ -55,7 +53,7 @@ public class TransactionDetailRepository {
         return details;
     }
 
-    public static boolean add(TransactionDetail detail) {
+    public boolean add(TransactionDetail detail) {
         String sql = "INSERT INTO "+ tableName +" (`qty`, `price`, `cloth_name`, `transaction_id`, `package_id`) VALUES (?, ?, ?, ?, ?)";
 
         try(PreparedStatement stmt = conn.prepareStatement(sql)) {
@@ -72,7 +70,7 @@ public class TransactionDetailRepository {
         return false;
     }
 
-    public static boolean update(TransactionDetail detail, TransactionDetail data) {
+    public boolean update(TransactionDetail detail, TransactionDetail data) {
         String sql = "UPDATE "+ tableName +" SET cloth_name = ?, qty = ?, price = ? WHERE detail_id = ?";
 
         try(PreparedStatement stmt = conn.prepareStatement(sql)) {
@@ -88,7 +86,7 @@ public class TransactionDetailRepository {
         return false;
     }
 
-    public static boolean delete(int id) {
+    public boolean delete(int id) {
         String sql = "DELETE FROM "+ tableName +" WHERE detail_id = ?";
 
         try(PreparedStatement stmt = conn.prepareStatement(sql)) {
@@ -101,7 +99,7 @@ public class TransactionDetailRepository {
         return false;
     }
 
-    private static TransactionDetail mapToEntity(ResultSet result) throws SQLException {
+    private TransactionDetail mapToEntity(ResultSet result) throws SQLException {
         int transId = result.getInt("transaction_id");
         int pkgId = result.getInt("package_id");
 
@@ -111,8 +109,8 @@ public class TransactionDetailRepository {
         TransactionDetail detail = new TransactionDetail(
             result.getInt("qty"),
             result.getInt("price"),
-            PackageRepository.get(pkgKey).get(0),
-            TransactionRepository.get(transKey).get(0),
+            new PackageRepository().get(pkgKey).get(0),
+            new TransactionRepository().get(transKey).get(0),
             result.getString("cloth_name")
         );
 

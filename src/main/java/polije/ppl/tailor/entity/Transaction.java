@@ -4,8 +4,8 @@ import java.time.LocalDate;
 
 import polije.ppl.tailor.data.TransactionStatus;
 
-public class Transaction implements EntityInterface {
-    public static String tableName = "transactions";
+public class Transaction implements Entity {
+    public final static String tableName = "transactions";
 
     private Integer id, total;
     private String note;

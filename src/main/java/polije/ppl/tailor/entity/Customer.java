@@ -1,7 +1,7 @@
 package polije.ppl.tailor.entity;
 
-public class Customer implements EntityInterface {
-    public static String tableName = "customers";
+public class Customer implements Entity {
+    public final static String tableName = "customers";
 
     private Integer id, age;
     private String fullname, phone, address;

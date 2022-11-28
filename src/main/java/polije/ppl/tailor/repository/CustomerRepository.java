@@ -1,6 +1,5 @@
 package polije.ppl.tailor.repository;
 
-import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -11,11 +10,10 @@ import java.util.Map;
 import polije.ppl.tailor.entity.Customer;
 import polije.ppl.tailor.util.DatabaseUtil;
 
-public class CustomerRepository {
-    private static Connection conn = DatabaseUtil.getConnection();
+public class CustomerRepository implements Repository<Customer> {
     private static String tableName = Customer.tableName;
 
-    public static List<Customer> get() {
+    public List<Customer> get() {
         String sql = "SELECT * FROM " + tableName;
         List<Customer> customers = new ArrayList<>();
 
@@ -30,7 +28,7 @@ public class CustomerRepository {
         return customers;
     }
 
-    public static List<Customer> get(Map<String, Object> values) {
+    public List<Customer> get(Map<String, Object> values) {
         int iterate = 0;
         String sql = "SELECT * FROM "+ tableName +" WHERE ";
         List<Customer> customers = new ArrayList<>();
@@ -54,7 +52,7 @@ public class CustomerRepository {
         return customers;
     }
 
-    public static boolean add(Customer cust) {
+    public boolean add(Customer cust) {
         String sql = "INSERT INTO "+ tableName +" (`fullname`, `age`, `phone`, `address`) VALUES (?, ?, ?, ?)";
 
         try(PreparedStatement statement = conn.prepareStatement(sql)) {
@@ -70,7 +68,7 @@ public class CustomerRepository {
         return false;
     }
 
-    public static boolean update(Customer cust, Customer data) {
+    public boolean update(Customer cust, Customer data) {
         String sql = "UPDATE "+ tableName +" SET fullname = ?, age = ?, phone = ?, address = ? WHERE customer_id = ?";
 
         try(PreparedStatement stmt = conn.prepareStatement(sql)) {
@@ -87,7 +85,7 @@ public class CustomerRepository {
         return false;
     }
 
-    public static boolean delete(int id) {
+    public boolean delete(int id) {
         String sql = "DELETE FROM "+ tableName +" WHERE customer_id = ?";
 
         try(PreparedStatement stmt = conn.prepareStatement(sql)) {
@@ -100,7 +98,7 @@ public class CustomerRepository {
         return false;
     }
 
-    private static Customer mapToEntity(ResultSet result) throws SQLException {
+    private Customer mapToEntity(ResultSet result) throws SQLException {
         Customer customer = new Customer(
             result.getInt("age"),
             result.getString("fullname"),

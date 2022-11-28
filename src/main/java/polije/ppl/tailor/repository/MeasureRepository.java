@@ -1,6 +1,5 @@
 package polije.ppl.tailor.repository;
 
-import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -12,11 +11,10 @@ import java.util.Map;
 import polije.ppl.tailor.entity.Measure;
 import polije.ppl.tailor.util.DatabaseUtil;
 
-public class MeasureRepository {
-    private static Connection conn = DatabaseUtil.getConnection();
+public class MeasureRepository implements Repository<Measure> {
     private static String tableName = Measure.tableName;
 
-    public static List<Measure> get() {
+    public List<Measure> get() {
         String sql = "SELECT * FROM " + tableName;
         List<Measure> measures = new ArrayList<>();
 
@@ -31,7 +29,7 @@ public class MeasureRepository {
         return measures;
     }
 
-    public static List<Measure> get(Map<String, Object> values) {
+    public List<Measure> get(Map<String, Object> values) {
         int iterate = 0;
         String sql = "SELECT * FROM "+ tableName +" WHERE ";
         List<Measure> measures = new ArrayList<>();
@@ -55,7 +53,7 @@ public class MeasureRepository {
         return measures;
     }
 
-    public static boolean add(Measure meas) {
+    public boolean add(Measure meas) {
         String sql = "INSERT INTO "+ tableName +" (`cloth_type`, `items`, `customer_id`) VALUES (?, ?, ?)";
 
         try(PreparedStatement stmt = conn.prepareStatement(sql)) {
@@ -70,7 +68,7 @@ public class MeasureRepository {
         return false;
     }
 
-    public static boolean update(Measure meas, Measure data) {
+    public boolean update(Measure meas, Measure data) {
         String sql = "UPDATE "+ tableName +" SET cloth_type = ?, items = ? WHERE measure_id = ?";
 
         try(PreparedStatement stmt = conn.prepareStatement(sql)) {
@@ -85,7 +83,7 @@ public class MeasureRepository {
         return false;
     }
 
-    public static boolean delete(int id) {
+    public boolean delete(int id) {
         String sql = "DELETE FROM "+ tableName +" WHERE measure_id = ?";
 
         try(PreparedStatement stmt = conn.prepareStatement(sql)) {
@@ -98,12 +96,12 @@ public class MeasureRepository {
         return false;
     }
 
-    private static Measure mapToEntity(ResultSet result) throws SQLException {
+    private Measure mapToEntity(ResultSet result) throws SQLException {
         int custId = result.getInt("customer_id");
         Map<String, Object> keyword = new HashMap<>(){{ put("customer_id", custId); }};
 
         Measure measure = new Measure(
-            CustomerRepository.get(keyword).get(0),
+            new CustomerRepository().get(keyword).get(0),
             result.getString("cloth_type"),
             result.getString("items")
         );

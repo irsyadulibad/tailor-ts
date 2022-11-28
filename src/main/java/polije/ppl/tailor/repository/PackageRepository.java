@@ -1,6 +1,5 @@
 package polije.ppl.tailor.repository;
 
-import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -11,11 +10,10 @@ import java.util.Map;
 import polije.ppl.tailor.entity.Package;
 import polije.ppl.tailor.util.DatabaseUtil;
 
-public class PackageRepository {
-    private static Connection conn = DatabaseUtil.getConnection();
+public class PackageRepository implements Repository<Package> {
     private static String tableName = Package.tableName;
 
-    public static List<Package> get() {
+    public List<Package> get() {
         String sql = "SELECT * FROM " + tableName;
         List<Package> packages = new ArrayList<>();
 
@@ -30,7 +28,7 @@ public class PackageRepository {
         return packages;
     }
 
-    public static List<Package> get(Map<String, Object> values) {
+    public List<Package> get(Map<String, Object> values) {
         int iterate = 0;
         String sql = "SELECT * FROM "+ tableName +" WHERE ";
         List<Package> packages = new ArrayList<>();
@@ -54,7 +52,7 @@ public class PackageRepository {
         return packages;
     }
 
-    public static boolean add(Package pkg) {
+    public boolean add(Package pkg) {
         String sql = "INSERT INTO "+ tableName +" (`name`, `price`) VALUES (?, ?)";
 
         try(PreparedStatement statement = conn.prepareStatement(sql)) {
@@ -68,7 +66,7 @@ public class PackageRepository {
         return false;
     }
 
-    public static boolean update(Package pkg, Package data) {
+    public boolean update(Package pkg, Package data) {
         String sql = "UPDATE "+ tableName +" SET name = ?, price = ? WHERE package_id = ?";
 
         try(PreparedStatement stmt = conn.prepareStatement(sql)) {
@@ -83,7 +81,7 @@ public class PackageRepository {
         return false;
     }
 
-    public static boolean delete(int id) {
+    public boolean delete(int id) {
         String sql = "DELETE FROM "+ tableName +" WHERE package_id = ?";
 
         try(PreparedStatement stmt = conn.prepareStatement(sql)) {
@@ -96,7 +94,7 @@ public class PackageRepository {
         return false;
     }
 
-    private static Package mapToEntity(ResultSet result) throws SQLException {
+    private Package mapToEntity(ResultSet result) throws SQLException {
         Package pkg = new Package(
             result.getInt("price"),
             result.getString("name")

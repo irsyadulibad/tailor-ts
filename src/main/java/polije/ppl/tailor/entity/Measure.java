@@ -8,8 +8,8 @@ import org.json.JSONObject;
 
 import polije.ppl.tailor.data.MeasureItem;
 
-public class Measure  implements EntityInterface {
-    public static String tableName = "measures";
+public class Measure implements Entity {
+    public final static String tableName = "measures";
 
     private Integer id;
     private String clothType;

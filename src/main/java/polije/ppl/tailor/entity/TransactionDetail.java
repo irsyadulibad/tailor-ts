@@ -1,9 +1,7 @@
 package polije.ppl.tailor.entity;
 
-import polije.ppl.tailor.entity.Package;
-
-public class TransactionDetail implements EntityInterface {
-    public static String tableName = "transaction_details";
+public class TransactionDetail implements Entity {
+    public final static String tableName = "transaction_details";
 
     private int id, qty, price;
     private Package pkg;

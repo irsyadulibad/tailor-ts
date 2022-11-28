@@ -1,7 +1,7 @@
 package polije.ppl.tailor.entity;
 
-public class Package {
-    public static String tableName = "packages";
+public class Package implements Entity {
+    public final static String tableName = "packages";
 
     private int id, price;
     private String name;

@@ -1,6 +1,5 @@
 package polije.ppl.tailor.repository;
 
-import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -11,11 +10,10 @@ import java.util.Map;
 import polije.ppl.tailor.entity.Account;
 import polije.ppl.tailor.util.DatabaseUtil;
 
-public class AccountRepository {
-    private static Connection conn = DatabaseUtil.getConnection();
+public class AccountRepository implements Repository<Account> {
     private static String tableName = Account.tableName;
 
-    public static List<Account> get() {
+    public List<Account> get() {
         String sql = "SELECT * FROM " + tableName;
         List<Account> accounts = new ArrayList<>();
 
@@ -30,7 +28,7 @@ public class AccountRepository {
         return accounts;
     }
 
-    public static List<Account> get(Map<String, Object> values) {
+    public List<Account> get(Map<String, Object> values) {
         int iterate = 0;
         String sql = "SELECT * FROM "+ tableName +" WHERE ";
         List<Account> accounts = new ArrayList<>();
@@ -54,7 +52,7 @@ public class AccountRepository {
         return accounts;
     }
 
-    public static boolean add(Account acc) {
+    public boolean add(Account acc) {
         String sql = "INSERT INTO "+ tableName +" (`fullname`, `password`, `email`, `username`) VALUES (?, ?, ?, ?)";
 
         try(PreparedStatement statement = conn.prepareStatement(sql)) {
@@ -70,7 +68,7 @@ public class AccountRepository {
         return false;
     }
 
-    public static boolean update(Account acc, Account data) {
+    public boolean update(Account acc, Account data) {
         String sql = "UPDATE "+ tableName +" SET fullname = ?, email = ?, username = ? ";
 
         if(data.getPassword() != null) sql += ", password = ? ";
@@ -90,7 +88,7 @@ public class AccountRepository {
         return false;
     }
 
-    public static boolean delete(int id) {
+    public boolean delete(int id) {
         String sql = "DELETE FROM "+ tableName +" WHERE account_id = ?";
 
         try(PreparedStatement stmt = conn.prepareStatement(sql)) {
@@ -98,12 +96,14 @@ public class AccountRepository {
             stmt.executeUpdate();
 
             return true;
-        } catch(SQLException e) {}
+        } catch(SQLException e) {
+            e.printStackTrace();
+        }
 
         return false;
     }
 
-    private static Account mapToEntity(ResultSet result) throws SQLException {
+    private Account mapToEntity(ResultSet result) throws SQLException {
         Account account = new Account(
             result.getString("fullname"),
             result.getString("email"),

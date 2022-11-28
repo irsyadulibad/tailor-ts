@@ -1,7 +1,7 @@
 package polije.ppl.tailor.entity;
 
-public class Account implements EntityInterface {
-    public static String tableName = "accounts";
+public class Account implements Entity {
+    public final static String tableName = "accounts";
 
     private Integer id;
     private String fullname, email, username, password;
