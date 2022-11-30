@@ -3,10 +3,13 @@ package polije.ppl.tailor.repository;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import com.mysql.cj.protocol.Resultset;
 
 import polije.ppl.tailor.entity.Account;
 import polije.ppl.tailor.util.DatabaseUtil;
@@ -27,6 +30,19 @@ public class AccountRepository implements Repository<Account> {
         } catch (SQLException e) {}
 
         return accounts;
+    }
+
+    public Account get(Integer id) {
+        String sql = "SELECT * FROM " + tableName;
+        Account account = new Account();
+
+        try(PreparedStatement stmt = conn.prepareStatement(sql);) {
+            ResultSet rs = stmt.executeQuery();
+
+            if(rs.next()) { return mapToEntity(rs); }
+        } catch(SQLException e) {}
+
+        return account;
     }
 
     public List<Account> get(Map<String, Object> values) {
@@ -53,20 +69,21 @@ public class AccountRepository implements Repository<Account> {
         return accounts;
     }
 
-    public boolean add(Account acc) {
+    public Integer add(Account acc) {
         String sql = "INSERT INTO "+ tableName +" (`fullname`, `password`, `email`, `username`) VALUES (?, ?, ?, ?)";
 
-        try(PreparedStatement stmt = conn.prepareStatement(sql)) {
+        try(PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
             stmt.setString(1, acc.getFullname());
             stmt.setString(2, acc.getPassword());
             stmt.setString(3, acc.getEmail());
             stmt.setString(4, acc.getUsername());
-
             stmt.executeUpdate();
-            return stmt.getUpdateCount() > 0;
-        } catch(SQLException e) {}
 
-        return false;
+            ResultSet rs = stmt.getGeneratedKeys();
+            if(rs.next()) return rs.getInt(1);
+        } catch(SQLException e) { e.printStackTrace(); }
+
+        return 0;
     }
 
     public boolean update(Account acc) {

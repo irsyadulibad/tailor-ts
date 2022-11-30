@@ -17,6 +17,13 @@ public interface Repository<E extends Entity> {
     public List<E> get();
 
     /**
+     * Return record by id
+     * @param id
+     * @return
+     */
+    public E get(Integer id);
+
+    /**
      * Get all records with specific criterias
      * @param values
      * @return
@@ -28,7 +35,7 @@ public interface Repository<E extends Entity> {
      * @param entity
      * @return
      */
-    public boolean add(E entity);
+    public Integer add(E entity);
 
     /**
      * Update the record

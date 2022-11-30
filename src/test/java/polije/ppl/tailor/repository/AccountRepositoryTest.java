@@ -5,7 +5,6 @@ import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.HashMap;
-import java.util.Map;
 
 import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Order;
@@ -17,10 +16,7 @@ import polije.ppl.tailor.entity.Account;
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class AccountRepositoryTest {
     private static Repository<Account> repo = new AccountRepository();
-    private static Map<String, Object> keywords = new HashMap<>() {{
-        put("username", "john");
-        put("password", "john123");
-    }};
+    private static Integer accountId;
 
     @Test @Order(1)
     public void testAdd() {
@@ -31,13 +27,19 @@ public class AccountRepositoryTest {
             "john123"
         );
 
-        assertTrue(repo.add(acc));
+        accountId = repo.add(acc);
+        assertTrue(accountId > 0);
     }
 
     @Test @Order(2)
     public void testGet() {
-        Account acc = repo.get(keywords).get(0);
+        Account acc = repo.get(accountId);
+        Account acc2 = repo.get(new HashMap<String, Object>() {{
+            put("account_id", accountId);
+        }}).get(0);
+
         assertEquals("John", acc.getFullname());
+        assertEquals("john123", acc2.getPassword());
     }
 
     @Test @Order(3)
@@ -49,17 +51,17 @@ public class AccountRepositoryTest {
             "aldea123"
         );
 
-        assertTrue(repo.add(acc));
+        assertTrue(repo.add(acc) > 0);
         assertTrue(repo.get().size() > 1);
     }
 
     @Test @Order(4)
     public void testUpdate() {
-        Account account = repo.get(keywords).get(0);
+        Account account = repo.get(accountId);
         account.setFullname("John Wick");
 
         repo.update(account);
-        account = repo.get(keywords).get(0);
+        account = repo.get(accountId);
 
         assertNotEquals("John", account.getFullname());
         assertEquals("John Wick", account.getFullname());
@@ -67,7 +69,6 @@ public class AccountRepositoryTest {
 
     @Test @Order(5)
     public void testDelete() {
-        int id = repo.get(keywords).get(0).getId();
-        assertTrue(repo.delete(id));
+        assertTrue(repo.delete(accountId));
     }
 }

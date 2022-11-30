@@ -5,8 +5,6 @@ import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.time.LocalDate;
-import java.util.HashMap;
-import java.util.Map;
 
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
@@ -27,38 +25,26 @@ public class TransactionRepositoryTest {
     private static Repository<Transaction> repo = new TransactionRepository();
     private static Repository<Account> accRepo = new AccountRepository();
     private static Repository<Customer> custRepo = new CustomerRepository();
-    private static Map<String, Object> keywords;
-
-    private static Map<String, Object> accKey = new HashMap<>() {{
-        put("fullname", "Tailor");
-    }};
-
-    private static Map<String, Object> custKey = new HashMap<>() {{
-        put("fullname", "Silvi");
-    }};
+    private static Integer accountId, customerId, transactionId;
 
     @BeforeAll
     public static void init() {
-        accRepo.add(new Account(
+        accountId = accRepo.add(new Account(
             "Tailor", "tailor@test.com", "tailor", "tailor123"
         ));
 
-        custRepo.add(new Customer(
+        customerId = custRepo.add(new Customer(
             "Silvi", 20, "087238475673", "NYC"
         ));
 
-        account = accRepo.get(accKey).get(0);
-        customer = custRepo.get(custKey).get(0);
-        keywords = new HashMap<>() {{
-            put("customer_id", customer.getId());
-            put("status", TransactionStatus.finish);
-        }};
+        account = accRepo.get(accountId);
+        customer = custRepo.get(customerId);
     }
 
     @AfterAll
     public static void tearDown() {
-        accRepo.delete(account.getId());
-        custRepo.delete(customer.getId());
+        accRepo.delete(accountId);
+        custRepo.delete(customerId);
     }
 
     @Test @Order(1)
@@ -72,12 +58,13 @@ public class TransactionRepositoryTest {
             TransactionStatus.finish
         );
 
-        assertTrue(repo.add(trans));
+        transactionId = repo.add(trans);
+        assertTrue(transactionId > 0);
     }
 
     @Test @Order(2)
     public void testGet() {
-        Transaction trans = repo.get(keywords).get(0);
+        Transaction trans = repo.get(transactionId);
         assertEquals(TransactionStatus.finish, trans.getStatus());
     }
 
@@ -92,17 +79,17 @@ public class TransactionRepositoryTest {
             TransactionStatus.unfinish
         );
 
-        assertTrue(repo.add(trans));
+        assertTrue(repo.add(trans) > 0);
         assertTrue(repo.get().size() > 1);
     }
 
     @Test @Order(4)
     public void testUpdate() {
-        Transaction trans = repo.get(keywords).get(0);
+        Transaction trans = repo.get(transactionId);
         trans.setNote("New note");
 
         assertTrue(repo.update(trans));
-        trans = repo.get(keywords).get(0);
+        trans = repo.get(transactionId);
 
         assertNotEquals("No Notes", trans.getNote());
         assertEquals("New note", trans.getNote());
@@ -110,7 +97,6 @@ public class TransactionRepositoryTest {
 
     @Test @Order(5)
     public void testDelete() {
-        int id = repo.get(keywords).get(0).getId();
-        assertTrue(repo.delete(id));
+        assertTrue(repo.delete(transactionId));
     }
 }

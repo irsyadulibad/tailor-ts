@@ -3,6 +3,7 @@ package polije.ppl.tailor.repository;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -26,6 +27,19 @@ public class PackageRepository implements Repository<Package> {
         } catch (SQLException e) {}
 
         return packages;
+    }
+
+    public Package get(Integer id) {
+        String sql = "SELECT * FROM " + tableName;
+        Package pkg = new Package();
+
+        try(PreparedStatement stmt = conn.prepareStatement(sql);) {
+            ResultSet rs = stmt.executeQuery();
+
+            if(rs.next()) { return mapToEntity(rs); }
+        } catch(SQLException e) {}
+
+        return pkg;
     }
 
     public List<Package> get(Map<String, Object> values) {
@@ -52,18 +66,19 @@ public class PackageRepository implements Repository<Package> {
         return packages;
     }
 
-    public boolean add(Package pkg) {
+    public Integer add(Package pkg) {
         String sql = "INSERT INTO "+ tableName +" (`name`, `price`) VALUES (?, ?)";
 
-        try(PreparedStatement stmt = conn.prepareStatement(sql)) {
+        try(PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
             stmt.setString(1, pkg.getName());
             stmt.setInt(2, pkg.getPrice());
-
             stmt.executeUpdate();
-            return stmt.getUpdateCount() > 0;
+
+            ResultSet rs = stmt.getGeneratedKeys();
+            if(rs.next()) return rs.getInt(1);
         } catch(SQLException e) {}
 
-        return false;
+        return 0;
     }
 
     public boolean update(Package pkg) {

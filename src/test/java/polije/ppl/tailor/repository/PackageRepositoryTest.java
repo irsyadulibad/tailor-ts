@@ -17,9 +17,7 @@ import polije.ppl.tailor.entity.Package;
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class PackageRepositoryTest {
     private static Repository<Package> repo = new PackageRepository();
-    private static Map<String, Object> keywords = new HashMap<>() {{
-        put("name", "T-Shirt");
-    }};
+    private static Integer packageId;
 
     @Test @Order(1)
     public void testAdd() {
@@ -28,12 +26,13 @@ public class PackageRepositoryTest {
             "T-Shirt"
         );
 
-        assertTrue(repo.add(pack));
+        packageId = repo.add(pack);
+        assertTrue(packageId > 0);
     }
 
     @Test @Order(2)
     public void testGet() {
-        Package pkg = repo.get(keywords).get(0);
+        Package pkg = repo.get(packageId);
         assertEquals("T-Shirt", pkg.getName());
     }
 
@@ -43,17 +42,17 @@ public class PackageRepositoryTest {
         pkg.setPrice(20000);
         pkg.setName("Gown");
 
-        assertTrue(repo.add(pkg));
+        assertTrue(repo.add(pkg) > 0);
         assertTrue(repo.get().size() > 1);
     }
 
     @Test @Order(4)
     public void testUpdate() {
-        Package pkg = repo.get(keywords).get(0);
+        Package pkg = repo.get(packageId);
         pkg.setPrice(50000);
 
         repo.update(pkg);
-        pkg = repo.get(keywords).get(0);
+        pkg = repo.get(packageId);
 
         assertNotEquals(100000, pkg.getPrice());
         assertEquals(50000, pkg.getPrice());
@@ -61,7 +60,6 @@ public class PackageRepositoryTest {
 
     @Test @Order(5)
     public void testDelete() {
-        int id = repo.get(keywords).get(0).getId();
-        assertTrue(repo.delete(id));
+        assertTrue(repo.delete(packageId));
     }
 }

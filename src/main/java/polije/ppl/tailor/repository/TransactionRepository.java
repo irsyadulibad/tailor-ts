@@ -4,6 +4,7 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -31,6 +32,19 @@ public class TransactionRepository implements Repository<Transaction> {
         return transactions;
     }
 
+    public Transaction get(Integer id) {
+        String sql = "SELECT * FROM " + tableName;
+        Transaction transaction = new Transaction();
+
+        try(PreparedStatement stmt = conn.prepareStatement(sql);) {
+            ResultSet rs = stmt.executeQuery();
+
+            if(rs.next()) { return mapToEntity(rs); }
+        } catch(SQLException e) {}
+
+        return transaction;
+    }
+
     public List<Transaction> get(Map<String, Object> values) {
         int iterate = 0;
         String sql = "SELECT * FROM "+ tableName +" WHERE ";
@@ -55,10 +69,10 @@ public class TransactionRepository implements Repository<Transaction> {
         return transactions;
     }
 
-    public boolean add(Transaction trans) {
+    public Integer add(Transaction trans) {
         String sql = "INSERT INTO "+ tableName +" (`status`, `date`, `total`, `note`, `account_id`, `customer_id`) VALUES (?, ?, ?, ?, ?, ?)";
 
-        try(PreparedStatement stmt = conn.prepareStatement(sql)) {
+        try(PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
             stmt.setString(1, trans.getStatus().toString());
             stmt.setDate(2, Date.valueOf(trans.getDate()));
             stmt.setInt(3, trans.getTotal());
@@ -67,10 +81,11 @@ public class TransactionRepository implements Repository<Transaction> {
             stmt.setInt(6, trans.getCustomer().getId());
             stmt.executeUpdate();
 
-            return stmt.getUpdateCount() > 0;
+            ResultSet rs = stmt.getGeneratedKeys();
+            if(rs.next()) return rs.getInt(1);
         } catch(SQLException e) {}
 
-        return false;
+        return 0;
     }
 
     public boolean update(Transaction trans) {
@@ -106,13 +121,10 @@ public class TransactionRepository implements Repository<Transaction> {
         int custId = result.getInt("customer_id");
         int accId = result.getInt("account_id");
 
-        Map<String, Object> custKey = new HashMap<>(){{ put("customer_id", custId); }};
-        Map<String, Object> accKey = new HashMap<>(){{ put("account_id", accId); }};
-
         Transaction transaction = new Transaction(
             result.getInt("total"),
-            new AccountRepository().get(accKey).get(0),
-            new CustomerRepository().get(custKey).get(0),
+            new AccountRepository().get(accId),
+            new CustomerRepository().get(custId),
             result.getDate("date").toLocalDate(),
             result.getString("note"),
             TransactionStatus.valueOf(result.getString("status"))

@@ -17,10 +17,7 @@ import polije.ppl.tailor.entity.Customer;
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class CustomerRepositoryTest {
     private static Repository<Customer> repo = new CustomerRepository();
-    private static Map<String, Object> keywords = new HashMap<>() {{
-        put("age", 20);
-        put("phone", "086543789098");
-    }};
+    private static Integer customerId;
 
     @Test @Order(1)
     public void testAdd() {
@@ -31,13 +28,19 @@ public class CustomerRepositoryTest {
             "Jember"
         );
 
-        assertTrue(repo.add(cust));
+        customerId = repo.add(cust);
+        assertTrue(customerId > 0);
     }
 
     @Test @Order(2)
     public void testGet() {
-        Customer cust = repo.get(keywords).get(0);
+        Customer cust = repo.get(customerId);
+        Customer cust2 = repo.get(new HashMap<String, Object>() {{
+            put("customer_id", customerId);
+        }}).get(0);
+
         assertEquals("Belva", cust.getFullname());
+        assertEquals("Belva", cust2.getFullname());
     }
 
     @Test @Order(3)
@@ -48,17 +51,17 @@ public class CustomerRepositoryTest {
         cust.setPhone("087654567890");
         cust.setAddress("Bondowoso");
 
-        repo.add(cust);
+        assertTrue(repo.add(cust) > 0);
         assertTrue(repo.get().size() > 1);
     }
 
     @Test @Order(4)
     public void testUpdate() {
-        Customer customer = repo.get(keywords).get(0);
+        Customer customer = repo.get(customerId);
         customer.setFullname("Belva Devara");
 
         repo.update(customer);
-        customer = repo.get(keywords).get(0);
+        customer = repo.get(customerId);
 
         assertNotEquals("Belva", customer.getFullname());
         assertEquals("Belva Devara", customer.getFullname());
@@ -66,7 +69,6 @@ public class CustomerRepositoryTest {
 
     @Test @Order(5)
     public void testDelete() {
-        int id = repo.get(keywords).get(0).getId();
-        assertTrue(repo.delete(id));
+        assertTrue(repo.delete(customerId));
     }
 }

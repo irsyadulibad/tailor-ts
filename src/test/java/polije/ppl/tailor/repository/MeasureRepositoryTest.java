@@ -23,13 +23,7 @@ import polije.ppl.tailor.entity.Measure;
 public class MeasureRepositoryTest {
     private static Customer customer;
     private static Repository<Measure> repo = new MeasureRepository();
-    private static Map<String, Object> keywords = new HashMap<>() {{
-        put("cloth_type", "Gown");
-    }};
-
-    private static Map<String, Object> custKey = new HashMap<>(){{
-        put("fullname", "Rosa");
-    }};
+    private static Integer customerId, measureId;
 
     @BeforeAll
     public static void init() {
@@ -41,14 +35,13 @@ public class MeasureRepositoryTest {
             "Jember"
         );
 
-        assertTrue(custRepo.add(cust));
-        customer = custRepo.get(custKey).get(0);
+        customerId = custRepo.add(cust);
+        customer = custRepo.get(customerId);
     }
 
     @AfterAll
     public static void tearDown() {
-        Customer cust = new CustomerRepository().get(custKey).get(0);
-        new CustomerRepository().delete(cust.getId());
+        new CustomerRepository().delete(customerId);
     }
 
     @Test @Order(1)
@@ -61,12 +54,13 @@ public class MeasureRepositoryTest {
             }
         );
 
-        assertTrue(repo.add(meas));
+        measureId = repo.add(meas);
+        assertTrue(measureId > 0);
     }
 
     @Test @Order(2)
     public void testGet() {
-        Measure meas = repo.get(keywords).get(0);
+        Measure meas = repo.get(measureId);
 
         assertEquals("Gown", meas.getClothType());
         assertEquals(1, meas.getItems().length());
@@ -83,20 +77,20 @@ public class MeasureRepositoryTest {
             }
         );
 
-        assertTrue(repo.add(meas));
+        assertTrue(repo.add(meas) > 0);
         assertTrue(repo.get().size() > 1);
     }
 
     @Test @Order(4)
     public void testUpdate() {
-        Measure meas = repo.get(keywords).get(0);
+        Measure meas = repo.get(measureId);
         List<MeasureItem> items = meas.getItemsCollection();
 
         items.get(0).setValue(300);
         meas.setItems(items);
 
         assertTrue(repo.update(meas));
-        meas = repo.get(keywords).get(0);
+        meas = repo.get(measureId);
         int value = meas.getItemsCollection().get(0).getValue();
 
         assertNotEquals(200, value);
@@ -105,7 +99,6 @@ public class MeasureRepositoryTest {
 
     @Test @Order(5)
     public void testDelete() {
-        int id = repo.get(keywords).get(0).getId();
-        assertTrue(repo.delete(id));
+        assertTrue(repo.delete(measureId));
     }
 }

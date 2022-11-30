@@ -3,6 +3,7 @@ package polije.ppl.tailor.repository;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -26,6 +27,19 @@ public class CustomerRepository implements Repository<Customer> {
         } catch (SQLException e) {}
 
         return customers;
+    }
+
+    public Customer get(Integer id) {
+        String sql = "SELECT * FROM " + tableName;
+        Customer customer = new Customer();
+
+        try(PreparedStatement stmt = conn.prepareStatement(sql);) {
+            ResultSet rs = stmt.executeQuery();
+
+            if(rs.next()) { return mapToEntity(rs); }
+        } catch(SQLException e) {}
+
+        return customer;
     }
 
     public List<Customer> get(Map<String, Object> values) {
@@ -52,20 +66,21 @@ public class CustomerRepository implements Repository<Customer> {
         return customers;
     }
 
-    public boolean add(Customer cust) {
+    public Integer add(Customer cust) {
         String sql = "INSERT INTO "+ tableName +" (`fullname`, `age`, `phone`, `address`) VALUES (?, ?, ?, ?)";
 
-        try(PreparedStatement stmt = conn.prepareStatement(sql)) {
+        try(PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
             stmt.setString(1, cust.getFullname());
             stmt.setInt(2, cust.getAge());
             stmt.setString(3, cust.getPhone());
             stmt.setString(4, cust.getAddress());
-
             stmt.executeUpdate();
-            return stmt.getUpdateCount() > 0;
+
+            ResultSet rs = stmt.getGeneratedKeys();
+            if(rs.next()) return rs.getInt(1);
         } catch(SQLException e) {}
 
-        return false;
+        return 0;
     }
 
     public boolean update(Customer cust) {

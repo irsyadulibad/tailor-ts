@@ -3,8 +3,8 @@ package polije.ppl.tailor.repository;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -27,6 +27,19 @@ public class TransactionDetailRepository implements Repository<TransactionDetail
         } catch (SQLException e) {}
 
         return details;
+    }
+
+    public TransactionDetail get(Integer id) {
+        String sql = "SELECT * FROM " + tableName;
+        TransactionDetail detail = new TransactionDetail();
+
+        try(PreparedStatement stmt = conn.prepareStatement(sql);) {
+            ResultSet rs = stmt.executeQuery();
+
+            if(rs.next()) { return mapToEntity(rs); }
+        } catch(SQLException e) {}
+
+        return detail;
     }
 
     public List<TransactionDetail> get(Map<String, Object> values) {
@@ -53,23 +66,22 @@ public class TransactionDetailRepository implements Repository<TransactionDetail
         return details;
     }
 
-    public boolean add(TransactionDetail detail) {
+    public Integer add(TransactionDetail detail) {
         String sql = "INSERT INTO "+ tableName +" (`qty`, `price`, `cloth_name`, `transaction_id`, `package_id`) VALUES (?, ?, ?, ?, ?)";
 
-        try(PreparedStatement stmt = conn.prepareStatement(sql)) {
+        try(PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
             stmt.setInt(1, detail.getQty());
             stmt.setInt(2, detail.getPrice());
             stmt.setString(3, detail.getClothName());
             stmt.setInt(4, detail.getTransaction().getId());
             stmt.setInt(5, detail.getPackage().getId());
-
-            System.out.println(stmt.toString());
             stmt.executeUpdate();
 
-            return stmt.getUpdateCount() > 0;
+            ResultSet rs = stmt.getGeneratedKeys();
+            if(rs.next()) return rs.getInt(1);
         } catch(SQLException e) { e.printStackTrace(); }
 
-        return false;
+        return 0;
     }
 
     public boolean update(TransactionDetail detail) {
@@ -105,14 +117,11 @@ public class TransactionDetailRepository implements Repository<TransactionDetail
         int transId = result.getInt("transaction_id");
         int pkgId = result.getInt("package_id");
 
-        Map<String, Object> transKey = new HashMap<>(){{ put("transaction_id", transId); }};
-        Map<String, Object> pkgKey = new HashMap<>(){{ put("package_id", pkgId); }};
-
         TransactionDetail detail = new TransactionDetail(
             result.getInt("qty"),
             result.getInt("price"),
-            new PackageRepository().get(pkgKey).get(0),
-            new TransactionRepository().get(transKey).get(0),
+            new PackageRepository().get(transId),
+            new TransactionRepository().get(pkgId),
             result.getString("cloth_name")
         );
 

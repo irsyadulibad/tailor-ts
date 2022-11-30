@@ -3,6 +3,7 @@ package polije.ppl.tailor.repository;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -29,6 +30,19 @@ public class MeasureRepository implements Repository<Measure> {
         return measures;
     }
 
+    public Measure get(Integer id) {
+        String sql = "SELECT * FROM " + tableName;
+        Measure measure = new Measure();
+
+        try(PreparedStatement stmt = conn.prepareStatement(sql);) {
+            ResultSet rs = stmt.executeQuery();
+
+            if(rs.next()) { return mapToEntity(rs); }
+        } catch(SQLException e) {}
+
+        return measure;
+    }
+
     public List<Measure> get(Map<String, Object> values) {
         int iterate = 0;
         String sql = "SELECT * FROM "+ tableName +" WHERE ";
@@ -53,19 +67,20 @@ public class MeasureRepository implements Repository<Measure> {
         return measures;
     }
 
-    public boolean add(Measure meas) {
+    public Integer add(Measure meas) {
         String sql = "INSERT INTO "+ tableName +" (`cloth_type`, `items`, `customer_id`) VALUES (?, ?, ?)";
 
-        try(PreparedStatement stmt = conn.prepareStatement(sql)) {
+        try(PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
             stmt.setString(1, meas.getClothType());
             stmt.setString(2, meas.getItems().toString());
             stmt.setInt(3, meas.getCustomer().getId());
             stmt.executeUpdate();
 
-            return stmt.getUpdateCount() > 0;
+            ResultSet rs = stmt.getGeneratedKeys();
+            if(rs.next()) return rs.getInt(1);
         } catch(SQLException e) {}
 
-        return false;
+        return 0;
     }
 
     public boolean update(Measure meas) {
@@ -98,10 +113,9 @@ public class MeasureRepository implements Repository<Measure> {
 
     private Measure mapToEntity(ResultSet result) throws SQLException {
         int custId = result.getInt("customer_id");
-        Map<String, Object> keyword = new HashMap<>(){{ put("customer_id", custId); }};
 
         Measure measure = new Measure(
-            new CustomerRepository().get(keyword).get(0),
+            new CustomerRepository().get(custId),
             result.getString("cloth_type"),
             result.getString("items")
         );
