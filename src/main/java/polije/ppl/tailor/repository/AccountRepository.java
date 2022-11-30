@@ -4,6 +4,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -55,34 +56,39 @@ public class AccountRepository implements Repository<Account> {
     public boolean add(Account acc) {
         String sql = "INSERT INTO "+ tableName +" (`fullname`, `password`, `email`, `username`) VALUES (?, ?, ?, ?)";
 
-        try(PreparedStatement statement = conn.prepareStatement(sql)) {
-            statement.setString(1, acc.getFullname());
-            statement.setString(2, acc.getPassword());
-            statement.setString(3, acc.getEmail());
-            statement.setString(4, acc.getUsername());
+        try(PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setString(1, acc.getFullname());
+            stmt.setString(2, acc.getPassword());
+            stmt.setString(3, acc.getEmail());
+            stmt.setString(4, acc.getUsername());
 
-            statement.executeUpdate();
-            return true;
+            stmt.executeUpdate();
+            return stmt.getUpdateCount() > 0;
         } catch(SQLException e) {}
 
         return false;
     }
 
-    public boolean update(Account acc, Account data) {
+    public boolean update(Account acc) {
+        List<Account> accounts = this.get(new HashMap<>(){{ put("account_id", acc.getId()); }});
+        if(accounts.size() < 1) return false;
+
+        Account account = accounts.get(0);
+        boolean isChangePass = !account.getPassword().equals(acc.getPassword());
         String sql = "UPDATE "+ tableName +" SET fullname = ?, email = ?, username = ? ";
 
-        if(data.getPassword() != null) sql += ", password = ? ";
+        if(isChangePass) sql += ", password = ? ";
         sql += "WHERE account_id = " + acc.getId();
 
         try(PreparedStatement stmt = conn.prepareStatement(sql)) {
-            stmt.setString(1, data.getFullname());
-            stmt.setString(2, data.getEmail());
-            stmt.setString(3, data.getUsername());
+            stmt.setString(1, acc.getFullname());
+            stmt.setString(2, acc.getEmail());
+            stmt.setString(3, acc.getUsername());
 
-            if(data.getPassword() != null) stmt.setString(4, data.getPassword());
+            if(isChangePass) stmt.setString(4, acc.getPassword());
             stmt.executeUpdate();
 
-            return true;
+            return stmt.getUpdateCount() > 0;
         } catch(SQLException e) {}
 
         return false;
@@ -95,7 +101,7 @@ public class AccountRepository implements Repository<Account> {
             stmt.setInt(1, id);
             stmt.executeUpdate();
 
-            return true;
+            return stmt.getUpdateCount() > 0;
         } catch(SQLException e) {
             e.printStackTrace();
         }

@@ -8,6 +8,8 @@ import java.util.Map;
 
 import com.mysql.cj.jdbc.Driver;
 
+import polije.ppl.tailor.data.TransactionStatus;
+
 public class DatabaseUtil {
     private static Connection conn;
 
@@ -41,6 +43,7 @@ public class DatabaseUtil {
 
                 if(value instanceof String) stmt.setString(i, String.valueOf(value));
                 if(value instanceof Integer) stmt.setInt(i, (Integer) value);
+                if(value instanceof TransactionStatus) stmt.setString(i, String.valueOf(value));
 
                 i++;
             }

@@ -24,6 +24,12 @@ public class Measure implements Entity {
         this.items = new JSONArray(items);
     }
 
+    public Measure(Customer customer, String clothType, List<MeasureItem> items) {
+        this.customer = customer;
+        this.clothType = clothType;
+        this.items = new JSONArray(items);
+    }
+
     public Measure(Customer customer, String clothType, MeasureItem[] items) {
         this.customer = customer;
         this.clothType = clothType;
@@ -62,7 +68,7 @@ public class Measure implements Entity {
         this.items = new JSONArray(items);
     }
 
-    public void setItems(MeasureItem[] items) {
+    public void setItems(List<MeasureItem> items) {
         this.items = new JSONArray(items);
     }
 

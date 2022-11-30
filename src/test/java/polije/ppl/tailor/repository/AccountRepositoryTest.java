@@ -5,7 +5,6 @@ import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import org.junit.jupiter.api.MethodOrderer;
@@ -17,7 +16,7 @@ import polije.ppl.tailor.entity.Account;
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class AccountRepositoryTest {
-    private static Account account;
+    private static Repository<Account> repo = new AccountRepository();
     private static Map<String, Object> keywords = new HashMap<>() {{
         put("username", "john");
         put("password", "john123");
@@ -32,37 +31,35 @@ public class AccountRepositoryTest {
             "john123"
         );
 
-        account = acc;
-        assertTrue(AccountRepository.add(acc));
+        assertTrue(repo.add(acc));
     }
 
     @Test @Order(2)
     public void testGet() {
-        Account acc = AccountRepository.get(keywords).get(0);
+        Account acc = repo.get(keywords).get(0);
         assertEquals("John", acc.getFullname());
     }
 
     @Test @Order(3)
     public void testGetAll() {
-        Account acc = new Account();
-        acc.setUsername("aldea");
-        acc.setFullname("Aldea");
-        acc.setPassword("aldea123");
-        acc.setEmail("aldea@test.com");
+        Account acc = new Account(
+            "Aldea",
+            "aldea@test.com",
+            "aldea",
+            "aldea123"
+        );
 
-        AccountRepository.add(acc);
-        List<Account> accounts = AccountRepository.get();
-
-        assertEquals(2, accounts.size());
+        assertTrue(repo.add(acc));
+        assertTrue(repo.get().size() > 1);
     }
 
     @Test @Order(4)
     public void testUpdate() {
-        Account data = account;
-        data.setFullname("John Wick");
+        Account account = repo.get(keywords).get(0);
+        account.setFullname("John Wick");
 
-        AccountRepository.update(account, data);
-        account = AccountRepository.get(keywords).get(0);
+        repo.update(account);
+        account = repo.get(keywords).get(0);
 
         assertNotEquals("John", account.getFullname());
         assertEquals("John Wick", account.getFullname());
@@ -70,7 +67,7 @@ public class AccountRepositoryTest {
 
     @Test @Order(5)
     public void testDelete() {
-        int id = account.getId();
-        assertTrue(AccountRepository.delete(id));
+        int id = repo.get(keywords).get(0).getId();
+        assertTrue(repo.delete(id));
     }
 }

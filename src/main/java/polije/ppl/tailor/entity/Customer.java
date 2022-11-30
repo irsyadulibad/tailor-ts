@@ -8,7 +8,7 @@ public class Customer implements Entity {
 
     public Customer() {}
 
-    public Customer(Integer age, String fullname, String phone, String address) {
+    public Customer(String fullname, Integer age, String phone, String address) {
         this.age = age;
         this.fullname = fullname;
         this.phone = phone;

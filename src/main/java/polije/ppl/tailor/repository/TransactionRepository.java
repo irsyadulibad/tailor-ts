@@ -67,23 +67,23 @@ public class TransactionRepository implements Repository<Transaction> {
             stmt.setInt(6, trans.getCustomer().getId());
             stmt.executeUpdate();
 
-            return true;
+            return stmt.getUpdateCount() > 0;
         } catch(SQLException e) {}
 
         return false;
     }
 
-    public boolean update(Transaction trans, Transaction data) {
+    public boolean update(Transaction trans) {
         String sql = "UPDATE "+ tableName +" SET status = ?, total = ?, note = ? WHERE transaction_id = ?";
 
         try(PreparedStatement stmt = conn.prepareStatement(sql)) {
-            stmt.setString(1, data.getStatus().toString());
-            stmt.setInt(2, data.getTotal());
-            stmt.setString(3, data.getNote());
+            stmt.setString(1, trans.getStatus().toString());
+            stmt.setInt(2, trans.getTotal());
+            stmt.setString(3, trans.getNote());
             stmt.setInt(4, trans.getId());
 
             stmt.executeUpdate();
-            return true;
+            return stmt.getUpdateCount() > 0;
         } catch(SQLException e) {}
 
         return false;
@@ -96,7 +96,7 @@ public class TransactionRepository implements Repository<Transaction> {
             stmt.setInt(1, id);
             stmt.executeUpdate();
 
-            return true;
+            return stmt.getUpdateCount() > 0;
         } catch(SQLException e) {}
 
         return false;

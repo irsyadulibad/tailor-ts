@@ -36,7 +36,7 @@ public interface Repository<E extends Entity> {
      * @param data
      * @return
      */
-    public boolean update(E entity, E data);
+    public boolean update(E entity);
 
     /**
      * Delete the specific record

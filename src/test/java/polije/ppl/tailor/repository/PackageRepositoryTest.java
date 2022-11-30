@@ -16,55 +16,52 @@ import polije.ppl.tailor.entity.Package;
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class PackageRepositoryTest {
-    private static Package pkg;
+    private static Repository<Package> repo = new PackageRepository();
     private static Map<String, Object> keywords = new HashMap<>() {{
-        put("package_id", 1);
-        put("price", 100000);
+        put("name", "T-Shirt");
     }};
 
     @Test @Order(1)
     public void testAdd() {
         Package pack = new Package(
-            1,
             100000,
             "T-Shirt"
         );
 
-        pkg = pack;
-        assertTrue(PackageRepository.add(pack));
+        assertTrue(repo.add(pack));
     }
 
     @Test @Order(2)
     public void testGet() {
-        Package pkg = PackageRepository.get(keywords).get(0);
+        Package pkg = repo.get(keywords).get(0);
         assertEquals("T-Shirt", pkg.getName());
     }
 
     @Test @Order(3)
     public void testGetAll() {
-        Package pk = new Package();
-        pk.setPrice(20000);
-        pk.setName("Gown");
+        Package pkg = new Package();
+        pkg.setPrice(20000);
+        pkg.setName("Gown");
 
-        PackageRepository.add(pk);
-        assertEquals(2, PackageRepository.get().size());
+        assertTrue(repo.add(pkg));
+        assertTrue(repo.get().size() > 1);
     }
 
     @Test @Order(4)
     public void testUpdate() {
-        Package data = pkg;
-        data.setName("Uniform");
+        Package pkg = repo.get(keywords).get(0);
+        pkg.setPrice(50000);
 
-        PackageRepository.update(pkg, data);
-        pkg = PackageRepository.get(keywords).get(0);
+        repo.update(pkg);
+        pkg = repo.get(keywords).get(0);
 
-        assertNotEquals("T-Shirt", pkg.getName());
-        assertEquals("Uniform", pkg.getName());
+        assertNotEquals(100000, pkg.getPrice());
+        assertEquals(50000, pkg.getPrice());
     }
 
     @Test @Order(5)
     public void testDelete() {
-        int id = pkg.getId();
-        assertTrue(PackageRepository.delete(id));
+        int id = repo.get(keywords).get(0).getId();
+        assertTrue(repo.delete(id));
     }
 }

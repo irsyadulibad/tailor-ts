@@ -62,25 +62,27 @@ public class TransactionDetailRepository implements Repository<TransactionDetail
             stmt.setString(3, detail.getClothName());
             stmt.setInt(4, detail.getTransaction().getId());
             stmt.setInt(5, detail.getPackage().getId());
+
+            System.out.println(stmt.toString());
             stmt.executeUpdate();
 
-            return true;
-        } catch(SQLException e) {}
+            return stmt.getUpdateCount() > 0;
+        } catch(SQLException e) { e.printStackTrace(); }
 
         return false;
     }
 
-    public boolean update(TransactionDetail detail, TransactionDetail data) {
+    public boolean update(TransactionDetail detail) {
         String sql = "UPDATE "+ tableName +" SET cloth_name = ?, qty = ?, price = ? WHERE detail_id = ?";
 
         try(PreparedStatement stmt = conn.prepareStatement(sql)) {
-            stmt.setString(1, data.getClothName());
-            stmt.setInt(2, data.getQty());
-            stmt.setInt(3, data.getPrice());
+            stmt.setString(1, detail.getClothName());
+            stmt.setInt(2, detail.getQty());
+            stmt.setInt(3, detail.getPrice());
             stmt.setInt(4, detail.getId());
 
             stmt.executeUpdate();
-            return true;
+            return stmt.getUpdateCount() > 0;
         } catch(SQLException e) {}
 
         return false;
@@ -93,7 +95,7 @@ public class TransactionDetailRepository implements Repository<TransactionDetail
             stmt.setInt(1, id);
             stmt.executeUpdate();
 
-            return true;
+            return stmt.getUpdateCount() > 0;
         } catch(SQLException e) {}
 
         return false;

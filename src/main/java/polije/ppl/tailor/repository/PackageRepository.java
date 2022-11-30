@@ -55,27 +55,27 @@ public class PackageRepository implements Repository<Package> {
     public boolean add(Package pkg) {
         String sql = "INSERT INTO "+ tableName +" (`name`, `price`) VALUES (?, ?)";
 
-        try(PreparedStatement statement = conn.prepareStatement(sql)) {
-            statement.setString(1, pkg.getName());
-            statement.setInt(2, pkg.getPrice());
+        try(PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setString(1, pkg.getName());
+            stmt.setInt(2, pkg.getPrice());
 
-            statement.executeUpdate();
-            return true;
+            stmt.executeUpdate();
+            return stmt.getUpdateCount() > 0;
         } catch(SQLException e) {}
 
         return false;
     }
 
-    public boolean update(Package pkg, Package data) {
+    public boolean update(Package pkg) {
         String sql = "UPDATE "+ tableName +" SET name = ?, price = ? WHERE package_id = ?";
 
         try(PreparedStatement stmt = conn.prepareStatement(sql)) {
-            stmt.setString(1, data.getName());
-            stmt.setInt(2, data.getPrice());
+            stmt.setString(1, pkg.getName());
+            stmt.setInt(2, pkg.getPrice());
             stmt.setInt(3, pkg.getId());
 
             stmt.executeUpdate();
-            return true;
+            return stmt.getUpdateCount() > 0;
         } catch(SQLException e) {}
 
         return false;
@@ -88,7 +88,7 @@ public class PackageRepository implements Repository<Package> {
             stmt.setInt(1, id);
             stmt.executeUpdate();
 
-            return true;
+            return stmt.getUpdateCount() > 0;
         } catch(SQLException e) {}
 
         return false;

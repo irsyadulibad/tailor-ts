@@ -62,22 +62,22 @@ public class MeasureRepository implements Repository<Measure> {
             stmt.setInt(3, meas.getCustomer().getId());
             stmt.executeUpdate();
 
-            return true;
+            return stmt.getUpdateCount() > 0;
         } catch(SQLException e) {}
 
         return false;
     }
 
-    public boolean update(Measure meas, Measure data) {
+    public boolean update(Measure meas) {
         String sql = "UPDATE "+ tableName +" SET cloth_type = ?, items = ? WHERE measure_id = ?";
 
         try(PreparedStatement stmt = conn.prepareStatement(sql)) {
-            stmt.setString(1, data.getClothType());
-            stmt.setString(2, data.getItems().toString());
+            stmt.setString(1, meas.getClothType());
+            stmt.setString(2, meas.getItems().toString());
             stmt.setInt(3, meas.getId());
 
             stmt.executeUpdate();
-            return true;
+            return stmt.getUpdateCount() > 0;
         } catch(SQLException e) {}
 
         return false;
@@ -90,7 +90,7 @@ public class MeasureRepository implements Repository<Measure> {
             stmt.setInt(1, id);
             stmt.executeUpdate();
 
-            return true;
+            return stmt.getUpdateCount() > 0;
         } catch(SQLException e) {}
 
         return false;

@@ -5,7 +5,6 @@ import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import org.junit.jupiter.api.MethodOrderer;
@@ -17,29 +16,27 @@ import polije.ppl.tailor.entity.Customer;
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class CustomerRepositoryTest {
-    private static Customer customer;
+    private static Repository<Customer> repo = new CustomerRepository();
     private static Map<String, Object> keywords = new HashMap<>() {{
-        put("customer_id", 1);
+        put("age", 20);
         put("phone", "086543789098");
     }};
 
     @Test @Order(1)
     public void testAdd() {
         Customer cust = new Customer(
-            1,
-            20,
             "Belva",
+            20,
             "086543789098",
             "Jember"
         );
 
-        customer = cust;
-        assertTrue(CustomerRepository.add(cust));
+        assertTrue(repo.add(cust));
     }
 
     @Test @Order(2)
     public void testGet() {
-        Customer cust = CustomerRepository.get(keywords).get(0);
+        Customer cust = repo.get(keywords).get(0);
         assertEquals("Belva", cust.getFullname());
     }
 
@@ -51,19 +48,17 @@ public class CustomerRepositoryTest {
         cust.setPhone("087654567890");
         cust.setAddress("Bondowoso");
 
-        CustomerRepository.add(cust);
-        List<Customer> customers = CustomerRepository.get();
-
-        assertEquals(2, customers.size());
+        repo.add(cust);
+        assertTrue(repo.get().size() > 1);
     }
 
     @Test @Order(4)
     public void testUpdate() {
-        Customer data = customer;
-        data.setFullname("Belva Devara");
+        Customer customer = repo.get(keywords).get(0);
+        customer.setFullname("Belva Devara");
 
-        CustomerRepository.update(customer, data);
-        customer = CustomerRepository.get(keywords).get(0);
+        repo.update(customer);
+        customer = repo.get(keywords).get(0);
 
         assertNotEquals("Belva", customer.getFullname());
         assertEquals("Belva Devara", customer.getFullname());
@@ -71,7 +66,7 @@ public class CustomerRepositoryTest {
 
     @Test @Order(5)
     public void testDelete() {
-        int id = customer.getId();
-        assertTrue(CustomerRepository.delete(id));
+        int id = repo.get(keywords).get(0).getId();
+        assertTrue(repo.delete(id));
     }
 }

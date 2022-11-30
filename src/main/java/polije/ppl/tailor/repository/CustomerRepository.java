@@ -55,31 +55,31 @@ public class CustomerRepository implements Repository<Customer> {
     public boolean add(Customer cust) {
         String sql = "INSERT INTO "+ tableName +" (`fullname`, `age`, `phone`, `address`) VALUES (?, ?, ?, ?)";
 
-        try(PreparedStatement statement = conn.prepareStatement(sql)) {
-            statement.setString(1, cust.getFullname());
-            statement.setInt(2, cust.getAge());
-            statement.setString(3, cust.getPhone());
-            statement.setString(4, cust.getAddress());
+        try(PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setString(1, cust.getFullname());
+            stmt.setInt(2, cust.getAge());
+            stmt.setString(3, cust.getPhone());
+            stmt.setString(4, cust.getAddress());
 
-            statement.executeUpdate();
-            return true;
+            stmt.executeUpdate();
+            return stmt.getUpdateCount() > 0;
         } catch(SQLException e) {}
 
         return false;
     }
 
-    public boolean update(Customer cust, Customer data) {
+    public boolean update(Customer cust) {
         String sql = "UPDATE "+ tableName +" SET fullname = ?, age = ?, phone = ?, address = ? WHERE customer_id = ?";
 
         try(PreparedStatement stmt = conn.prepareStatement(sql)) {
-            stmt.setString(1, data.getFullname());
-            stmt.setInt(2, data.getAge());
-            stmt.setString(3, data.getPhone());
-            stmt.setString(4, data.getAddress());
+            stmt.setString(1, cust.getFullname());
+            stmt.setInt(2, cust.getAge());
+            stmt.setString(3, cust.getPhone());
+            stmt.setString(4, cust.getAddress());
             stmt.setInt(5, cust.getId());
 
             stmt.executeUpdate();
-            return true;
+            return stmt.getUpdateCount() > 0;
         } catch(SQLException e) {}
 
         return false;
@@ -92,7 +92,7 @@ public class CustomerRepository implements Repository<Customer> {
             stmt.setInt(1, id);
             stmt.executeUpdate();
 
-            return true;
+            return stmt.getUpdateCount() > 0;
         } catch(SQLException e) {}
 
         return false;
@@ -100,8 +100,8 @@ public class CustomerRepository implements Repository<Customer> {
 
     private Customer mapToEntity(ResultSet result) throws SQLException {
         Customer customer = new Customer(
-            result.getInt("age"),
             result.getString("fullname"),
+            result.getInt("age"),
             result.getString("phone"),
             result.getString("address")
         );

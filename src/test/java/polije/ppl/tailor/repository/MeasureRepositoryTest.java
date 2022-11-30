@@ -8,6 +8,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
@@ -19,16 +21,39 @@ import polije.ppl.tailor.entity.Measure;
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class MeasureRepositoryTest {
-    private static Measure measure;
-    private static Customer customer = CustomerRepository.get().get(0);
+    private static Customer customer;
+    private static Repository<Measure> repo = new MeasureRepository();
     private static Map<String, Object> keywords = new HashMap<>() {{
-        put("measure_id", 1);
+        put("cloth_type", "Gown");
     }};
+
+    private static Map<String, Object> custKey = new HashMap<>(){{
+        put("fullname", "Rosa");
+    }};
+
+    @BeforeAll
+    public static void init() {
+        Repository<Customer> custRepo = new CustomerRepository();
+        Customer cust = new Customer(
+            "Rosa",
+            21,
+            "087654799084",
+            "Jember"
+        );
+
+        assertTrue(custRepo.add(cust));
+        customer = custRepo.get(custKey).get(0);
+    }
+
+    @AfterAll
+    public static void tearDown() {
+        Customer cust = new CustomerRepository().get(custKey).get(0);
+        new CustomerRepository().delete(cust.getId());
+    }
 
     @Test @Order(1)
     public void testAdd() {
         Measure meas = new Measure(
-            1,
             customer,
             "Gown",
             new MeasureItem[] {
@@ -36,46 +61,51 @@ public class MeasureRepositoryTest {
             }
         );
 
-        measure = meas;
-        assertTrue(MeasureRepository.add(meas));
+        assertTrue(repo.add(meas));
     }
 
     @Test @Order(2)
     public void testGet() {
-        Measure meas = MeasureRepository.get(keywords).get(0);
+        Measure meas = repo.get(keywords).get(0);
+
         assertEquals("Gown", meas.getClothType());
+        assertEquals(1, meas.getItems().length());
     }
 
     @Test @Order(3)
     public void testGetAll() {
-        Measure meas = new Measure();
-        meas.setClothType("Uniform");
-        meas.setCustomer(customer);
-        meas.setItems(new MeasureItem[] {
-            new MeasureItem("BDAN", 30)
-        });
+        Measure meas = new Measure(
+            customer,
+            "Uniform",
+            new MeasureItem[] {
+                new MeasureItem("BDAN", 30),
+                new MeasureItem("UJL", 40)
+            }
+        );
 
-        MeasureRepository.add(meas);
-        List<Measure> measses = MeasureRepository.get();
-
-        assertEquals(2, measses.size());
+        assertTrue(repo.add(meas));
+        assertTrue(repo.get().size() > 1);
     }
 
     @Test @Order(4)
     public void testUpdate() {
-        Measure data = measure;
-        data.setClothType("T-Shirt");
+        Measure meas = repo.get(keywords).get(0);
+        List<MeasureItem> items = meas.getItemsCollection();
 
-        assertTrue(MeasureRepository.update(measure, data));
-        measure = MeasureRepository.get(keywords).get(0);
+        items.get(0).setValue(300);
+        meas.setItems(items);
 
-        assertNotEquals("Gown", measure.getClothType());
-        assertEquals("T-Shirt", measure.getClothType());
+        assertTrue(repo.update(meas));
+        meas = repo.get(keywords).get(0);
+        int value = meas.getItemsCollection().get(0).getValue();
+
+        assertNotEquals(200, value);
+        assertEquals(300, value);
     }
 
     @Test @Order(5)
     public void testDelete() {
-        int id = measure.getId();
-        assertTrue(MeasureRepository.delete(id));
+        int id = repo.get(keywords).get(0).getId();
+        assertTrue(repo.delete(id));
     }
 }
