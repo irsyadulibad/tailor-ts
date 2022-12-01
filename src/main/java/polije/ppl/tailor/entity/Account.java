@@ -1,18 +1,22 @@
 package polije.ppl.tailor.entity;
 
+import polije.ppl.tailor.data.AccountRole;
+
 public class Account implements Entity {
     public final static String tableName = "accounts";
 
     private Integer id;
     private String fullname, email, username, password;
+    private AccountRole role;
 
     public Account() {}
 
-    public Account(String fullname, String email, String username, String password) {
+    public Account(String fullname, String email, String username, String password, AccountRole role) {
         this.fullname = fullname;
         this.email = email;
         this.username = username;
         this.password = password;
+        this.role = role;
     }
 
     public Integer getId() {
@@ -53,5 +57,13 @@ public class Account implements Entity {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public AccountRole getRole() {
+        return role;
+    }
+
+    public void setRole(AccountRole role) {
+        this.role = role;
     }
 }

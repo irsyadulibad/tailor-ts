@@ -5,10 +5,10 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import polije.ppl.tailor.data.AccountRole;
 import polije.ppl.tailor.entity.Account;
 import polije.ppl.tailor.util.DatabaseUtil;
 
@@ -68,13 +68,14 @@ public class AccountRepository implements Repository<Account> {
     }
 
     public Integer add(Account acc) {
-        String sql = "INSERT INTO "+ tableName +" (`fullname`, `password`, `email`, `username`) VALUES (?, ?, ?, ?)";
+        String sql = "INSERT INTO "+ tableName +" (`fullname`, `password`, `email`, `username`, `role`) VALUES (?, ?, ?, ?, ?)";
 
         try(PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
             stmt.setString(1, acc.getFullname());
             stmt.setString(2, acc.getPassword());
             stmt.setString(3, acc.getEmail());
             stmt.setString(4, acc.getUsername());
+            stmt.setString(5, acc.getRole().toString());
             stmt.executeUpdate();
 
             ResultSet rs = stmt.getGeneratedKeys();
@@ -85,10 +86,7 @@ public class AccountRepository implements Repository<Account> {
     }
 
     public boolean update(Account acc) {
-        List<Account> accounts = this.get(new HashMap<>(){{ put("account_id", acc.getId()); }});
-        if(accounts.size() < 1) return false;
-
-        Account account = accounts.get(0);
+        Account account = this.get(acc.getId());
         boolean isChangePass = !account.getPassword().equals(acc.getPassword());
         String sql = "UPDATE "+ tableName +" SET fullname = ?, email = ?, username = ? ";
 
@@ -127,7 +125,8 @@ public class AccountRepository implements Repository<Account> {
             result.getString("fullname"),
             result.getString("email"),
             result.getString("username"),
-            result.getString("password")
+            result.getString("password"),
+            AccountRole.valueOf(result.getString("role"))
         );
 
         account.setId(result.getInt("account_id"));

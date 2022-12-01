@@ -13,6 +13,7 @@ import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
 
+import polije.ppl.tailor.data.AccountRole;
 import polije.ppl.tailor.data.TransactionStatus;
 import polije.ppl.tailor.entity.Account;
 import polije.ppl.tailor.entity.Customer;
@@ -38,7 +39,7 @@ public class TransactionDetailRepositoryTest {
     @BeforeAll
     public static void init() {
         accountId = accRepo.add(new Account(
-            "David","david@test.com","david","david123"
+            "David","david@test.com","david","david123", AccountRole.tailor
         ));
 
         customerId = custRepo.add(new Customer(

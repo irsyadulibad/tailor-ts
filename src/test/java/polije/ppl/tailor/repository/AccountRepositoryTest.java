@@ -11,6 +11,7 @@ import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
 
+import polije.ppl.tailor.data.AccountRole;
 import polije.ppl.tailor.entity.Account;
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
@@ -24,7 +25,8 @@ public class AccountRepositoryTest {
             "John",
             "test@gmail.com",
             "john",
-            "john123"
+            "john123",
+            AccountRole.admin
         );
 
         accountId = repo.add(acc);
@@ -39,6 +41,7 @@ public class AccountRepositoryTest {
         }}).get(0);
 
         assertEquals("John", acc.getFullname());
+        assertEquals(AccountRole.admin, acc.getRole());
         assertEquals("john123", acc2.getPassword());
     }
 
@@ -48,7 +51,8 @@ public class AccountRepositoryTest {
             "Aldea",
             "aldea@test.com",
             "aldea",
-            "aldea123"
+            "aldea123",
+            AccountRole.tailor
         );
 
         assertTrue(repo.add(acc) > 0);
