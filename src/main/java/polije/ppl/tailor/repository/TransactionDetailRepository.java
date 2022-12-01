@@ -24,7 +24,7 @@ public class TransactionDetailRepository implements Repository<TransactionDetail
             while(results.next()) {
                 details.add(mapToEntity(results));
             }
-        } catch (SQLException e) {}
+        } catch (SQLException e) { e.printStackTrace(); }
 
         return details;
     }
@@ -37,7 +37,7 @@ public class TransactionDetailRepository implements Repository<TransactionDetail
             ResultSet rs = stmt.executeQuery();
 
             if(rs.next()) { return mapToEntity(rs); }
-        } catch(SQLException e) {}
+        } catch(SQLException e) { }
 
         return detail;
     }
@@ -95,7 +95,7 @@ public class TransactionDetailRepository implements Repository<TransactionDetail
 
             stmt.executeUpdate();
             return stmt.getUpdateCount() > 0;
-        } catch(SQLException e) {}
+        } catch(SQLException e) { e.printStackTrace(); }
 
         return false;
     }
@@ -108,7 +108,7 @@ public class TransactionDetailRepository implements Repository<TransactionDetail
             stmt.executeUpdate();
 
             return stmt.getUpdateCount() > 0;
-        } catch(SQLException e) {}
+        } catch(SQLException e) { e.printStackTrace(); }
 
         return false;
     }

@@ -6,7 +6,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -83,7 +82,7 @@ public class TransactionRepository implements Repository<Transaction> {
 
             ResultSet rs = stmt.getGeneratedKeys();
             if(rs.next()) return rs.getInt(1);
-        } catch(SQLException e) {}
+        } catch(SQLException e) { e.printStackTrace(); }
 
         return 0;
     }
@@ -99,7 +98,7 @@ public class TransactionRepository implements Repository<Transaction> {
 
             stmt.executeUpdate();
             return stmt.getUpdateCount() > 0;
-        } catch(SQLException e) {}
+        } catch(SQLException e) { e.printStackTrace(); }
 
         return false;
     }
@@ -112,7 +111,7 @@ public class TransactionRepository implements Repository<Transaction> {
             stmt.executeUpdate();
 
             return stmt.getUpdateCount() > 0;
-        } catch(SQLException e) {}
+        } catch(SQLException e) { e.printStackTrace(); }
 
         return false;
     }

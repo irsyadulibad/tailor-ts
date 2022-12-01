@@ -78,7 +78,7 @@ public class CustomerRepository implements Repository<Customer> {
 
             ResultSet rs = stmt.getGeneratedKeys();
             if(rs.next()) return rs.getInt(1);
-        } catch(SQLException e) {}
+        } catch(SQLException e) { e.printStackTrace(); }
 
         return 0;
     }
@@ -95,7 +95,7 @@ public class CustomerRepository implements Repository<Customer> {
 
             stmt.executeUpdate();
             return stmt.getUpdateCount() > 0;
-        } catch(SQLException e) {}
+        } catch(SQLException e) { e.printStackTrace(); }
 
         return false;
     }
@@ -108,7 +108,7 @@ public class CustomerRepository implements Repository<Customer> {
             stmt.executeUpdate();
 
             return stmt.getUpdateCount() > 0;
-        } catch(SQLException e) {}
+        } catch(SQLException e) { e.printStackTrace(); }
 
         return false;
     }

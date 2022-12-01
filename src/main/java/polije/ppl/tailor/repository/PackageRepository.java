@@ -37,7 +37,7 @@ public class PackageRepository implements Repository<Package> {
             ResultSet rs = stmt.executeQuery();
 
             if(rs.next()) { return mapToEntity(rs); }
-        } catch(SQLException e) {}
+        } catch(SQLException e) { e.printStackTrace(); }
 
         return pkg;
     }
@@ -61,7 +61,7 @@ public class PackageRepository implements Repository<Package> {
             while(rs.next()) {
                 packages.add(mapToEntity(rs));
             }
-        }catch(SQLException e) {}
+        }catch(SQLException e) { e.printStackTrace(); }
 
         return packages;
     }
@@ -76,7 +76,7 @@ public class PackageRepository implements Repository<Package> {
 
             ResultSet rs = stmt.getGeneratedKeys();
             if(rs.next()) return rs.getInt(1);
-        } catch(SQLException e) {}
+        } catch(SQLException e) { e.printStackTrace(); }
 
         return 0;
     }
@@ -91,7 +91,7 @@ public class PackageRepository implements Repository<Package> {
 
             stmt.executeUpdate();
             return stmt.getUpdateCount() > 0;
-        } catch(SQLException e) {}
+        } catch(SQLException e) { e.printStackTrace(); }
 
         return false;
     }
@@ -104,7 +104,7 @@ public class PackageRepository implements Repository<Package> {
             stmt.executeUpdate();
 
             return stmt.getUpdateCount() > 0;
-        } catch(SQLException e) {}
+        } catch(SQLException e) { e.printStackTrace(); }
 
         return false;
     }

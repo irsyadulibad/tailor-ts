@@ -9,8 +9,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.mysql.cj.protocol.Resultset;
-
 import polije.ppl.tailor.entity.Account;
 import polije.ppl.tailor.util.DatabaseUtil;
 
@@ -106,7 +104,7 @@ public class AccountRepository implements Repository<Account> {
             stmt.executeUpdate();
 
             return stmt.getUpdateCount() > 0;
-        } catch(SQLException e) {}
+        } catch(SQLException e) { e.printStackTrace(); }
 
         return false;
     }
@@ -119,9 +117,7 @@ public class AccountRepository implements Repository<Account> {
             stmt.executeUpdate();
 
             return stmt.getUpdateCount() > 0;
-        } catch(SQLException e) {
-            e.printStackTrace();
-        }
+        } catch(SQLException e) { e.printStackTrace(); }
 
         return false;
     }
