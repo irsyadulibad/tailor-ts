@@ -30,10 +30,11 @@ public class PackageRepository implements Repository<Package> {
     }
 
     public Package get(Integer id) {
-        String sql = "SELECT * FROM " + tableName;
+        String sql = "SELECT * FROM "+ tableName +" WHERE package_id = ?";
         Package pkg = new Package();
 
         try(PreparedStatement stmt = conn.prepareStatement(sql);) {
+            stmt.setInt(1, id);
             ResultSet rs = stmt.executeQuery();
 
             if(rs.next()) { return mapToEntity(rs); }

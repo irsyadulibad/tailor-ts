@@ -32,10 +32,11 @@ public class TransactionRepository implements Repository<Transaction> {
     }
 
     public Transaction get(Integer id) {
-        String sql = "SELECT * FROM " + tableName;
+        String sql = "SELECT * FROM "+ tableName +" WHERE transaction_id = ?";
         Transaction transaction = new Transaction();
 
         try(PreparedStatement stmt = conn.prepareStatement(sql);) {
+            stmt.setInt(1, id);
             ResultSet rs = stmt.executeQuery();
 
             if(rs.next()) { return mapToEntity(rs); }

@@ -54,7 +54,7 @@ public class TransactionDetailRepositoryTest {
         customer = custRepo.get(customerId);
         pkg = pkgRepo.get(packageId);
 
-        transRepo.add(new Transaction(
+        transactionId = transRepo.add(new Transaction(
             10000, account, customer, LocalDate.now(), "-", TransactionStatus.finish
         ));
 
@@ -63,10 +63,10 @@ public class TransactionDetailRepositoryTest {
 
     @AfterAll
     public static void tearDown() {
-        transRepo.delete(transaction.getId());
-        custRepo.delete(customer.getId());
-        accRepo.delete(account.getId());
-        pkgRepo.delete(pkg.getId());
+        transRepo.delete(transactionId);
+        custRepo.delete(customerId);
+        accRepo.delete(accountId);
+        pkgRepo.delete(packageId);
     }
 
     @Test @Order(1)

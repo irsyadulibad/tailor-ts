@@ -30,10 +30,11 @@ public class MeasureRepository implements Repository<Measure> {
     }
 
     public Measure get(Integer id) {
-        String sql = "SELECT * FROM " + tableName;
+        String sql = "SELECT * FROM "+ tableName +" WHERE measure_id = ?";
         Measure measure = new Measure();
 
         try(PreparedStatement stmt = conn.prepareStatement(sql);) {
+            stmt.setInt(1, id);
             ResultSet rs = stmt.executeQuery();
 
             if(rs.next()) { return mapToEntity(rs); }

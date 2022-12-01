@@ -31,10 +31,11 @@ public class AccountRepository implements Repository<Account> {
     }
 
     public Account get(Integer id) {
-        String sql = "SELECT * FROM " + tableName;
+        String sql = "SELECT * FROM "+ tableName +" WHERE account_id = ?";
         Account account = new Account();
 
         try(PreparedStatement stmt = conn.prepareStatement(sql);) {
+            stmt.setInt(1, id);
             ResultSet rs = stmt.executeQuery();
 
             if(rs.next()) { return mapToEntity(rs); }

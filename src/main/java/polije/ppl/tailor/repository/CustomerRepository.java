@@ -30,10 +30,11 @@ public class CustomerRepository implements Repository<Customer> {
     }
 
     public Customer get(Integer id) {
-        String sql = "SELECT * FROM " + tableName;
+        String sql = "SELECT * FROM "+ tableName +" WHERE customer_id = ?";
         Customer customer = new Customer();
 
         try(PreparedStatement stmt = conn.prepareStatement(sql);) {
+            stmt.setInt(1, id);
             ResultSet rs = stmt.executeQuery();
 
             if(rs.next()) { return mapToEntity(rs); }
