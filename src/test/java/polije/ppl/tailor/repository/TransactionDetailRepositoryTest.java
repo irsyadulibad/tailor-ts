@@ -55,7 +55,7 @@ public class TransactionDetailRepositoryTest {
         pkg = pkgRepo.get(packageId);
 
         transactionId = transRepo.add(new Transaction(
-            10000, account, customer, LocalDate.now(), "-", TransactionStatus.finish
+            10000, account, customer, LocalDate.now(), LocalDate.now(), "-", TransactionStatus.finish
         ));
 
         transaction = transRepo.get(transactionId);

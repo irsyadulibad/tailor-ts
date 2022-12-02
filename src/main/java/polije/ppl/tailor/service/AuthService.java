@@ -17,12 +17,20 @@ public class AuthService {
             put("password", password);
         }});
 
-        System.out.println(accs.size());
-
         if(accs.size() < 1) return false;
-        if(!accs.get(0).getPassword().equals(password)) return false;
 
         SessionData.account = accs.get(0);
+        return true;
+    }
+
+    public boolean forgotPassword(String username, String email) {
+        List<Account> accs = accRepo.get(new HashMap<String, Object>() {{
+            put("username", username);
+            put("email", email);
+        }});
+
+        if(accs.size() < 1) return false;
+
         return true;
     }
 }

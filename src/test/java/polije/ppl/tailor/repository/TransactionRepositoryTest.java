@@ -55,6 +55,7 @@ public class TransactionRepositoryTest {
             account,
             customer,
             LocalDate.now(),
+            LocalDate.now(),
             "No Notes",
             TransactionStatus.finish
         );
@@ -75,6 +76,7 @@ public class TransactionRepositoryTest {
             25000,
             account,
             customer,
+            LocalDate.now(),
             LocalDate.now(),
             "No Notes",
             TransactionStatus.unfinish

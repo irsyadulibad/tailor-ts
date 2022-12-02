@@ -9,18 +9,19 @@ public class Transaction implements Entity {
 
     private Integer id, total;
     private String note;
-    private LocalDate date;
+    private LocalDate dueDate, date;
     private TransactionStatus status;
     private Account account;
     private Customer customer;
 
     public Transaction() {}
 
-    public Transaction(Integer total, Account account, Customer customer, LocalDate date, String note, TransactionStatus status) {
+    public Transaction(Integer total, Account account, Customer customer, LocalDate date, LocalDate dueDate, String note, TransactionStatus status) {
         this.total = total;
         this.account = account;
         this.customer = customer;
         this.date = date;
+        this.dueDate = dueDate;
         this.note = note;
         this.status = status;
     }
@@ -63,6 +64,14 @@ public class Transaction implements Entity {
 
     public void setDate(LocalDate date) {
         this.date = date;
+    }
+
+    public LocalDate getDueDate() {
+        return dueDate;
+    }
+
+    public void setDueDate(LocalDate dueDate) {
+        this.dueDate = dueDate;
     }
 
     public String getNote() {
