@@ -29,7 +29,6 @@ public class AuthService {
     }
 
     public boolean forgotPassword(String username, String email) {
-
         List<Account> accs = accRepo.get(new HashMap<String, Object>() {{
             put("username", username);
             put("email", email);
@@ -40,6 +39,18 @@ public class AuthService {
         String code = AuthUtil.generateCode();
         if(verifyRepo.add(new Verification(accs.get(0), code)) == 0) return false;
         if(!mailService.sendVerificationEMail(email, code)) return false;
+
+        return true;
+    }
+
+    public boolean resetPassword(Account account, String code) {
+        List<Verification> accs = verifyRepo.get(new HashMap<String, Object>() {{
+            put("account_id", account.getId());
+            put("code", code);
+        }});
+
+        if(accs.size() < 1) return false;
+        if(!accRepo.update(account)) return false;
 
         return true;
     }

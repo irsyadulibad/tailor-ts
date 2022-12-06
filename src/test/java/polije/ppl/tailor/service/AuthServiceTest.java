@@ -3,6 +3,8 @@ package polije.ppl.tailor.service;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.util.HashMap;
+
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.MethodOrderer;
@@ -12,8 +14,10 @@ import org.junit.jupiter.api.TestMethodOrder;
 
 import polije.ppl.tailor.data.AccountRole;
 import polije.ppl.tailor.entity.Account;
+import polije.ppl.tailor.entity.Verification;
 import polije.ppl.tailor.repository.AccountRepository;
 import polije.ppl.tailor.repository.Repository;
+import polije.ppl.tailor.repository.VerificationRepository;
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class AuthServiceTest {
@@ -49,5 +53,20 @@ public class AuthServiceTest {
     public void testForgot() {
         assertFalse(srv.forgotPassword("adm00n", "admin123"));
         assertTrue(srv.forgotPassword(account.getUsername(), account.getEmail()));
+    }
+
+    @Test @Order(3)
+    public void testReset() {
+        System.out.println(account.getId());
+        VerificationRepository verifyRepo = new VerificationRepository();
+        Verification verify = verifyRepo.get(new HashMap<>() {{
+            put("account_id", account.getId());
+        }}).get(0);
+
+        account.setPassword("admin124");
+
+        assertFalse(srv.resetPassword(account, "010101"));
+        assertTrue(srv.resetPassword(account, verify.getCode()));
+        assertTrue(srv.login(account.getUsername(), "admin124"));
     }
 }
