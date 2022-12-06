@@ -13,7 +13,6 @@ import org.jsoup.nodes.Document;
 
 import polije.ppl.tailor.util.ConfigUtil;
 import polije.ppl.tailor.util.EmailUtil;
-import polije.ppl.tailor.util.PathUtil;
 
 public class EmailService {
     public boolean sendVerificationEMail(String toEmail, String code) {
@@ -40,7 +39,8 @@ public class EmailService {
 
     private String getVerifyMailHtml(String code) {
         try {
-            File html = new File(PathUtil.resourcePath("stub/verify-mail.html"));
+            String path = getClass().getResource("/stubs/mail/verify-mail.html").getPath();
+            File html = new File(path);
             Document doc = Jsoup.parse(html, "UTF-8");
 
             doc.select("#code").first().text(code);
