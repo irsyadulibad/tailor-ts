@@ -18,13 +18,20 @@
     <maven.compiler.source>19</maven.compiler.source>
     <maven.compiler.target>19</maven.compiler.target>
     <exec.mainClass>polije.ppl.tailor.App</exec.mainClass>
+    <junit.jupiter.version>5.9.1</junit.jupiter.version>
   </properties>
 
   <dependencies>
     <dependency>
         <groupId>org.junit.jupiter</groupId>
+        <artifactId>junit-jupiter-engine</artifactId>
+        <version>${junit.jupiter.version}</version>
+        <scope>test</scope>
+    </dependency>
+    <dependency>
+        <groupId>org.junit.jupiter</groupId>
         <artifactId>junit-jupiter-api</artifactId>
-        <version>5.9.1</version>
+        <version>${junit.jupiter.version}</version>
         <scope>test</scope>
     </dependency>
     <dependency>
