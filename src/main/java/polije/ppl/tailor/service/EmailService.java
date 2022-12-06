@@ -1,13 +1,19 @@
 package polije.ppl.tailor.service;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.Properties;
 
 import javax.mail.Authenticator;
 import javax.mail.PasswordAuthentication;
 import javax.mail.Session;
 
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+
 import polije.ppl.tailor.util.ConfigUtil;
 import polije.ppl.tailor.util.EmailUtil;
+import polije.ppl.tailor.util.PathUtil;
 
 public class EmailService {
     public boolean sendVerificationEMail(String toEmail, String code) {
@@ -29,6 +35,18 @@ public class EmailService {
         };
 
         Session session = Session.getInstance(props, auth);
-        return EmailUtil.sendEmail(session, toEmail, "Verification Code", code);
+        return EmailUtil.sendEmail(session, toEmail, "Verification Code", getVerifyMailHtml(code));
+    }
+
+    private String getVerifyMailHtml(String code) {
+        try {
+            File html = new File(PathUtil.resourcePath("stub/verify-mail.html"));
+            Document doc = Jsoup.parse(html, "UTF-8");
+
+            doc.select("#code").first().text(code);
+            return doc.toString();
+        }catch(IOException e) { e.printStackTrace(); }
+
+        return code;
     }
 }

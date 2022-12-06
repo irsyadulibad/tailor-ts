@@ -19,7 +19,7 @@ public class EmailUtil {
 
             msg.setFrom(new InternetAddress(ConfigUtil.get("mail.fromMail"), "NoReply-TTS"));
             msg.setSubject(subject, "UTF-8");
-            msg.setText(body, "UTF-8");
+            msg.setContent(body, "text/html");
             msg.setSentDate(new Date());
             msg.setRecipients(Message.RecipientType.TO, InternetAddress.parse(toEmail, false));
             Transport.send(msg);

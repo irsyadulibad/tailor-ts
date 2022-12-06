@@ -12,6 +12,6 @@ public class EmailServiceTest {
     @Test @Order(1)
     public void testSendMail() {
         EmailService service = new EmailService();
-        assertTrue(service.sendVerificationEMail("ahmadirsyadulibad7@gmail.com", "786543"));
+        assertTrue(service.sendVerificationEMail("ahmadirsyadulibad7@gmail.com", "101010"));
     }
 }

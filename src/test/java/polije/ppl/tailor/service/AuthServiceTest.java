@@ -3,6 +3,8 @@ package polije.ppl.tailor.service;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
@@ -15,23 +17,37 @@ import polije.ppl.tailor.repository.Repository;
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class AuthServiceTest {
+    private static Repository<Account> repo = new AccountRepository();
     private static AuthService srv = new AuthService();
+    private static Account account;
 
-    @Test @Order(1)
-    public void testLogin() {
-        Repository<Account> repo = new AccountRepository();
+    @BeforeAll
+    public static void init() {
         Integer id = repo.add(new Account(
             "Admin",
-            "admin@gmail.com",
+            "ahmadirsyadulibad7@gmail.com",
             "admin",
             "admin123",
             AccountRole.admin
         ));
 
-        Account acc = repo.get(id);
-        assertTrue(srv.login(acc.getUsername(), acc.getPassword()));
-        assertFalse(srv.login("adm00n", "admin123"));
+        account = repo.get(id);
+    }
 
-        repo.delete(id);
+    @AfterAll
+    public static void tearDown() {
+        repo.delete(account.getId());
+    }
+
+    @Test @Order(1)
+    public void testLogin() {
+        assertTrue(srv.login(account.getUsername(), account.getPassword()));
+        assertFalse(srv.login("adm00n", "admin123"));
+    }
+
+    @Test @Order(2)
+    public void testForgot() {
+        assertFalse(srv.forgotPassword("adm00n", "admin123"));
+        assertTrue(srv.forgotPassword(account.getUsername(), account.getEmail()));
     }
 }

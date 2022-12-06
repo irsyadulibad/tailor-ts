@@ -42,9 +42,24 @@
         <artifactId>javax.mail</artifactId>
         <version>1.6.2</version>
     </dependency>
+    <dependency>
+        <groupId>org.jsoup</groupId>
+        <artifactId>jsoup</artifactId>
+        <version>1.15.3</version>
+    </dependency>
   </dependencies>
 
   <build>
+    <resources>
+        <resource>
+            <directory>src/main/java/polije/ppl/tailor/resources</directory>
+        </resource>
+    </resources>
+    <testResources>
+        <testResource>
+            <directory>src/main/java/polije/ppl/tailor/resources</directory>
+        </testResource>
+    </testResources>
     <pluginManagement><!-- lock down plugins versions to avoid using Maven defaults (may be moved to parent pom) -->
       <plugins>
         <!-- clean lifecycle, see https://maven.apache.org/ref/current/maven-core/lifecycles.html#clean_Lifecycle -->
