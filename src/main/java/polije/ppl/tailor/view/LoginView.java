@@ -5,6 +5,14 @@
  */
 package polije.ppl.tailor.view;
 
+import java.util.Set;
+
+import javax.swing.JOptionPane;
+
+import polije.ppl.tailor.data.AccountRole;
+import polije.ppl.tailor.entity.Account;
+import polije.ppl.tailor.service.AuthService;
+import polije.ppl.tailor.util.ValidationUtil;
 
 /**
  *
@@ -19,7 +27,7 @@ public class LoginView extends javax.swing.JFrame {
         initComponents();
         username.setOpaque(false);
         username.setBackground(new java.awt.Color(255, 255, 255, 0));
-        
+
         pass.setOpaque(false);
         pass.setBackground(new java.awt.Color(255, 255, 255, 0));
     }
@@ -81,7 +89,12 @@ public class LoginView extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void masukMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_masukMouseClicked
-        // TODO add your handling code here:
+        if(new AuthService().login(username.getText(), pass.getText())) {
+            this.dispose();
+            new DashBoardPenjahitView().setVisible(true);
+        } else {
+            JOptionPane.showMessageDialog(this, "Username atau Password salah!");
+        }
     }//GEN-LAST:event_masukMouseClicked
 
     private void resetMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_resetMouseClicked
@@ -95,7 +108,7 @@ public class LoginView extends javax.swing.JFrame {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {

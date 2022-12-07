@@ -11,18 +11,18 @@ public class Account implements Entity {
 
     private Integer id;
 
-    @NotBlank(message = "Harus diisi")
+    @NotBlank(message = "Nama Lengkap Harus diisi")
     private String fullname;
 
     @Email(message = "Email harus valid")
     private String email;
 
-    @NotBlank(message = "Harus diisi")
-    @Size(max = 15, message = "Tidak boleh melebihi 15 karakter")
+    @NotBlank(message = "Username Harus diisi")
+    @Size(max = 15, message = "Username idak boleh melebihi 15 karakter")
     private String username;
 
-    @NotBlank(message = "Harus diisi")
-    @Size(min = 8, message = "Minimal 8 karakter")
+    @NotBlank(message = "Password Harus diisi")
+    @Size(min = 8, message = "Password minimal 8 karakter")
     private String password;
 
     @NotNull(message = "Harus diisi")

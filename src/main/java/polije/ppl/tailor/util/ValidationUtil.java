@@ -21,4 +21,14 @@ public class ValidationUtil {
     public static <T> Set<ConstraintViolation<T>> validate(T validatee) {
         return getValidator().validate(validatee);
     }
+
+    public static <T> String getErrorsAsString(Set<ConstraintViolation<T>> violations, String joiner) {
+        StringBuilder builder = new StringBuilder();
+
+        for(ConstraintViolation<T> violation: violations) {
+            builder.append(violation.getMessage() + joiner);
+        }
+
+        return builder.toString();
+    }
 }
