@@ -18,13 +18,13 @@ public class TambahDataUkuranView extends javax.swing.JFrame {
         initComponents();
         plg.setOpaque(false);
         plg.setBackground(new java.awt.Color(255, 255, 255, 0));
-        
+
         tipepakaian.setOpaque(false);
         tipepakaian.setBackground(new java.awt.Color(255, 255, 255, 0));
-        
+
         nama.setOpaque(false);
         nama.setBackground(new java.awt.Color(255, 255, 255, 0));
-        
+
         nilai.setOpaque(false);
         nilai.setBackground(new java.awt.Color(255, 255, 255, 0));
     }
@@ -181,7 +181,8 @@ public class TambahDataUkuranView extends javax.swing.JFrame {
     }//GEN-LAST:event_resetMouseClicked
 
     private void bbuttonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bbuttonMouseClicked
-        // TODO add your handling code here:
+        new UkuranView().setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_bbuttonMouseClicked
 
     private void keluarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_keluarMouseClicked
@@ -207,7 +208,7 @@ public class TambahDataUkuranView extends javax.swing.JFrame {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
