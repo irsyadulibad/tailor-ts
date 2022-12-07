@@ -1,12 +1,31 @@
 package polije.ppl.tailor.entity;
 
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 import polije.ppl.tailor.data.AccountRole;
 
 public class Account implements Entity {
     public final static String tableName = "accounts";
 
     private Integer id;
-    private String fullname, email, username, password;
+
+    @NotBlank(message = "Harus diisi")
+    private String fullname;
+
+    @Email(message = "Email harus valid")
+    private String email;
+
+    @NotBlank(message = "Harus diisi")
+    @Size(max = 15, message = "Tidak boleh melebihi 15 karakter")
+    private String username;
+
+    @NotBlank(message = "Harus diisi")
+    @Size(min = 8, message = "Minimal 8 karakter")
+    private String password;
+
+    @NotNull(message = "Harus diisi")
     private AccountRole role;
 
     public Account() {}
