@@ -16,6 +16,6 @@ public class ValidationUtilTest {
     @Test
     public void testAccountValidation() {
         Account acc = new Account();
-        assertEquals(2, ValidationUtil.validate(acc).size());
+        assertEquals(4, ValidationUtil.validate(acc).size());
     }
 }
