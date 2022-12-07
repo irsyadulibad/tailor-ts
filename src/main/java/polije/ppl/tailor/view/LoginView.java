@@ -8,6 +8,7 @@ package polije.ppl.tailor.view;
 import javax.swing.JOptionPane;
 
 import polije.ppl.tailor.service.AuthService;
+import polije.ppl.tailor.view.tailor.DashBoardPenjahitView;
 
 /**
  *

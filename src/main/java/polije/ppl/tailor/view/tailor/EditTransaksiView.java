@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package polije.ppl.tailor.view;
+package polije.ppl.tailor.view.tailor;
 
 import java.awt.Color;
 
@@ -20,21 +20,21 @@ public class EditTransaksiView extends javax.swing.JFrame {
         initComponents();
         namapelanggan.setOpaque(false);
         namapelanggan.setBackground(new java.awt.Color(255, 255, 255, 0));
-        
+
         status.setOpaque(false);
         status.setBackground(new java.awt.Color(255, 255, 255, 0));
-        
+
         tglambil.setOpaque(false);
         tglambil.setBackground(new java.awt.Color(255, 255, 255, 0));
-        
+
         totalharga.setOpaque(false);
         totalharga.setBackground(new java.awt.Color(255, 255, 255, 0));
-        
+
         jScrollPane2.setOpaque(false);
         jScrollPane2.getViewport().setOpaque(false);
         jScrollPane2.setBorder(null);
         jScrollPane2.setViewportBorder(null);
-        
+
         catatan.setBorder(null);
         catatan.setBackground(new Color(0,0,0,0));
     }
@@ -172,7 +172,7 @@ public class EditTransaksiView extends javax.swing.JFrame {
         getContentPane().add(ukuran);
         ukuran.setBounds(38, 245, 200, 50);
 
-        imginti.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/pages/Edit Transaksi.png"))); // NOI18N
+        imginti.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/pages/tailor-edittrans.png"))); // NOI18N
         getContentPane().add(imginti);
         imginti.setBounds(0, 0, 1089, 710);
 
@@ -218,7 +218,7 @@ public class EditTransaksiView extends javax.swing.JFrame {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {

@@ -14,6 +14,7 @@ import polije.ppl.tailor.data.SessionData;
 import polije.ppl.tailor.entity.Account;
 import polije.ppl.tailor.service.AuthService;
 import polije.ppl.tailor.util.ValidationUtil;
+import polije.ppl.tailor.view.tailor.DashBoardPenjahitView;
 
 /**
  *

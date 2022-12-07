@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package polije.ppl.tailor.view;
+package polije.ppl.tailor.view.tailor;
 
 /**
  *
@@ -66,7 +66,7 @@ public class DashBoardPenjahitView extends javax.swing.JFrame {
         getContentPane().add(keluar);
         keluar.setBounds(38, 315, 200, 50);
 
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/pages/Dashborad Penjahit.png"))); // NOI18N
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/pages/tailor-dashborad.png"))); // NOI18N
         getContentPane().add(jLabel1);
         jLabel1.setBounds(-10, -70, 1090, 830);
 
@@ -92,7 +92,7 @@ public class DashBoardPenjahitView extends javax.swing.JFrame {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
