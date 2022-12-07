@@ -1,10 +1,25 @@
 package polije.ppl.tailor.entity;
 
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
+
 public class Customer implements Entity {
     public final static String tableName = "customers";
 
-    private Integer id, age;
-    private String fullname, phone, address;
+    private Integer id;
+
+    @NotBlank(message = "Umur harus diisi")
+    private Integer age;
+
+    @NotBlank(message = "Nama lengkap harus diisi")
+    private String fullname;
+
+    @NotBlank(message = "No HP harus diisi")
+    @Size(min = 11, message = "No HP tidak valid")
+    private String phone;
+
+    @NotBlank(message = "Alamat harus diisi")
+    private String address;
 
     public Customer() {}
 
