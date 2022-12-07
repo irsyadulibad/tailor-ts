@@ -5,6 +5,11 @@
  */
 package polije.ppl.tailor.view;
 
+import javax.swing.JOptionPane;
+
+import polije.ppl.tailor.data.SessionData;
+import polije.ppl.tailor.service.AuthService;
+
 /**
  *
  * @author Hafidz
@@ -70,11 +75,18 @@ public class InputKodeView extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void kirimMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_kirimMouseClicked
-        // TODO add your handling code here:
+        if(new AuthService().resetPassword(SessionData.account, kode.getText())) {
+            new PassBaruView().setVisible(true);
+            this.dispose();
+        } else {
+            JOptionPane.showMessageDialog(this, "Kode yang anda masukkan tidak sesuai");
+        }
+
     }//GEN-LAST:event_kirimMouseClicked
 
     private void bbuttonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bbuttonMouseClicked
-        // TODO add your handling code here:
+        new LupaPassView().setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_bbuttonMouseClicked
 
     /**
@@ -84,7 +96,7 @@ public class InputKodeView extends javax.swing.JFrame {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {

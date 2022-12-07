@@ -5,14 +5,9 @@
  */
 package polije.ppl.tailor.view;
 
-import java.util.Set;
-
 import javax.swing.JOptionPane;
 
-import polije.ppl.tailor.data.AccountRole;
-import polije.ppl.tailor.entity.Account;
 import polije.ppl.tailor.service.AuthService;
-import polije.ppl.tailor.util.ValidationUtil;
 
 /**
  *
@@ -98,7 +93,8 @@ public class LoginView extends javax.swing.JFrame {
     }//GEN-LAST:event_masukMouseClicked
 
     private void resetMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_resetMouseClicked
-        // TODO add your handling code here:
+        this.dispose();
+        new LupaPassView().setVisible(true);
     }//GEN-LAST:event_resetMouseClicked
 
     /**

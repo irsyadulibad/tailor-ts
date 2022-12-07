@@ -5,22 +5,33 @@
  */
 package polije.ppl.tailor.view;
 
+import java.util.HashMap;
+
+import javax.swing.JOptionPane;
+
+import polije.ppl.tailor.entity.Account;
+import polije.ppl.tailor.repository.AccountRepository;
+import polije.ppl.tailor.service.AuthService;
+
 /**
  *
  * @author Hafidz
  */
 public class LupaPassView extends javax.swing.JFrame {
+    private AccountRepository accRepo;
 
     /**
      * Creates new form LupaPassView
      */
     public LupaPassView() {
+        accRepo = new AccountRepository();
+
         initComponents();
         usename.setOpaque(false);
         usename.setBackground(new java.awt.Color(255, 255, 255, 0));
-        
-        pass.setOpaque(false);
-        pass.setBackground(new java.awt.Color(255, 255, 255, 0));
+
+        email.setOpaque(false);
+        email.setBackground(new java.awt.Color(255, 255, 255, 0));
     }
 
     /**
@@ -34,12 +45,11 @@ public class LupaPassView extends javax.swing.JFrame {
 
         bbutton = new javax.swing.JLabel();
         usename = new javax.swing.JTextField();
-        pass = new javax.swing.JPasswordField();
         kirim = new javax.swing.JLabel();
+        email = new javax.swing.JTextField();
         IMGinti = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setMinimumSize(new java.awt.Dimension(1088, 708));
         setPreferredSize(new java.awt.Dimension(1088, 708));
         getContentPane().setLayout(null);
 
@@ -61,11 +71,6 @@ public class LupaPassView extends javax.swing.JFrame {
         getContentPane().add(usename);
         usename.setBounds(390, 336, 310, 40);
 
-        pass.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
-        pass.setBorder(null);
-        getContentPane().add(pass);
-        pass.setBounds(390, 416, 310, 40);
-
         kirim.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 kirimMouseClicked(evt);
@@ -73,6 +78,11 @@ public class LupaPassView extends javax.swing.JFrame {
         });
         getContentPane().add(kirim);
         kirim.setBounds(383, 469, 320, 40);
+
+        email.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
+        email.setBorder(null);
+        getContentPane().add(email);
+        email.setBounds(390, 413, 310, 40);
 
         IMGinti.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/pages/Lupa Password.png"))); // NOI18N
         IMGinti.setMaximumSize(new java.awt.Dimension(1088, 708));
@@ -85,7 +95,8 @@ public class LupaPassView extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void bbuttonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bbuttonMouseClicked
-        // TODO add your handling code here:
+        new LoginView().setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_bbuttonMouseClicked
 
     private void usenameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_usenameActionPerformed
@@ -93,7 +104,13 @@ public class LupaPassView extends javax.swing.JFrame {
     }//GEN-LAST:event_usenameActionPerformed
 
     private void kirimMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_kirimMouseClicked
-        // TODO add your handling code here:
+        if(new AuthService().forgotPassword(usename.getText(), email.getText())) {
+            new InputKodeView().setVisible(true);
+            this.dispose();
+        } else {
+            JOptionPane.showMessageDialog(this, "Data akun tidak ditemukan");
+        }
+
     }//GEN-LAST:event_kirimMouseClicked
 
     /**
@@ -103,7 +120,7 @@ public class LupaPassView extends javax.swing.JFrame {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
@@ -134,8 +151,8 @@ public class LupaPassView extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel IMGinti;
     private javax.swing.JLabel bbutton;
+    private javax.swing.JTextField email;
     private javax.swing.JLabel kirim;
-    private javax.swing.JPasswordField pass;
     private javax.swing.JTextField usename;
     // End of variables declaration//GEN-END:variables
 }

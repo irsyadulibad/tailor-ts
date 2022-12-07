@@ -5,6 +5,16 @@
  */
 package polije.ppl.tailor.view;
 
+import java.util.Set;
+
+import javax.swing.JOptionPane;
+
+import jakarta.validation.ConstraintViolation;
+import polije.ppl.tailor.data.SessionData;
+import polije.ppl.tailor.entity.Account;
+import polije.ppl.tailor.service.AuthService;
+import polije.ppl.tailor.util.ValidationUtil;
+
 /**
  *
  * @author Hafidz
@@ -18,7 +28,7 @@ public class PassBaruView extends javax.swing.JFrame {
         initComponents();
         pass.setOpaque(false);
         pass.setBackground(new java.awt.Color(255, 255, 255, 0));
-        
+
         passbaru.setOpaque(false);
         passbaru.setBackground(new java.awt.Color(255, 255, 255, 0));
     }
@@ -85,7 +95,26 @@ public class PassBaruView extends javax.swing.JFrame {
     }//GEN-LAST:event_bbuttonMouseClicked
 
     private void jLabel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MouseClicked
-        // TODO add your handling code here:
+        Account account = SessionData.account;
+
+        if(pass.getText().equals(passbaru.getText())) {
+            account.setPassword(passbaru.getText());
+
+            Set<ConstraintViolation<Account>> violations = ValidationUtil.validate(account);
+            String errors = ValidationUtil.getErrorsAsString(violations, "\n");
+
+            if(violations.size() > 0) {
+                JOptionPane.showMessageDialog(this, errors);
+            } else {
+                new AuthService().resetPassword(account);
+                new DashBoardPenjahitView().setVisible(true);
+
+                JOptionPane.showMessageDialog(this, "Password berhasil diubah");
+                this.dispose();
+            }
+        } else {
+            JOptionPane.showMessageDialog(this, "Password dan konfirmasi harus sama");
+        }
     }//GEN-LAST:event_jLabel1MouseClicked
 
     private void passbaruActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_passbaruActionPerformed
@@ -99,7 +128,7 @@ public class PassBaruView extends javax.swing.JFrame {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {

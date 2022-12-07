@@ -37,8 +37,10 @@ public class AuthService {
         if(accs.size() < 1) return false;
 
         String code = AuthUtil.generateCode();
+
         if(verifyRepo.add(new Verification(accs.get(0), code)) == 0) return false;
         if(!mailService.sendVerificationEMail(email, code)) return false;
+        SessionData.account = accs.get(0);
 
         return true;
     }
@@ -53,5 +55,11 @@ public class AuthService {
         if(!accRepo.update(account)) return false;
 
         return true;
+    }
+
+    public void resetPassword(Account account) {
+        accRepo.update(account);
+        SessionData.account = account;
+        verifyRepo.delete(account.getId());
     }
 }

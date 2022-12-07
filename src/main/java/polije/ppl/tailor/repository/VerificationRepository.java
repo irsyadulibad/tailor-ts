@@ -97,6 +97,19 @@ public class VerificationRepository {
         return false;
     }
 
+    public boolean delete(int accId) {
+        String sql = "DELETE FROM "+ tableName +" WHERE account_id = ?";
+
+        try(PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
+            stmt.setInt(1, accId);
+            stmt.executeUpdate();
+
+            return stmt.getUpdateCount() > 0;
+        } catch(SQLException e) { e.printStackTrace(); }
+
+        return false;
+    }
+
     private Verification mapToEntity(ResultSet rs) throws SQLException {
         return new Verification(
             new AccountRepository().get(rs.getInt("account_id")),
