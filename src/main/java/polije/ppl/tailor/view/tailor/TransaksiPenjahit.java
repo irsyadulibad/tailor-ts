@@ -91,7 +91,7 @@ public class TransaksiPenjahit extends javax.swing.JFrame {
         getContentPane().add(search);
         search.setBounds(780, 203, 180, 30);
 
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/pages/Transaksi Penjahit.png"))); // NOI18N
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/pages/tailor-transactions.png"))); // NOI18N
         getContentPane().add(jLabel1);
         jLabel1.setBounds(1, 0, 1080, 710);
 

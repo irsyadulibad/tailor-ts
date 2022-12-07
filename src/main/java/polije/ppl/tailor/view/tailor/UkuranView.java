@@ -100,7 +100,7 @@ public class UkuranView extends javax.swing.JFrame {
         getContentPane().add(search);
         search.setBounds(780, 200, 170, 40);
 
-        imginti.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/pages/Ukuran.png"))); // NOI18N
+        imginti.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/pages/tailor-measures.png"))); // NOI18N
         getContentPane().add(imginti);
         imginti.setBounds(0, 0, 1090, 710);
 

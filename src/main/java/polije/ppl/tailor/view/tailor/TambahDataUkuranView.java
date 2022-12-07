@@ -161,7 +161,7 @@ public class TambahDataUkuranView extends javax.swing.JFrame {
         getContentPane().add(ukuran);
         ukuran.setBounds(38, 245, 200, 50);
 
-        imginti.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/pages/Tambah Ukuran Penjahit.png"))); // NOI18N
+        imginti.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/pages/tailor-addmeasure.png"))); // NOI18N
         getContentPane().add(imginti);
         imginti.setBounds(0, 0, 1090, 710);
 
