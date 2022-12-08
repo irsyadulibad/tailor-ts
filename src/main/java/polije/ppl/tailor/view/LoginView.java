@@ -70,6 +70,12 @@ public class LoginView extends javax.swing.JFrame {
         });
         getContentPane().add(masuk);
         masuk.setBounds(383, 452, 320, 40);
+
+        bbutton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                bbuttonMouseClicked(evt);
+            }
+        });
         getContentPane().add(bbutton);
         bbutton.setBounds(358, 160, 40, 30);
 
@@ -105,6 +111,11 @@ public class LoginView extends javax.swing.JFrame {
     private void usernameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_usernameActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_usernameActionPerformed
+
+    private void bbuttonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bbuttonMouseClicked
+        new LandingPageView().setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_bbuttonMouseClicked
 
     /**
      * @param args the command line arguments
