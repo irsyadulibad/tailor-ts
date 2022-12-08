@@ -40,12 +40,10 @@ public class InputKodeView extends javax.swing.JFrame {
         IMGiti = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setMaximumSize(new java.awt.Dimension(1088, 708));
         setMinimumSize(new java.awt.Dimension(1088, 708));
-        setPreferredSize(new java.awt.Dimension(1088, 708));
         getContentPane().setLayout(null);
 
-        kode.setFont(new java.awt.Font("Ubuntu", 0, 36)); // NOI18N
+        kode.setFont(new java.awt.Font("Ubuntu", 0, 28)); // NOI18N
         kode.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         kode.setBorder(null);
         getContentPane().add(kode);
@@ -85,7 +83,7 @@ public class InputKodeView extends javax.swing.JFrame {
     }//GEN-LAST:event_kirimMouseClicked
 
     private void bbuttonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bbuttonMouseClicked
-        new LupaPassView().setVisible(true);
+        new LupaPasswordView().setVisible(true);
         this.dispose();
     }//GEN-LAST:event_bbuttonMouseClicked
 

@@ -68,6 +68,11 @@
         <artifactId>jakarta.el</artifactId>
         <version>4.0.2</version>
     </dependency>
+      <dependency>
+          <groupId>unknown.binary</groupId>
+          <artifactId>AbsoluteLayout</artifactId>
+          <version>SNAPSHOT</version>
+      </dependency>
   </dependencies>
 
   <build>
@@ -94,6 +99,15 @@
         <plugin>
           <artifactId>maven-jar-plugin</artifactId>
           <version>3.0.2</version>
+          <configuration>
+            <archive>
+              <manifest>
+                <addClasspath>true</addClasspath>
+                <classpathPrefix>lib/</classpathPrefix>
+                <mainClass>${exec.mainClass}</mainClass>
+              </manifest>
+            </archive>
+          </configuration>
         </plugin>
         <plugin>
           <artifactId>maven-install-plugin</artifactId>
@@ -115,4 +129,11 @@
       </plugins>
     </pluginManagement>
   </build>
+    <repositories>
+        <repository>
+            <id>unknown-jars-temp-repo</id>
+            <name>A temporary repository created by NetBeans for libraries and jars it could not identify. Please replace the dependencies in this repository with correct ones and delete this repository.</name>
+            <url>file:${project.basedir}/lib</url>
+        </repository>
+    </repositories>
 </project>

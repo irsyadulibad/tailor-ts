@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package polije.ppl.tailor.view.admin;
+package polije.ppl.tailor.view;
 
 /**
  *
@@ -34,7 +34,6 @@ public class LoadingPageView extends javax.swing.JFrame {
         view_loadingbar = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setMinimumSize(new java.awt.Dimension(1088, 708));
 
         jPanel1.setPreferredSize(new java.awt.Dimension(1088, 708));
         jPanel1.setLayout(null);
@@ -86,7 +85,7 @@ public class LoadingPageView extends javax.swing.JFrame {
       
       try{
           for (int i=0; i<100; i++){
-              Thread.sleep(80);
+              Thread.sleep(15);
               loading.txt_loading.setText(Integer.toString(i)+"%");
               loading.barloading.setValue(i);
           }

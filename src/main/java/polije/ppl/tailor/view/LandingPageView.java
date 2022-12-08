@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package polije.ppl.tailor.view.admin;
+package polije.ppl.tailor.view;
 
 /**
  *
@@ -35,7 +35,6 @@ public class LandingPageView extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(1088, 708));
-        setPreferredSize(new java.awt.Dimension(1088, 708));
         getContentPane().setLayout(null);
 
         btn_masuk.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -52,7 +51,7 @@ public class LandingPageView extends javax.swing.JFrame {
         getContentPane().add(btn_panduan);
         btn_panduan.setBounds(840, 20, 90, 30);
 
-        view_landingpage.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/pages/Landing Page_baru.png"))); // NOI18N
+        view_landingpage.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/pages/Landing Page.png"))); // NOI18N
         getContentPane().add(view_landingpage);
         view_landingpage.setBounds(0, 0, 1088, 708);
 
@@ -60,7 +59,8 @@ public class LandingPageView extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btn_masukMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_masukMouseClicked
-        // TODO add your handling code here:
+        new LoginView().setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_btn_masukMouseClicked
 
     /**

@@ -46,15 +46,19 @@ public class LoginView extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(1088, 708));
-        setPreferredSize(new java.awt.Dimension(1088, 708));
         getContentPane().setLayout(null);
 
-        username.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
+        username.setFont(new java.awt.Font("Ubuntu", 0, 20)); // NOI18N
         username.setBorder(null);
+        username.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                usernameActionPerformed(evt);
+            }
+        });
         getContentPane().add(username);
         username.setBounds(390, 320, 280, 40);
 
-        pass.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
+        pass.setFont(new java.awt.Font("Ubuntu", 0, 20)); // NOI18N
         pass.setBorder(null);
         getContentPane().add(pass);
         pass.setBounds(390, 396, 280, 40);
@@ -66,6 +70,12 @@ public class LoginView extends javax.swing.JFrame {
         });
         getContentPane().add(masuk);
         masuk.setBounds(383, 452, 320, 40);
+
+        bbutton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                bbuttonMouseClicked(evt);
+            }
+        });
         getContentPane().add(bbutton);
         bbutton.setBounds(358, 160, 40, 30);
 
@@ -95,8 +105,17 @@ public class LoginView extends javax.swing.JFrame {
 
     private void resetMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_resetMouseClicked
         this.dispose();
-        new LupaPassView().setVisible(true);
+        new LupaPasswordView().setVisible(true);
     }//GEN-LAST:event_resetMouseClicked
+
+    private void usernameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_usernameActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_usernameActionPerformed
+
+    private void bbuttonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bbuttonMouseClicked
+        new LandingPageView().setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_bbuttonMouseClicked
 
     /**
      * @param args the command line arguments
