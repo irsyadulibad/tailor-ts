@@ -89,6 +89,7 @@ public class PassBaruView extends javax.swing.JFrame {
         IMGinti.setBounds(0, 0, 1089, 708);
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void bbuttonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bbuttonMouseClicked

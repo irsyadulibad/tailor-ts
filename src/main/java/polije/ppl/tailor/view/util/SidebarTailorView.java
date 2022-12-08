@@ -7,6 +7,8 @@ package polije.ppl.tailor.view.util;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import polije.ppl.tailor.view.LoginView;
+import polije.ppl.tailor.view.tailor.TransaksiPenjahitView;
+import polije.ppl.tailor.view.tailor.UkuranView;
 
 /**
  *
@@ -45,8 +47,20 @@ public class SidebarTailorView extends javax.swing.JPanel {
         setLayout(null);
         add(dashboardBtn);
         dashboardBtn.setBounds(40, 100, 200, 50);
+
+        transactionBtn.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                transactionBtnMouseClicked(evt);
+            }
+        });
         add(transactionBtn);
         transactionBtn.setBounds(40, 170, 200, 50);
+
+        measureBtn.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                measureBtnMouseClicked(evt);
+            }
+        });
         add(measureBtn);
         measureBtn.setBounds(40, 240, 200, 50);
 
@@ -67,6 +81,16 @@ public class SidebarTailorView extends javax.swing.JPanel {
         new LoginView().setVisible(true);
         parent.dispose();
     }//GEN-LAST:event_logoutBtnMouseClicked
+
+    private void transactionBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_transactionBtnMouseClicked
+        new TransaksiPenjahitView().setVisible(true);
+        parent.dispose();
+    }//GEN-LAST:event_transactionBtnMouseClicked
+
+    private void measureBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_measureBtnMouseClicked
+        new UkuranView().setVisible(true);
+        parent.dispose();
+    }//GEN-LAST:event_measureBtnMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

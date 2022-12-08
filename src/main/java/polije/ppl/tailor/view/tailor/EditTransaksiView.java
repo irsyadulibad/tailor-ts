@@ -6,6 +6,7 @@
 package polije.ppl.tailor.view.tailor;
 
 import java.awt.Color;
+import polije.ppl.tailor.view.util.SidebarTailorView;
 
 /**
  *
@@ -37,6 +38,9 @@ public class EditTransaksiView extends javax.swing.JFrame {
 
         catatan.setBorder(null);
         catatan.setBackground(new Color(0,0,0,0));
+        
+        sidebar.add(new SidebarTailorView(this));
+        sidebar.setBackground(new java.awt.Color(255, 255, 255, 0));
     }
 
     /**
@@ -48,6 +52,7 @@ public class EditTransaksiView extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        sidebar = new javax.swing.JPanel();
         namapelanggan = new javax.swing.JTextField();
         status = new javax.swing.JTextField();
         tglambil = new javax.swing.JTextField();
@@ -58,15 +63,17 @@ public class EditTransaksiView extends javax.swing.JFrame {
         simpan = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         pensanan = new javax.swing.JTable();
-        keluar = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        transaksi = new javax.swing.JLabel();
-        ukuran = new javax.swing.JLabel();
         imginti = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(1089, 708));
         getContentPane().setLayout(null);
+
+        sidebar.setMaximumSize(new java.awt.Dimension(277, 708));
+        sidebar.setMinimumSize(new java.awt.Dimension(277, 708));
+        sidebar.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 0, 0));
+        getContentPane().add(sidebar);
+        sidebar.setBounds(0, 0, 277, 708);
 
         namapelanggan.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
         namapelanggan.setBorder(null);
@@ -140,43 +147,12 @@ public class EditTransaksiView extends javax.swing.JFrame {
         getContentPane().add(jScrollPane1);
         jScrollPane1.setBounds(390, 280, 510, 80);
 
-        keluar.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                keluarMouseClicked(evt);
-            }
-        });
-        getContentPane().add(keluar);
-        keluar.setBounds(38, 315, 200, 50);
-
-        jLabel2.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel2MouseClicked(evt);
-            }
-        });
-        getContentPane().add(jLabel2);
-        jLabel2.setBounds(38, 104, 200, 50);
-
-        transaksi.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                transaksiMouseClicked(evt);
-            }
-        });
-        getContentPane().add(transaksi);
-        transaksi.setBounds(38, 174, 200, 50);
-
-        ukuran.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                ukuranMouseClicked(evt);
-            }
-        });
-        getContentPane().add(ukuran);
-        ukuran.setBounds(38, 245, 200, 50);
-
         imginti.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/pages/tailor-edittrans.png"))); // NOI18N
         getContentPane().add(imginti);
-        imginti.setBounds(0, 0, 1089, 710);
+        imginti.setBounds(0, 0, 1089, 708);
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void namapelangganActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_namapelangganActionPerformed
@@ -194,22 +170,6 @@ public class EditTransaksiView extends javax.swing.JFrame {
     private void simpanMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_simpanMouseClicked
         // TODO add your handling code here:
     }//GEN-LAST:event_simpanMouseClicked
-
-    private void keluarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_keluarMouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_keluarMouseClicked
-
-    private void ukuranMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ukuranMouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_ukuranMouseClicked
-
-    private void transaksiMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_transaksiMouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_transaksiMouseClicked
-
-    private void jLabel2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel2MouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jLabel2MouseClicked
 
     /**
      * @param args the command line arguments
@@ -250,17 +210,14 @@ public class EditTransaksiView extends javax.swing.JFrame {
     private javax.swing.JLabel bbutton;
     private javax.swing.JTextArea catatan;
     private javax.swing.JLabel imginti;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JLabel keluar;
     private javax.swing.JTextField namapelanggan;
     private javax.swing.JTable pensanan;
+    private javax.swing.JPanel sidebar;
     private javax.swing.JLabel simpan;
     private javax.swing.JTextField status;
     private javax.swing.JTextField tglambil;
     private javax.swing.JTextField totalharga;
-    private javax.swing.JLabel transaksi;
-    private javax.swing.JLabel ukuran;
     // End of variables declaration//GEN-END:variables
 }

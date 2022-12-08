@@ -5,6 +5,8 @@
  */
 package polije.ppl.tailor.view.tailor;
 
+import polije.ppl.tailor.view.util.SidebarTailorView;
+
 /**
  *
  * @author Hafidz
@@ -27,6 +29,9 @@ public class TambahDataUkuranView extends javax.swing.JFrame {
 
         nilai.setOpaque(false);
         nilai.setBackground(new java.awt.Color(255, 255, 255, 0));
+        
+        sidebar.add(new SidebarTailorView(this));
+        sidebar.setBackground(new java.awt.Color(255, 255, 255, 0));
     }
 
     /**
@@ -49,10 +54,7 @@ public class TambahDataUkuranView extends javax.swing.JFrame {
         simpandata = new javax.swing.JLabel();
         reset = new javax.swing.JLabel();
         bbutton = new javax.swing.JLabel();
-        keluar = new javax.swing.JLabel();
-        beranda = new javax.swing.JLabel();
-        transaksi = new javax.swing.JLabel();
-        ukuran = new javax.swing.JLabel();
+        sidebar = new javax.swing.JPanel();
         imginti = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -129,43 +131,18 @@ public class TambahDataUkuranView extends javax.swing.JFrame {
         getContentPane().add(bbutton);
         bbutton.setBounds(379, 102, 40, 30);
 
-        keluar.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                keluarMouseClicked(evt);
-            }
-        });
-        getContentPane().add(keluar);
-        keluar.setBounds(38, 316, 200, 50);
-
-        beranda.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                berandaMouseClicked(evt);
-            }
-        });
-        getContentPane().add(beranda);
-        beranda.setBounds(38, 103, 200, 50);
-
-        transaksi.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                transaksiMouseClicked(evt);
-            }
-        });
-        getContentPane().add(transaksi);
-        transaksi.setBounds(38, 175, 200, 50);
-
-        ukuran.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                ukuranMouseClicked(evt);
-            }
-        });
-        getContentPane().add(ukuran);
-        ukuran.setBounds(38, 245, 200, 50);
+        sidebar.setMaximumSize(new java.awt.Dimension(277, 708));
+        sidebar.setMinimumSize(new java.awt.Dimension(277, 708));
+        sidebar.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 0, 0));
+        getContentPane().add(sidebar);
+        sidebar.setBounds(0, 0, 277, 708);
 
         imginti.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/pages/tailor-addmeasure.png"))); // NOI18N
         getContentPane().add(imginti);
         imginti.setBounds(0, 0, 1090, 710);
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void simpanMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_simpanMouseClicked
@@ -184,22 +161,6 @@ public class TambahDataUkuranView extends javax.swing.JFrame {
         new UkuranView().setVisible(true);
         this.dispose();
     }//GEN-LAST:event_bbuttonMouseClicked
-
-    private void keluarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_keluarMouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_keluarMouseClicked
-
-    private void ukuranMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ukuranMouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_ukuranMouseClicked
-
-    private void transaksiMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_transaksiMouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_transaksiMouseClicked
-
-    private void berandaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_berandaMouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_berandaMouseClicked
 
     /**
      * @param args the command line arguments
@@ -239,20 +200,17 @@ public class TambahDataUkuranView extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel bbutton;
-    private javax.swing.JLabel beranda;
     private javax.swing.JLabel hapus;
     private javax.swing.JLabel imginti;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
-    private javax.swing.JLabel keluar;
     private javax.swing.JTextField nama;
     private javax.swing.JTextField nilai;
     private javax.swing.JTextField plg;
     private javax.swing.JLabel reset;
+    private javax.swing.JPanel sidebar;
     private javax.swing.JLabel simpan;
     private javax.swing.JLabel simpandata;
     private javax.swing.JTextField tipepakaian;
-    private javax.swing.JLabel transaksi;
-    private javax.swing.JLabel ukuran;
     // End of variables declaration//GEN-END:variables
 }

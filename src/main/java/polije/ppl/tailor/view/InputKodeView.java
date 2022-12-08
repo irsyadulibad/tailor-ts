@@ -70,6 +70,7 @@ public class InputKodeView extends javax.swing.JFrame {
         IMGiti.setBounds(0, 0, 1088, 708);
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void kirimMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_kirimMouseClicked

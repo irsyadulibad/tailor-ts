@@ -76,6 +76,7 @@ public class LupaPasswordView extends javax.swing.JFrame {
         page.setBounds(0, 0, 1089, 708);
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void submitBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_submitBtnMouseClicked

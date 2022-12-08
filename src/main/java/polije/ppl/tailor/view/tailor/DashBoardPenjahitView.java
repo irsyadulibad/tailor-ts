@@ -36,7 +36,6 @@ public class DashBoardPenjahitView extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(1088, 708));
-        setPreferredSize(new java.awt.Dimension(1088, 708));
         getContentPane().setLayout(null);
 
         sidebar.setMaximumSize(new java.awt.Dimension(277, 708));
@@ -50,6 +49,7 @@ public class DashBoardPenjahitView extends javax.swing.JFrame {
         jLabel1.setBounds(0, 0, 1089, 708);
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     /**

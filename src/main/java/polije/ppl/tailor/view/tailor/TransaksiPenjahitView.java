@@ -5,19 +5,25 @@
  */
 package polije.ppl.tailor.view.tailor;
 
+import polije.ppl.tailor.view.util.SidebarTailorView;
+
 /**
  *
  * @author Hafidz
  */
-public class TransaksiPenjahit extends javax.swing.JFrame {
+public class TransaksiPenjahitView extends javax.swing.JFrame {
 
     /**
      * Creates new form TransaksiPenjahit
      */
-    public TransaksiPenjahit() {
+    public TransaksiPenjahitView() {
         initComponents();
+        
         search.setOpaque(false);
         search.setBackground(new java.awt.Color(255, 255, 255, 0));
+        
+        sidebar.add(new SidebarTailorView(this));
+        sidebar.setBackground(new java.awt.Color(255, 255, 255, 0));
     }
 
     /**
@@ -29,41 +35,15 @@ public class TransaksiPenjahit extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        beranda = new javax.swing.JLabel();
-        ukuran = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         search = new javax.swing.JTextField();
+        sidebar = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(1088, 708));
         getContentPane().setLayout(null);
-
-        beranda.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                berandaMouseClicked(evt);
-            }
-        });
-        getContentPane().add(beranda);
-        beranda.setBounds(38, 103, 200, 50);
-
-        ukuran.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                ukuranMouseClicked(evt);
-            }
-        });
-        getContentPane().add(ukuran);
-        ukuran.setBounds(38, 244, 200, 50);
-
-        jLabel2.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel2MouseClicked(evt);
-            }
-        });
-        getContentPane().add(jLabel2);
-        jLabel2.setBounds(38, 315, 200, 50);
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -91,24 +71,19 @@ public class TransaksiPenjahit extends javax.swing.JFrame {
         getContentPane().add(search);
         search.setBounds(780, 203, 180, 30);
 
+        sidebar.setMaximumSize(new java.awt.Dimension(277, 708));
+        sidebar.setMinimumSize(new java.awt.Dimension(277, 708));
+        sidebar.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 0, 0));
+        getContentPane().add(sidebar);
+        sidebar.setBounds(0, 0, 277, 708);
+
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/pages/tailor-transactions.png"))); // NOI18N
         getContentPane().add(jLabel1);
         jLabel1.setBounds(1, 0, 1080, 710);
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-
-    private void jLabel2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel2MouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jLabel2MouseClicked
-
-    private void ukuranMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ukuranMouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_ukuranMouseClicked
-
-    private void berandaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_berandaMouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_berandaMouseClicked
 
     private void searchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchActionPerformed
         // TODO add your handling code here:
@@ -131,31 +106,30 @@ public class TransaksiPenjahit extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(TransaksiPenjahit.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TransaksiPenjahitView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(TransaksiPenjahit.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TransaksiPenjahitView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(TransaksiPenjahit.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TransaksiPenjahitView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(TransaksiPenjahit.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TransaksiPenjahitView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new TransaksiPenjahit().setVisible(true);
+                new TransaksiPenjahitView().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel beranda;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
     private javax.swing.JTextField search;
-    private javax.swing.JLabel ukuran;
+    private javax.swing.JPanel sidebar;
     // End of variables declaration//GEN-END:variables
 }
