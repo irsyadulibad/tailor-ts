@@ -104,7 +104,7 @@
               <manifest>
                 <addClasspath>true</addClasspath>
                 <classpathPrefix>lib/</classpathPrefix>
-                <mainClass>${exec.mainClass}</mainClass>
+                <mainClass>polije.ppl.tailor.App</mainClass>
               </manifest>
             </archive>
           </configuration>
