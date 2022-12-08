@@ -1,13 +1,14 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package polije.ppl.tailor.view.tailor;
 
+import polije.ppl.tailor.view.util.SidebarTailorView;
+
 /**
  *
- * @author Hafidz
+ * @author ibad
  */
 public class DashBoardPenjahitView extends javax.swing.JFrame {
 
@@ -16,6 +17,9 @@ public class DashBoardPenjahitView extends javax.swing.JFrame {
      */
     public DashBoardPenjahitView() {
         initComponents();
+        
+        sidebar.add(new SidebarTailorView(this));
+        sidebar.setBackground(new java.awt.Color(255, 255, 255, 0));
     }
 
     /**
@@ -27,63 +31,26 @@ public class DashBoardPenjahitView extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        transaksi = new javax.swing.JLabel();
-        ukuran = new javax.swing.JLabel();
-        totaltransaksi = new javax.swing.JLabel();
-        keluar = new javax.swing.JLabel();
+        sidebar = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(1088, 708));
+        setPreferredSize(new java.awt.Dimension(1088, 708));
         getContentPane().setLayout(null);
 
-        transaksi.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                transaksiMouseClicked(evt);
-            }
-        });
-        getContentPane().add(transaksi);
-        transaksi.setBounds(38, 174, 200, 50);
-
-        ukuran.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                ukuranMouseClicked(evt);
-            }
-        });
-        getContentPane().add(ukuran);
-        ukuran.setBounds(30, 240, 200, 40);
-
-        totaltransaksi.setFont(new java.awt.Font("Ubuntu", 0, 16)); // NOI18N
-        totaltransaksi.setText("-");
-        getContentPane().add(totaltransaksi);
-        totaltransaksi.setBounds(370, 240, 130, 40);
-
-        keluar.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                keluarMouseClicked(evt);
-            }
-        });
-        getContentPane().add(keluar);
-        keluar.setBounds(38, 315, 200, 50);
+        sidebar.setMaximumSize(new java.awt.Dimension(277, 708));
+        sidebar.setMinimumSize(new java.awt.Dimension(277, 708));
+        sidebar.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 0, 0));
+        getContentPane().add(sidebar);
+        sidebar.setBounds(0, 0, 277, 708);
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/pages/tailor-dashborad.png"))); // NOI18N
         getContentPane().add(jLabel1);
-        jLabel1.setBounds(-10, -70, 1090, 830);
+        jLabel1.setBounds(0, 0, 1089, 708);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void transaksiMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_transaksiMouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_transaksiMouseClicked
-
-    private void ukuranMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ukuranMouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_ukuranMouseClicked
-
-    private void keluarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_keluarMouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_keluarMouseClicked
 
     /**
      * @param args the command line arguments
@@ -92,7 +59,7 @@ public class DashBoardPenjahitView extends javax.swing.JFrame {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
@@ -122,9 +89,6 @@ public class DashBoardPenjahitView extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel keluar;
-    private javax.swing.JLabel totaltransaksi;
-    private javax.swing.JLabel transaksi;
-    private javax.swing.JLabel ukuran;
+    private javax.swing.JPanel sidebar;
     // End of variables declaration//GEN-END:variables
 }
