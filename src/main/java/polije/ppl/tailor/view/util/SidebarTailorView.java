@@ -5,8 +5,8 @@
 package polije.ppl.tailor.view.util;
 
 import javax.swing.JFrame;
-import javax.swing.JOptionPane;
 import polije.ppl.tailor.view.LoginView;
+import polije.ppl.tailor.view.tailor.DashBoardPenjahitView;
 import polije.ppl.tailor.view.tailor.TransaksiPenjahitView;
 import polije.ppl.tailor.view.tailor.UkuranView;
 
@@ -19,6 +19,8 @@ public class SidebarTailorView extends javax.swing.JPanel {
     
     /**
      * Creates new form SidebarView
+     * @param <T>
+     * @param parent
      */
     public <T extends JFrame> SidebarTailorView(T parent) {
         this.parent = parent;
@@ -45,24 +47,33 @@ public class SidebarTailorView extends javax.swing.JPanel {
         setOpaque(false);
         setPreferredSize(new java.awt.Dimension(277, 708));
         setLayout(null);
-        add(dashboardBtn);
-        dashboardBtn.setBounds(40, 100, 200, 50);
 
+        dashboardBtn.setIcon(new javax.swing.ImageIcon("C:\\Users\\Hafidz\\OneDrive\\Documents\\NetBeansProjects\\Tailor_TS\\src\\Page\\Sidebar DashBoard.png")); // NOI18N
+        dashboardBtn.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                dashboardBtnMouseClicked(evt);
+            }
+        });
+        add(dashboardBtn);
+        dashboardBtn.setBounds(38, 103, 200, 50);
+
+        transactionBtn.setIcon(new javax.swing.ImageIcon("C:\\Users\\Hafidz\\OneDrive\\Documents\\NetBeansProjects\\Tailor_TS\\src\\Page\\Sidebar Transaksi.png")); // NOI18N
         transactionBtn.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 transactionBtnMouseClicked(evt);
             }
         });
         add(transactionBtn);
-        transactionBtn.setBounds(40, 170, 200, 50);
+        transactionBtn.setBounds(38, 174, 200, 50);
 
+        measureBtn.setIcon(new javax.swing.ImageIcon("C:\\Users\\Hafidz\\OneDrive\\Documents\\NetBeansProjects\\Tailor_TS\\src\\Page\\Sidebar Ukuran.png")); // NOI18N
         measureBtn.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 measureBtnMouseClicked(evt);
             }
         });
         add(measureBtn);
-        measureBtn.setBounds(40, 240, 200, 50);
+        measureBtn.setBounds(38, 244, 200, 50);
 
         logoutBtn.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -72,7 +83,7 @@ public class SidebarTailorView extends javax.swing.JPanel {
         add(logoutBtn);
         logoutBtn.setBounds(40, 310, 200, 50);
 
-        sidebarImg.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/sidebar-tailor.png"))); // NOI18N
+        sidebarImg.setIcon(new javax.swing.ImageIcon("C:\\Users\\Hafidz\\OneDrive\\Documents\\NetBeansProjects\\Tailor_TS\\src\\Page\\Sidebar Penjahit.png")); // NOI18N
         add(sidebarImg);
         sidebarImg.setBounds(0, 0, 277, 708);
     }// </editor-fold>//GEN-END:initComponents
@@ -91,6 +102,15 @@ public class SidebarTailorView extends javax.swing.JPanel {
         new UkuranView().setVisible(true);
         parent.dispose();
     }//GEN-LAST:event_measureBtnMouseClicked
+
+    private void dashboardBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_dashboardBtnMouseClicked
+        // TODO add your handling code here:
+        new DashBoardPenjahitView().setVisible(true);
+        parent.dispose();
+        
+        
+        
+    }//GEN-LAST:event_dashboardBtnMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
