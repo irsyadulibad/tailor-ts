@@ -31,7 +31,7 @@
     <Component class="javax.swing.JLabel" name="dashboardBtn">
       <Properties>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="2" name="C:\Users\Hafidz\OneDrive\Documents\NetBeansProjects\Tailor_TS\src\Page\Sidebar DashBoard.png"/>
+          <Image iconType="3" name="/assets/sidebarbdn/Sidebar DashBoard.png"/>
         </Property>
       </Properties>
       <Events>
@@ -46,7 +46,7 @@
     <Component class="javax.swing.JLabel" name="transactionBtn">
       <Properties>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="2" name="C:\Users\Hafidz\OneDrive\Documents\NetBeansProjects\Tailor_TS\src\Page\Sidebar Transaksi.png"/>
+          <Image iconType="3" name="/assets/sidebarbdn/Sidebar Transaksi.png"/>
         </Property>
       </Properties>
       <Events>
@@ -61,7 +61,7 @@
     <Component class="javax.swing.JLabel" name="measureBtn">
       <Properties>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="2" name="C:\Users\Hafidz\OneDrive\Documents\NetBeansProjects\Tailor_TS\src\Page\Sidebar Ukuran.png"/>
+          <Image iconType="3" name="/assets/sidebarbdn/Sidebar Ukuran.png"/>
         </Property>
       </Properties>
       <Events>

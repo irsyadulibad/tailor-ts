@@ -25,6 +25,18 @@ public class SidebarTailorView extends javax.swing.JPanel {
     public <T extends JFrame> SidebarTailorView(T parent) {
         this.parent = parent;
         initComponents();
+        activeState();
+    }
+
+    private void activeState() {
+        int parentCode = parent.getClass().hashCode();
+        int dashCode = DashBoardPenjahitView.class.hashCode();
+        int transCode = TransaksiPenjahitView.class.hashCode();
+        int ukurCode = UkuranView.class.hashCode();
+
+        if(parentCode == dashCode) dashboardBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/sidebarbdn/Sidebar DashBoard.png")));
+        if(parentCode == transCode) transactionBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/sidebarbdn/Sidebar Transaksi.png")));
+        if(parentCode == ukurCode) measureBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/sidebarbdn/Sidebar Ukuran.png")));
     }
 
     /**
@@ -48,7 +60,7 @@ public class SidebarTailorView extends javax.swing.JPanel {
         setPreferredSize(new java.awt.Dimension(277, 708));
         setLayout(null);
 
-        dashboardBtn.setIcon(new javax.swing.ImageIcon("C:\\Users\\Hafidz\\OneDrive\\Documents\\NetBeansProjects\\Tailor_TS\\src\\Page\\Sidebar DashBoard.png")); // NOI18N
+         // NOI18N
         dashboardBtn.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 dashboardBtnMouseClicked(evt);
@@ -57,7 +69,7 @@ public class SidebarTailorView extends javax.swing.JPanel {
         add(dashboardBtn);
         dashboardBtn.setBounds(38, 103, 200, 50);
 
-        transactionBtn.setIcon(new javax.swing.ImageIcon("C:\\Users\\Hafidz\\OneDrive\\Documents\\NetBeansProjects\\Tailor_TS\\src\\Page\\Sidebar Transaksi.png")); // NOI18N
+         // NOI18N
         transactionBtn.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 transactionBtnMouseClicked(evt);
@@ -66,7 +78,7 @@ public class SidebarTailorView extends javax.swing.JPanel {
         add(transactionBtn);
         transactionBtn.setBounds(38, 174, 200, 50);
 
-        measureBtn.setIcon(new javax.swing.ImageIcon("C:\\Users\\Hafidz\\OneDrive\\Documents\\NetBeansProjects\\Tailor_TS\\src\\Page\\Sidebar Ukuran.png")); // NOI18N
+         // NOI18N
         measureBtn.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 measureBtnMouseClicked(evt);
