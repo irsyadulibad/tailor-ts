@@ -43,7 +43,7 @@ public class LandingPageView extends javax.swing.JFrame {
             }
         });
         getContentPane().add(btn_masuk);
-        btn_masuk.setBounds(700, 450, 150, 50);
+        btn_masuk.setBounds(720, 600, 130, 50);
         getContentPane().add(tentang_aplikasi);
         tentang_aplikasi.setBounds(650, 20, 140, 30);
         getContentPane().add(btn_masuk3);
