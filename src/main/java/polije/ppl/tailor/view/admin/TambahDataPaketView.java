@@ -5,25 +5,33 @@
  */
 package polije.ppl.tailor.view.admin;
 
+import jakarta.validation.ConstraintViolation;
+import java.util.Set;
+import javax.swing.JOptionPane;
+
+import polije.ppl.tailor.entity.Package;
+import polije.ppl.tailor.repository.PackageRepository;
+import polije.ppl.tailor.repository.Repository;
+import polije.ppl.tailor.util.ValidationUtil;
+
 /**
  *
  * @author muhai
  */
 public class TambahDataPaketView extends javax.swing.JFrame {
+    private Repository<Package> pkgRepo = new PackageRepository();
 
     /**
      * Creates new form TambahDataPaketView
      */
     public TambahDataPaketView() {
         initComponents();
-        
-        txt_harga.setOpaque(false);
-        txt_harga.setBackground(new java.awt.Color(255, 255, 255, 0));
-        
-        txt_tipepakaian.setOpaque(false);
-        txt_tipepakaian.setBackground(new java.awt.Color(255, 255, 255, 0));
-        
-        
+
+        txt_name.setOpaque(false);
+        txt_name.setBackground(new java.awt.Color(255, 255, 255, 0));
+
+        txt_price.setOpaque(false);
+        txt_price.setBackground(new java.awt.Color(255, 255, 255, 0));
     }
 
     /**
@@ -35,44 +43,27 @@ public class TambahDataPaketView extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        txt_tipepakaian = new javax.swing.JTextField();
-        txt_harga = new javax.swing.JTextField();
-        btn_hapus = new javax.swing.JLabel();
+        txt_price = new javax.swing.JTextField();
+        txt_name = new javax.swing.JTextField();
         btn_simpan = new javax.swing.JLabel();
-        btn_beranda = new javax.swing.JLabel();
-        btn_paket = new javax.swing.JLabel();
-        btn_pelanggan = new javax.swing.JLabel();
-        btn_transaksi = new javax.swing.JLabel();
-        btn_penjahit = new javax.swing.JLabel();
-        btn_laporan = new javax.swing.JLabel();
-        btn_panduan = new javax.swing.JLabel();
-        btn_keluar = new javax.swing.JLabel();
         btn_kembali = new javax.swing.JLabel();
-        view = new javax.swing.JLabel();
+        btn_reset = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(1088, 708));
+        setMinimumSize(new java.awt.Dimension(1088, 708));
         getContentPane().setLayout(null);
 
-        txt_tipepakaian.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
-        txt_tipepakaian.setBorder(null);
-        getContentPane().add(txt_tipepakaian);
-        txt_tipepakaian.setBounds(410, 280, 490, 40);
+        txt_price.setFont(new java.awt.Font("Ubuntu", 0, 20)); // NOI18N
+        txt_price.setBorder(null);
+        getContentPane().add(txt_price);
+        txt_price.setBounds(410, 280, 490, 40);
 
-        txt_harga.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
-        txt_harga.setHorizontalAlignment(javax.swing.JTextField.LEFT);
-        txt_harga.setBorder(null);
-        getContentPane().add(txt_harga);
-        txt_harga.setBounds(410, 220, 490, 40);
-
-        btn_hapus.setIcon(new javax.swing.ImageIcon(getClass().getResource("/asset/TombolHapus.png"))); // NOI18N
-        btn_hapus.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btn_hapusMouseClicked(evt);
-            }
-        });
-        getContentPane().add(btn_hapus);
-        btn_hapus.setBounds(396, 335, 90, 40);
+        txt_name.setFont(new java.awt.Font("Ubuntu", 0, 20)); // NOI18N
+        txt_name.setHorizontalAlignment(javax.swing.JTextField.LEFT);
+        txt_name.setBorder(null);
+        getContentPane().add(txt_name);
+        txt_name.setBounds(410, 220, 490, 40);
 
         btn_simpan.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -82,64 +73,6 @@ public class TambahDataPaketView extends javax.swing.JFrame {
         getContentPane().add(btn_simpan);
         btn_simpan.setBounds(827, 339, 90, 30);
 
-        btn_beranda.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btn_berandaMouseClicked(evt);
-            }
-        });
-        getContentPane().add(btn_beranda);
-        btn_beranda.setBounds(37, 103, 200, 50);
-
-        btn_paket.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btn_paketMouseClicked(evt);
-            }
-        });
-        getContentPane().add(btn_paket);
-        btn_paket.setBounds(38, 174, 200, 50);
-
-        btn_pelanggan.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btn_pelangganMouseClicked(evt);
-            }
-        });
-        getContentPane().add(btn_pelanggan);
-        btn_pelanggan.setBounds(37, 243, 200, 50);
-
-        btn_transaksi.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btn_transaksiMouseClicked(evt);
-            }
-        });
-        getContentPane().add(btn_transaksi);
-        btn_transaksi.setBounds(37, 315, 200, 50);
-
-        btn_penjahit.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btn_penjahitMouseClicked(evt);
-            }
-        });
-        getContentPane().add(btn_penjahit);
-        btn_penjahit.setBounds(37, 385, 200, 50);
-
-        btn_laporan.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btn_laporanMouseClicked(evt);
-            }
-        });
-        getContentPane().add(btn_laporan);
-        btn_laporan.setBounds(37, 455, 200, 50);
-
-        btn_panduan.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btn_panduanMouseClicked(evt);
-            }
-        });
-        getContentPane().add(btn_panduan);
-        btn_panduan.setBounds(37, 527, 200, 50);
-        getContentPane().add(btn_keluar);
-        btn_keluar.setBounds(37, 595, 200, 50);
-
         btn_kembali.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btn_kembaliMouseClicked(evt);
@@ -148,61 +81,50 @@ public class TambahDataPaketView extends javax.swing.JFrame {
         getContentPane().add(btn_kembali);
         btn_kembali.setBounds(385, 153, 40, 40);
 
-        view.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/pages/Tambah Data Paket.png"))); // NOI18N
-        view.addMouseListener(new java.awt.event.MouseAdapter() {
+        btn_reset.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                viewMouseClicked(evt);
+                btn_resetMouseClicked(evt);
             }
         });
-        getContentPane().add(view);
-        view.setBounds(0, 0, 1110, 710);
+        getContentPane().add(btn_reset);
+        btn_reset.setBounds(390, 340, 90, 30);
+
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/pages/Tambah Data Paket.png"))); // NOI18N
+        jLabel1.setMaximumSize(new java.awt.Dimension(1088, 708));
+        jLabel1.setMinimumSize(new java.awt.Dimension(1088, 708));
+        jLabel1.setPreferredSize(new java.awt.Dimension(1088, 708));
+        getContentPane().add(jLabel1);
+        jLabel1.setBounds(0, 0, 1088, 708);
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void btn_simpanMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_simpanMouseClicked
-        // TODO add your handling code here:
+        int price = txt_price.getText().isEmpty() ? 0 : Integer.parseInt(txt_price.getText());
+        Package pkg = new Package(price, txt_name.getText());
+        Set<ConstraintViolation<Package>> vols = ValidationUtil.validate(pkg);
+
+        if(vols.size() < 1) {
+            pkgRepo.add(pkg);
+            JOptionPane.showMessageDialog(this, "Data berhasil ditambahkan");
+
+            new DataPaketView().setVisible(true);
+            this.dispose();
+        } else {
+            JOptionPane.showMessageDialog(this, ValidationUtil.getErrorsAsString(vols, "\n"));
+        }
     }//GEN-LAST:event_btn_simpanMouseClicked
 
-    private void btn_hapusMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_hapusMouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btn_hapusMouseClicked
-
-    private void btn_berandaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_berandaMouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btn_berandaMouseClicked
-
-    private void btn_paketMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_paketMouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btn_paketMouseClicked
-
-    private void viewMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_viewMouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_viewMouseClicked
-
-    private void btn_laporanMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_laporanMouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btn_laporanMouseClicked
-
-    private void btn_pelangganMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_pelangganMouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btn_pelangganMouseClicked
-
-    private void btn_transaksiMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_transaksiMouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btn_transaksiMouseClicked
-
-    private void btn_penjahitMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_penjahitMouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btn_penjahitMouseClicked
-
-    private void btn_panduanMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_panduanMouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btn_panduanMouseClicked
-
     private void btn_kembaliMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_kembaliMouseClicked
-        // TODO add your handling code here:
+        new DataPaketView().setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_btn_kembaliMouseClicked
+
+    private void btn_resetMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_resetMouseClicked
+        txt_name.setText("");
+        txt_price.setText("");
+    }//GEN-LAST:event_btn_resetMouseClicked
 
     /**
      * @param args the command line arguments
@@ -211,7 +133,7 @@ public class TambahDataPaketView extends javax.swing.JFrame {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
@@ -240,19 +162,11 @@ public class TambahDataPaketView extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel btn_beranda;
-    private javax.swing.JLabel btn_hapus;
-    private javax.swing.JLabel btn_keluar;
     private javax.swing.JLabel btn_kembali;
-    private javax.swing.JLabel btn_laporan;
-    private javax.swing.JLabel btn_paket;
-    private javax.swing.JLabel btn_panduan;
-    private javax.swing.JLabel btn_pelanggan;
-    private javax.swing.JLabel btn_penjahit;
+    private javax.swing.JLabel btn_reset;
     private javax.swing.JLabel btn_simpan;
-    private javax.swing.JLabel btn_transaksi;
-    private javax.swing.JTextField txt_harga;
-    private javax.swing.JTextField txt_tipepakaian;
-    private javax.swing.JLabel view;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JTextField txt_name;
+    private javax.swing.JTextField txt_price;
     // End of variables declaration//GEN-END:variables
 }
