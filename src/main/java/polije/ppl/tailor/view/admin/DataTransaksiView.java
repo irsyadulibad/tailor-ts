@@ -5,6 +5,8 @@
  */
 package polije.ppl.tailor.view.admin;
 
+import polije.ppl.tailor.view.util.SidebarAdminView;
+
 /**
  *
  * @author muhai
@@ -16,6 +18,10 @@ public class DataTransaksiView extends javax.swing.JFrame {
      */
     public DataTransaksiView() {
         initComponents();
+        
+        sidebar.add(new SidebarAdminView(this));
+        sidebar.setBackground(new java.awt.Color(255, 255, 255, 0));
+        
          search.setOpaque(false);
          search.setBackground(new java.awt.Color(255, 255, 255, 0));
     }
@@ -33,16 +39,11 @@ public class DataTransaksiView extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         btn_tambahdata = new javax.swing.JLabel();
-        btn_keluar = new javax.swing.JLabel();
-        btn_beranda = new javax.swing.JLabel();
-        btn_paket = new javax.swing.JLabel();
-        btn_pelanggan = new javax.swing.JLabel();
-        btn_penjahit = new javax.swing.JLabel();
-        btn_laporan = new javax.swing.JLabel();
-        btn_panduan = new javax.swing.JLabel();
+        sidebar = new javax.swing.JPanel();
         view = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setMinimumSize(new java.awt.Dimension(1088, 708));
         setPreferredSize(new java.awt.Dimension(1088, 708));
         getContentPane().setLayout(null);
 
@@ -82,100 +83,22 @@ public class DataTransaksiView extends javax.swing.JFrame {
         getContentPane().add(btn_tambahdata);
         btn_tambahdata.setBounds(800, 106, 130, 40);
 
-        btn_keluar.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btn_keluarMouseClicked(evt);
-            }
-        });
-        getContentPane().add(btn_keluar);
-        btn_keluar.setBounds(38, 596, 200, 50);
-
-        btn_beranda.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btn_berandaMouseClicked(evt);
-            }
-        });
-        getContentPane().add(btn_beranda);
-        btn_beranda.setBounds(38, 103, 200, 50);
-
-        btn_paket.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btn_paketMouseClicked(evt);
-            }
-        });
-        getContentPane().add(btn_paket);
-        btn_paket.setBounds(38, 173, 200, 50);
-
-        btn_pelanggan.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btn_pelangganMouseClicked(evt);
-            }
-        });
-        getContentPane().add(btn_pelanggan);
-        btn_pelanggan.setBounds(38, 243, 200, 50);
-
-        btn_penjahit.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btn_penjahitMouseClicked(evt);
-            }
-        });
-        getContentPane().add(btn_penjahit);
-        btn_penjahit.setBounds(38, 384, 200, 50);
-
-        btn_laporan.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btn_laporanMouseClicked(evt);
-            }
-        });
-        getContentPane().add(btn_laporan);
-        btn_laporan.setBounds(38, 455, 200, 50);
-
-        btn_panduan.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btn_panduanMouseClicked(evt);
-            }
-        });
-        getContentPane().add(btn_panduan);
-        btn_panduan.setBounds(38, 525, 200, 50);
+        sidebar.setMinimumSize(new java.awt.Dimension(277, 708));
+        sidebar.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 0, 0));
+        getContentPane().add(sidebar);
+        sidebar.setBounds(0, 0, 277, 708);
 
         view.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/pages/Transaksi.png"))); // NOI18N
         getContentPane().add(view);
         view.setBounds(0, 0, 1090, 708);
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void searchKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_searchKeyReleased
         // TODO add your handling code here:
     }//GEN-LAST:event_searchKeyReleased
-
-    private void btn_keluarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_keluarMouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btn_keluarMouseClicked
-
-    private void btn_berandaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_berandaMouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btn_berandaMouseClicked
-
-    private void btn_paketMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_paketMouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btn_paketMouseClicked
-
-    private void btn_pelangganMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_pelangganMouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btn_pelangganMouseClicked
-
-    private void btn_penjahitMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_penjahitMouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btn_penjahitMouseClicked
-
-    private void btn_laporanMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_laporanMouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btn_laporanMouseClicked
-
-    private void btn_panduanMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_panduanMouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btn_panduanMouseClicked
 
     private void searchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchActionPerformed
         // TODO add your handling code here:
@@ -217,17 +140,11 @@ public class DataTransaksiView extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel btn_beranda;
-    private javax.swing.JLabel btn_keluar;
-    private javax.swing.JLabel btn_laporan;
-    private javax.swing.JLabel btn_paket;
-    private javax.swing.JLabel btn_panduan;
-    private javax.swing.JLabel btn_pelanggan;
-    private javax.swing.JLabel btn_penjahit;
     private javax.swing.JLabel btn_tambahdata;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
     private javax.swing.JTextField search;
+    private javax.swing.JPanel sidebar;
     private javax.swing.JLabel view;
     // End of variables declaration//GEN-END:variables
 }

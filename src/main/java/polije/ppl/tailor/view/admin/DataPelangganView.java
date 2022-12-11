@@ -5,6 +5,8 @@
  */
 package polije.ppl.tailor.view.admin;
 
+import polije.ppl.tailor.view.util.SidebarAdminView;
+
 /**
  *
  * @author muhai
@@ -16,6 +18,10 @@ public class DataPelangganView extends javax.swing.JFrame {
      */
     public DataPelangganView() {
         initComponents();
+        
+        sidebar.add(new SidebarAdminView(this));
+        sidebar.setBackground(new java.awt.Color(255, 255, 255, 0));
+        
         txt_search.setOpaque(false);
         txt_search.setBackground(new java.awt.Color(255, 255, 255, 0));
     }
@@ -33,17 +39,11 @@ public class DataPelangganView extends javax.swing.JFrame {
         jTable1 = new javax.swing.JTable();
         txt_search = new javax.swing.JTextField();
         btn_tambahdata = new javax.swing.JLabel();
-        btn_beranda = new javax.swing.JLabel();
-        btn_keluar = new javax.swing.JLabel();
-        btn_paket = new javax.swing.JLabel();
-        btn_transaksi = new javax.swing.JLabel();
-        btn_penjahit = new javax.swing.JLabel();
-        btn_laporan = new javax.swing.JLabel();
-        btn_panduan = new javax.swing.JLabel();
+        sidebar = new javax.swing.JPanel();
         view = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(1088, 708));
+        setMinimumSize(new java.awt.Dimension(1088, 708));
         getContentPane().setLayout(null);
 
         jTable1.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
@@ -83,26 +83,18 @@ public class DataPelangganView extends javax.swing.JFrame {
         });
         getContentPane().add(btn_tambahdata);
         btn_tambahdata.setBounds(800, 100, 130, 50);
-        getContentPane().add(btn_beranda);
-        btn_beranda.setBounds(37, 104, 200, 50);
-        getContentPane().add(btn_keluar);
-        btn_keluar.setBounds(37, 595, 200, 50);
-        getContentPane().add(btn_paket);
-        btn_paket.setBounds(38, 175, 200, 50);
-        getContentPane().add(btn_transaksi);
-        btn_transaksi.setBounds(37, 315, 200, 50);
-        getContentPane().add(btn_penjahit);
-        btn_penjahit.setBounds(37, 385, 200, 50);
-        getContentPane().add(btn_laporan);
-        btn_laporan.setBounds(37, 455, 200, 50);
-        getContentPane().add(btn_panduan);
-        btn_panduan.setBounds(37, 525, 200, 50);
+
+        sidebar.setMinimumSize(new java.awt.Dimension(277, 708));
+        sidebar.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 0, 0));
+        getContentPane().add(sidebar);
+        sidebar.setBounds(0, 0, 277, 708);
 
         view.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/pages/Pelanggan.png"))); // NOI18N
         getContentPane().add(view);
         view.setBounds(0, 0, 1080, 710);
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void txt_searchKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_searchKeyPressed
@@ -153,16 +145,10 @@ public class DataPelangganView extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel btn_beranda;
-    private javax.swing.JLabel btn_keluar;
-    private javax.swing.JLabel btn_laporan;
-    private javax.swing.JLabel btn_paket;
-    private javax.swing.JLabel btn_panduan;
-    private javax.swing.JLabel btn_penjahit;
     private javax.swing.JLabel btn_tambahdata;
-    private javax.swing.JLabel btn_transaksi;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
+    private javax.swing.JPanel sidebar;
     private javax.swing.JTextField txt_search;
     private javax.swing.JLabel view;
     // End of variables declaration//GEN-END:variables
