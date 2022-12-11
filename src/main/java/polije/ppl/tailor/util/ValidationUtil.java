@@ -1,5 +1,6 @@
 package polije.ppl.tailor.util;
 
+import java.util.Collections;
 import java.util.Set;
 
 import jakarta.validation.ConstraintViolation;
@@ -26,7 +27,7 @@ public class ValidationUtil {
         StringBuilder builder = new StringBuilder();
 
         for(ConstraintViolation<T> violation: violations) {
-            builder.append(violation.getMessage() + joiner);
+            builder.insert(0, violation.getMessage() + joiner);
         }
 
         return builder.toString();

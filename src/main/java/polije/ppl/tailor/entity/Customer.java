@@ -1,6 +1,7 @@
 package polije.ppl.tailor.entity;
 
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
 public class Customer implements Entity {
@@ -8,7 +9,7 @@ public class Customer implements Entity {
 
     private Integer id;
 
-    @NotBlank(message = "Umur harus diisi")
+    @NotNull(message = "Umur harus diisi")
     private Integer age;
 
     @NotBlank(message = "Nama lengkap harus diisi")

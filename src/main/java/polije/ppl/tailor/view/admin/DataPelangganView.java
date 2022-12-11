@@ -5,6 +5,14 @@
  */
 package polije.ppl.tailor.view.admin;
 
+import java.util.List;
+
+import javax.swing.table.DefaultTableModel;
+
+import polije.ppl.tailor.entity.Customer;
+import polije.ppl.tailor.repository.CustomerRepository;
+import polije.ppl.tailor.repository.Repository;
+import polije.ppl.tailor.util.ViewUtil;
 import polije.ppl.tailor.view.util.SidebarAdminView;
 
 /**
@@ -12,18 +20,21 @@ import polije.ppl.tailor.view.util.SidebarAdminView;
  * @author muhai
  */
 public class DataPelangganView extends javax.swing.JFrame {
+    private Repository<Customer> custRepo = new CustomerRepository();
 
     /**
      * Creates new form DataPelangganView
      */
     public DataPelangganView() {
         initComponents();
-        
+
         sidebar.add(new SidebarAdminView(this));
         sidebar.setBackground(new java.awt.Color(255, 255, 255, 0));
-        
+
         txt_search.setOpaque(false);
         txt_search.setBackground(new java.awt.Color(255, 255, 255, 0));
+
+        loadTable(custRepo.get());
     }
 
     /**
@@ -46,7 +57,7 @@ public class DataPelangganView extends javax.swing.JFrame {
         setMinimumSize(new java.awt.Dimension(1088, 708));
         getContentPane().setLayout(null);
 
-        jTable1.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
+        jTable1.setFont(new java.awt.Font("Ubuntu", 0, 14)); // NOI18N
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -106,7 +117,8 @@ public class DataPelangganView extends javax.swing.JFrame {
     }//GEN-LAST:event_txt_searchKeyReleased
 
     private void btn_tambahdataMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_tambahdataMouseClicked
-        // TODO add your handling code here:
+        new TambahDataPelangganView().setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_btn_tambahdataMouseClicked
 
     /**
@@ -116,7 +128,7 @@ public class DataPelangganView extends javax.swing.JFrame {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
@@ -142,6 +154,30 @@ public class DataPelangganView extends javax.swing.JFrame {
                 new DataPelangganView().setVisible(true);
             }
         });
+    }
+
+    private void loadTable(List<Customer> customers) {
+        int no = 1;
+        DefaultTableModel model = new DefaultTableModel();
+
+        model.addColumn("No");
+        model.addColumn("Nama");
+        model.addColumn("Umur");
+        model.addColumn("No. Telp");
+        model.addColumn("ID");
+
+        for(Customer customer: customers) {
+            model.addRow(new Object[] {
+                no++,
+                customer.getFullname(),
+                customer.getAge(),
+                customer.getPhone(),
+                customer.getId()
+            });
+        }
+
+        jTable1.setModel(model);
+        ViewUtil.hideTableColumn(jTable1, 4);
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
