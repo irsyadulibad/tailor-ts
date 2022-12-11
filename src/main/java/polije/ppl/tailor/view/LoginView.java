@@ -8,6 +8,7 @@ package polije.ppl.tailor.view;
 import javax.swing.JOptionPane;
 
 import polije.ppl.tailor.service.AuthService;
+import polije.ppl.tailor.util.ViewUtil;
 import polije.ppl.tailor.view.tailor.DashBoardPenjahitView;
 
 /**
@@ -97,8 +98,7 @@ public class LoginView extends javax.swing.JFrame {
 
     private void masukMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_masukMouseClicked
         if(new AuthService().login(username.getText(), pass.getText())) {
-            this.dispose();
-            new DashBoardPenjahitView().setVisible(true);
+            new ViewUtil().authRedirector(this);
         } else {
             JOptionPane.showMessageDialog(this, "Username atau Password salah!");
         }

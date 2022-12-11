@@ -14,6 +14,7 @@ import polije.ppl.tailor.data.SessionData;
 import polije.ppl.tailor.entity.Account;
 import polije.ppl.tailor.service.AuthService;
 import polije.ppl.tailor.util.ValidationUtil;
+import polije.ppl.tailor.util.ViewUtil;
 import polije.ppl.tailor.view.tailor.DashBoardPenjahitView;
 
 /**
@@ -109,7 +110,7 @@ public class PassBaruView extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(this, errors);
             } else {
                 new AuthService().resetPassword(account);
-                new DashBoardPenjahitView().setVisible(true);
+                new ViewUtil().authRedirector(this);
 
                 JOptionPane.showMessageDialog(this, "Password berhasil diubah");
                 this.dispose();
