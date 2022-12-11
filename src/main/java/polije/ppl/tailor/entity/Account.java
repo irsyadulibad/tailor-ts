@@ -14,6 +14,7 @@ public class Account implements Entity {
     @NotBlank(message = "Nama Lengkap Harus diisi")
     private String fullname;
 
+    @NotBlank(message = "Email harus diisi")
     @Email(message = "Email harus valid")
     private String email;
 

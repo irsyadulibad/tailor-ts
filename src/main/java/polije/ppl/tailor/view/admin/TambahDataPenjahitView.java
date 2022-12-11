@@ -5,11 +5,23 @@
  */
 package polije.ppl.tailor.view.admin;
 
+import java.util.Set;
+
+import javax.swing.JOptionPane;
+
+import jakarta.validation.ConstraintViolation;
+import polije.ppl.tailor.data.AccountRole;
+import polije.ppl.tailor.entity.Account;
+import polije.ppl.tailor.repository.AccountRepository;
+import polije.ppl.tailor.repository.Repository;
+import polije.ppl.tailor.util.ValidationUtil;
+
 /**
  *
  * @author muhai
  */
 public class TambahDataPenjahitView extends javax.swing.JFrame {
+    private Repository<Account> accRepo = new AccountRepository();
 
     /**
      * Creates new form TambahDataPenjahitView
@@ -18,16 +30,16 @@ public class TambahDataPenjahitView extends javax.swing.JFrame {
         initComponents();
         txt_namapenjahit.setOpaque(false);
         txt_namapenjahit.setBackground(new java.awt.Color(255, 255, 255, 0));
-        
+
         txt_username.setOpaque(false);
         txt_username.setBackground(new java.awt.Color(255, 255, 255, 0));
-        
+
         txt_email.setOpaque(false);
         txt_email.setBackground(new java.awt.Color(255, 255, 255, 0));
-        
+
         pass.setOpaque(false);
         pass.setBackground(new java.awt.Color(255, 255, 255, 0));
-        
+
     }
 
     /**
@@ -43,45 +55,46 @@ public class TambahDataPenjahitView extends javax.swing.JFrame {
         txt_username = new javax.swing.JTextField();
         txt_namapenjahit = new javax.swing.JTextField();
         pass = new javax.swing.JPasswordField();
+        btn_reset = new javax.swing.JLabel();
         btn_simpan = new javax.swing.JLabel();
-        btn_hapus = new javax.swing.JLabel();
         btn_kembali = new javax.swing.JLabel();
-        btn_keluar = new javax.swing.JLabel();
-        btn_beranda = new javax.swing.JLabel();
-        btn_paket = new javax.swing.JLabel();
-        btn_pelanggan = new javax.swing.JLabel();
-        btn_transaksi = new javax.swing.JLabel();
-        btn_penjahit = new javax.swing.JLabel();
-        btn_panduan = new javax.swing.JLabel();
-        btn_laporan = new javax.swing.JLabel();
         view = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setMinimumSize(new java.awt.Dimension(1088, 708));
         setPreferredSize(new java.awt.Dimension(1088, 708));
         getContentPane().setLayout(null);
 
-        txt_email.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
+        txt_email.setFont(new java.awt.Font("Ubuntu", 0, 20)); // NOI18N
         txt_email.setHorizontalAlignment(javax.swing.JTextField.LEFT);
         txt_email.setBorder(null);
         getContentPane().add(txt_email);
         txt_email.setBounds(660, 330, 240, 40);
 
-        txt_username.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
+        txt_username.setFont(new java.awt.Font("Ubuntu", 0, 20)); // NOI18N
         txt_username.setHorizontalAlignment(javax.swing.JTextField.LEFT);
         txt_username.setBorder(null);
         getContentPane().add(txt_username);
         txt_username.setBounds(397, 332, 230, 40);
 
-        txt_namapenjahit.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
+        txt_namapenjahit.setFont(new java.awt.Font("Ubuntu", 0, 20)); // NOI18N
         txt_namapenjahit.setHorizontalAlignment(javax.swing.JTextField.LEFT);
         txt_namapenjahit.setBorder(null);
         getContentPane().add(txt_namapenjahit);
         txt_namapenjahit.setBounds(397, 260, 500, 40);
 
-        pass.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
+        pass.setFont(new java.awt.Font("Ubuntu", 0, 20)); // NOI18N
         pass.setBorder(null);
         getContentPane().add(pass);
         pass.setBounds(397, 402, 500, 40);
+
+        btn_reset.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btn_resetMouseClicked(evt);
+            }
+        });
+        getContentPane().add(btn_reset);
+        btn_reset.setBounds(390, 460, 80, 30);
 
         btn_simpan.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -91,15 +104,6 @@ public class TambahDataPenjahitView extends javax.swing.JFrame {
         getContentPane().add(btn_simpan);
         btn_simpan.setBounds(817, 460, 90, 30);
 
-        btn_hapus.setIcon(new javax.swing.ImageIcon(getClass().getResource("/asset/TombolHapus.png"))); // NOI18N
-        btn_hapus.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btn_hapusMouseClicked(evt);
-            }
-        });
-        getContentPane().add(btn_hapus);
-        btn_hapus.setBounds(384, 461, 90, 30);
-
         btn_kembali.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btn_kembaliMouseClicked(evt);
@@ -108,127 +112,47 @@ public class TambahDataPenjahitView extends javax.swing.JFrame {
         getContentPane().add(btn_kembali);
         btn_kembali.setBounds(370, 190, 50, 40);
 
-        btn_keluar.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btn_keluarMouseClicked(evt);
-            }
-        });
-        getContentPane().add(btn_keluar);
-        btn_keluar.setBounds(37, 595, 200, 50);
-
-        btn_beranda.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btn_berandaMouseClicked(evt);
-            }
-        });
-        getContentPane().add(btn_beranda);
-        btn_beranda.setBounds(37, 105, 200, 50);
-
-        btn_paket.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btn_paketMouseClicked(evt);
-            }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                btn_paketMouseEntered(evt);
-            }
-        });
-        getContentPane().add(btn_paket);
-        btn_paket.setBounds(37, 175, 200, 50);
-
-        btn_pelanggan.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btn_pelangganMouseClicked(evt);
-            }
-        });
-        getContentPane().add(btn_pelanggan);
-        btn_pelanggan.setBounds(37, 245, 200, 50);
-
-        btn_transaksi.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btn_transaksiMouseClicked(evt);
-            }
-        });
-        getContentPane().add(btn_transaksi);
-        btn_transaksi.setBounds(37, 317, 200, 50);
-
-        btn_penjahit.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btn_penjahitMouseClicked(evt);
-            }
-        });
-        getContentPane().add(btn_penjahit);
-        btn_penjahit.setBounds(37, 385, 200, 50);
-
-        btn_panduan.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btn_panduanMouseClicked(evt);
-            }
-        });
-        getContentPane().add(btn_panduan);
-        btn_panduan.setBounds(37, 525, 200, 50);
-
-        btn_laporan.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btn_laporanMouseClicked(evt);
-            }
-        });
-        getContentPane().add(btn_laporan);
-        btn_laporan.setBounds(37, 457, 200, 50);
-
         view.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/pages/Tambah Penjahit.png"))); // NOI18N
         getContentPane().add(view);
         view.setBounds(0, 0, 1090, 710);
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void btn_kembaliMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_kembaliMouseClicked
-        // TODO add your handling code here:
+        new DataPenjahitView().setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_btn_kembaliMouseClicked
 
     private void btn_simpanMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_simpanMouseClicked
-        // TODO add your handling code here:
+        Account account = new Account(
+            txt_namapenjahit.getText(),
+            txt_email.getText(),
+            txt_username.getText(),
+            pass.getText(),
+            AccountRole.tailor
+        );
+
+        Set<ConstraintViolation<Account>> vols = ValidationUtil.validate(account);
+
+        if(vols.size() < 1) {
+            accRepo.add(account);
+            JOptionPane.showMessageDialog(this, "Data berhasil ditambahkan");
+
+            new DataPenjahitView().setVisible(true);
+            this.dispose();
+        } else {
+            JOptionPane.showMessageDialog(this, ValidationUtil.getErrorsAsString(vols, "\n"));
+        }
     }//GEN-LAST:event_btn_simpanMouseClicked
 
-    private void btn_hapusMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_hapusMouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btn_hapusMouseClicked
-
-    private void btn_keluarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_keluarMouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btn_keluarMouseClicked
-
-    private void btn_berandaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_berandaMouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btn_berandaMouseClicked
-
-    private void btn_paketMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_paketMouseEntered
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btn_paketMouseEntered
-
-    private void btn_paketMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_paketMouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btn_paketMouseClicked
-
-    private void btn_pelangganMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_pelangganMouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btn_pelangganMouseClicked
-
-    private void btn_transaksiMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_transaksiMouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btn_transaksiMouseClicked
-
-    private void btn_penjahitMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_penjahitMouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btn_penjahitMouseClicked
-
-    private void btn_laporanMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_laporanMouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btn_laporanMouseClicked
-
-    private void btn_panduanMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_panduanMouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btn_panduanMouseClicked
+    private void btn_resetMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_resetMouseClicked
+        txt_email.setText("");
+        txt_namapenjahit.setText("");
+        txt_username.setText("");
+        pass.setText("");
+    }//GEN-LAST:event_btn_resetMouseClicked
 
     /**
      * @param args the command line arguments
@@ -237,7 +161,7 @@ public class TambahDataPenjahitView extends javax.swing.JFrame {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
@@ -266,17 +190,9 @@ public class TambahDataPenjahitView extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel btn_beranda;
-    private javax.swing.JLabel btn_hapus;
-    private javax.swing.JLabel btn_keluar;
     private javax.swing.JLabel btn_kembali;
-    private javax.swing.JLabel btn_laporan;
-    private javax.swing.JLabel btn_paket;
-    private javax.swing.JLabel btn_panduan;
-    private javax.swing.JLabel btn_pelanggan;
-    private javax.swing.JLabel btn_penjahit;
+    private javax.swing.JLabel btn_reset;
     private javax.swing.JLabel btn_simpan;
-    private javax.swing.JLabel btn_transaksi;
     private javax.swing.JPasswordField pass;
     private javax.swing.JTextField txt_email;
     private javax.swing.JTextField txt_namapenjahit;

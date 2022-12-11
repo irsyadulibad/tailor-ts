@@ -34,11 +34,13 @@ public class SidebarAdminView extends javax.swing.JPanel {
         int transCode = DataTransaksiView.class.hashCode();
         int custCode = DataPelangganView.class.hashCode();
         int packCode = DataPaketView.class.hashCode();
+        int tailCode = DataPenjahitView.class.hashCode();
 
         if(parentCode == dashCode) dashboardBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/sidebarbdn/Sidebar DashBoard.png")));
         if(parentCode == transCode) transactionBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/sidebarbdn/Sidebar Transaksi.png")));
         if(parentCode == custCode) customerBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/sidebarbdn/Sidebar Pelanggan.png")));
         if(parentCode == packCode) packageBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/sidebarbdn/Sidebar Paket.png")));
+        if(parentCode == tailCode) tailorBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/sidebarbdn/Sidebar Penjahit.png")));
     }
 
     /**
@@ -55,6 +57,7 @@ public class SidebarAdminView extends javax.swing.JPanel {
         customerBtn = new javax.swing.JLabel();
         logoutBtn = new javax.swing.JLabel();
         transactionBtn = new javax.swing.JLabel();
+        tailorBtn = new javax.swing.JLabel();
         sidebarImg = new javax.swing.JLabel();
 
         setMinimumSize(new java.awt.Dimension(277, 708));
@@ -103,6 +106,14 @@ public class SidebarAdminView extends javax.swing.JPanel {
         add(transactionBtn);
         transactionBtn.setBounds(38, 315, 199, 49);
 
+        tailorBtn.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tailorBtnMouseClicked(evt);
+            }
+        });
+        add(tailorBtn);
+        tailorBtn.setBounds(38, 385, 199, 49);
+
         sidebarImg.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/Sidebar Admin.png"))); // NOI18N
         add(sidebarImg);
         sidebarImg.setBounds(0, 0, 277, 708);
@@ -133,6 +144,11 @@ public class SidebarAdminView extends javax.swing.JPanel {
         parent.dispose();
     }//GEN-LAST:event_transactionBtnMouseClicked
 
+    private void tailorBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tailorBtnMouseClicked
+        new DataPenjahitView().setVisible(true);
+        parent.dispose();
+    }//GEN-LAST:event_tailorBtnMouseClicked
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel customerBtn;
@@ -140,6 +156,7 @@ public class SidebarAdminView extends javax.swing.JPanel {
     private javax.swing.JLabel logoutBtn;
     private javax.swing.JLabel packageBtn;
     private javax.swing.JLabel sidebarImg;
+    private javax.swing.JLabel tailorBtn;
     private javax.swing.JLabel transactionBtn;
     // End of variables declaration//GEN-END:variables
 }
