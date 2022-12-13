@@ -5,49 +5,37 @@
  */
 package polije.ppl.tailor.view.admin;
 
+import java.util.HashMap;
+import java.util.List;
+
+import polije.ppl.tailor.data.AccountRole;
+import polije.ppl.tailor.data.ComboItem;
+import polije.ppl.tailor.entity.Account;
+import polije.ppl.tailor.entity.Customer;
+import polije.ppl.tailor.entity.Package;
+import polije.ppl.tailor.entity.TransactionDetail;
+import polije.ppl.tailor.repository.Repository;
+import polije.ppl.tailor.repository.AccountRepository;
+import polije.ppl.tailor.repository.CustomerRepository;
+import polije.ppl.tailor.repository.PackageRepository;
+import polije.ppl.tailor.view.util.SearchableComboBox;
+
 /**
  *
  * @author muhai
  */
 public class TambahTransaksiView extends javax.swing.JFrame {
+    private Repository<Account> accRepo = new AccountRepository();
+    private Repository<Customer> custRepo = new CustomerRepository();
+    private Repository<Package> pkgRepo = new PackageRepository();
 
     /**
      * Creates new form TambahTransaksiView
      */
     public TambahTransaksiView() {
+        fillComboBox();
         initComponents();
-        txt_tanggal.setOpaque(false);
-        txt_tanggal.setBackground(new java.awt.Color(255, 255, 255, 0));
-        
-        txt_pelanggan.setOpaque(false);
-        txt_pelanggan.setBackground(new java.awt.Color(255, 255, 255, 0));
-        
-        penjahit.setOpaque(false);
-        penjahit.setBackground(new java.awt.Color(255, 255, 255, 0));
-        
-        namapakaian.setOpaque(false);
-        namapakaian.setBackground(new java.awt.Color(255, 255, 255, 0));
-        
-        jumlah.setOpaque(false);
-        jumlah.setBackground(new java.awt.Color(255, 255, 255, 0));
-        
-        harga.setOpaque(false);
-        harga.setBackground(new java.awt.Color(255, 255, 255, 0));
-         
-        totalharga.setOpaque(false);
-        totalharga.setBackground(new java.awt.Color(255, 255, 255, 0));
-        
-        tipe.setOpaque(false);
-        tipe.setBackground(new java.awt.Color(255, 255, 255, 0));
-        
-        jScrollPane2.setOpaque(false);
-        jScrollPane2.getViewport().setOpaque(false);
-        jScrollPane2.setBorder(null);
-        jScrollPane2.setViewportBorder(null);
-        
-        catatan.setOpaque(false);
-        catatan.setBackground(new java.awt.Color(255, 255, 255, 0));
-        
+        initTransparent();
     }
 
     /**
@@ -60,11 +48,8 @@ public class TambahTransaksiView extends javax.swing.JFrame {
     private void initComponents() {
 
         txt_tanggal = new javax.swing.JTextField();
-        txt_pelanggan = new javax.swing.JTextField();
-        penjahit = new javax.swing.JTextField();
         totalharga = new javax.swing.JTextField();
         namapakaian = new javax.swing.JTextField();
-        tipe = new javax.swing.JTextField();
         jumlah = new javax.swing.JTextField();
         harga = new javax.swing.JTextField();
         btn_kembali = new javax.swing.JLabel();
@@ -86,7 +71,8 @@ public class TambahTransaksiView extends javax.swing.JFrame {
         view = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(1088, 720));
+        setMinimumSize(new java.awt.Dimension(1088, 708));
+        setPreferredSize(new java.awt.Dimension(1088, 108));
         getContentPane().setLayout(null);
 
         txt_tanggal.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
@@ -99,28 +85,6 @@ public class TambahTransaksiView extends javax.swing.JFrame {
         });
         getContentPane().add(txt_tanggal);
         txt_tanggal.setBounds(680, 220, 230, 30);
-
-        txt_pelanggan.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
-        txt_pelanggan.setHorizontalAlignment(javax.swing.JTextField.LEFT);
-        txt_pelanggan.setBorder(null);
-        txt_pelanggan.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txt_pelangganActionPerformed(evt);
-            }
-        });
-        getContentPane().add(txt_pelanggan);
-        txt_pelanggan.setBounds(420, 152, 490, 40);
-
-        penjahit.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
-        penjahit.setHorizontalAlignment(javax.swing.JTextField.LEFT);
-        penjahit.setBorder(null);
-        penjahit.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                penjahitActionPerformed(evt);
-            }
-        });
-        getContentPane().add(penjahit);
-        penjahit.setBounds(420, 220, 230, 30);
 
         totalharga.setFont(new java.awt.Font("Ubuntu", 0, 14)); // NOI18N
         totalharga.setHorizontalAlignment(javax.swing.JTextField.LEFT);
@@ -143,17 +107,6 @@ public class TambahTransaksiView extends javax.swing.JFrame {
         });
         getContentPane().add(namapakaian);
         namapakaian.setBounds(410, 307, 90, 30);
-
-        tipe.setFont(new java.awt.Font("Ubuntu", 0, 14)); // NOI18N
-        tipe.setHorizontalAlignment(javax.swing.JTextField.LEFT);
-        tipe.setBorder(null);
-        tipe.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                tipeActionPerformed(evt);
-            }
-        });
-        getContentPane().add(tipe);
-        tipe.setBounds(520, 307, 90, 30);
 
         jumlah.setFont(new java.awt.Font("Ubuntu", 0, 14)); // NOI18N
         jumlah.setHorizontalAlignment(javax.swing.JTextField.LEFT);
@@ -282,7 +235,7 @@ public class TambahTransaksiView extends javax.swing.JFrame {
         jScrollPane1.setViewportView(jTable1);
 
         getContentPane().add(jScrollPane1);
-        jScrollPane1.setBounds(380, 340, 570, 80);
+        jScrollPane1.setBounds(400, 340, 510, 80);
 
         catatan.setColumns(20);
         catatan.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
@@ -299,17 +252,89 @@ public class TambahTransaksiView extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void fillComboBox() {
+        ComboItem[] items;
+        List<Customer> customers = custRepo.get();
+        List<Package> packages = pkgRepo.get();
+        List<Account> tailors = accRepo.get(new HashMap<>(){{
+            put("role", AccountRole.tailor.toString());
+        }});
+        
+        items = new ComboItem[customers.size()];
+        for(int i = 0; i < customers.size(); i++) {
+            Customer customer = customers.get(i);
+            items[i] = new ComboItem(customer.getId(), customer.getFullname());
+        }
+        
+        customerInput = new SearchableComboBox(items);
+        customerInput.setFont(new java.awt.Font("Ubuntu", 0, 16));
+        customerInput.setBorder(null);
+        customerInput.setBounds(420, 156, 490, 30);
+        
+        items = new ComboItem[tailors.size()];
+        for(int i = 0; i < tailors.size(); i++) {
+            Account account = tailors.get(i);
+            items[i] = new ComboItem(account.getId(), account.getFullname());
+        }
+        
+        tailorInput = new SearchableComboBox(items);
+        tailorInput.setFont(new java.awt.Font("Ubuntu", 0, 16));
+        tailorInput.setBorder(null);
+        tailorInput.setBounds(420, 223, 230, 30);
+        
+        items = new ComboItem[packages.size()];
+        for(int i = 0; i < packages.size(); i++) {
+            Package pkg = packages.get(i);
+            items[i] = new ComboItem(pkg.getId(), pkg.getName());
+        }
+        
+        packageInput = new SearchableComboBox(items);
+        packageInput.setFont(new java.awt.Font("Ubuntu", 0, 16));
+        packageInput.setBorder(null);
+        packageInput.setBounds(520, 307, 90, 30);
+        
+        getContentPane().add(customerInput);
+        getContentPane().add(tailorInput);
+        getContentPane().add(packageInput);
+    }
+    
+    private void initTransparent() {
+        txt_tanggal.setOpaque(false);
+        txt_tanggal.setBackground(new java.awt.Color(255, 255, 255, 0));
+        
+        customerInput.setOpaque(false);
+        customerInput.setBackground(new java.awt.Color(255, 255, 255, 0));
+        
+        tailorInput.setOpaque(false);
+        tailorInput.setBackground(new java.awt.Color(255, 255, 255, 0));
+        
+        namapakaian.setOpaque(false);
+        namapakaian.setBackground(new java.awt.Color(255, 255, 255, 0));
+        
+        jumlah.setOpaque(false);
+        jumlah.setBackground(new java.awt.Color(255, 255, 255, 0));
+        
+        harga.setOpaque(false);
+        harga.setBackground(new java.awt.Color(255, 255, 255, 0));
+         
+        totalharga.setOpaque(false);
+        totalharga.setBackground(new java.awt.Color(255, 255, 255, 0));
+        
+        packageInput.setOpaque(false);
+        packageInput.setBackground(new java.awt.Color(255, 255, 255, 0));
+        
+        jScrollPane2.setOpaque(false);
+        jScrollPane2.getViewport().setOpaque(false);
+        jScrollPane2.setBorder(null);
+        jScrollPane2.setViewportBorder(null);
+        
+        catatan.setOpaque(false);
+        catatan.setBackground(new java.awt.Color(255, 255, 255, 0));
+    }
+    
     private void txt_tanggalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_tanggalActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txt_tanggalActionPerformed
-
-    private void txt_pelangganActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_pelangganActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txt_pelangganActionPerformed
-
-    private void penjahitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_penjahitActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_penjahitActionPerformed
 
     private void totalhargaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_totalhargaActionPerformed
         // TODO add your handling code here:
@@ -319,16 +344,12 @@ public class TambahTransaksiView extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_namapakaianActionPerformed
 
-    private void tipeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tipeActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_tipeActionPerformed
-
     private void jumlahActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jumlahActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jumlahActionPerformed
 
     private void btn_simpanMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_simpanMouseClicked
-        // TODO add your handling code here:
+
     }//GEN-LAST:event_btn_simpanMouseClicked
 
     private void btn_kembaliMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_kembaliMouseClicked
@@ -409,7 +430,10 @@ public class TambahTransaksiView extends javax.swing.JFrame {
             }
         });
     }
-
+    
+    private javax.swing.JComboBox customerInput;
+    private javax.swing.JComboBox tailorInput;
+    private javax.swing.JComboBox packageInput;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel btn_beranda;
     private javax.swing.JLabel btn_hapus;
@@ -430,10 +454,7 @@ public class TambahTransaksiView extends javax.swing.JFrame {
     private javax.swing.JTable jTable1;
     private javax.swing.JTextField jumlah;
     private javax.swing.JTextField namapakaian;
-    private javax.swing.JTextField penjahit;
-    private javax.swing.JTextField tipe;
     private javax.swing.JTextField totalharga;
-    private javax.swing.JTextField txt_pelanggan;
     private javax.swing.JTextField txt_tanggal;
     private javax.swing.JLabel view;
     // End of variables declaration//GEN-END:variables
