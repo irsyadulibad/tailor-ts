@@ -35,12 +35,17 @@ public class SidebarAdminView extends javax.swing.JPanel {
         int custCode = DataPelangganView.class.hashCode();
         int packCode = DataPaketView.class.hashCode();
         int tailCode = DataPenjahitView.class.hashCode();
+        int pandCode = PanduanAdminView.class.hashCode();
+        int lapCode = LaporanAdminView.class.hashCode();
 
         if(parentCode == dashCode) dashboardBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/sidebarbdn/Sidebar DashBoard.png")));
         if(parentCode == transCode) transactionBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/sidebarbdn/Sidebar Transaksi.png")));
         if(parentCode == custCode) customerBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/sidebarbdn/Sidebar Pelanggan.png")));
         if(parentCode == packCode) packageBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/sidebarbdn/Sidebar Paket.png")));
         if(parentCode == tailCode) tailorBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/sidebarbdn/Sidebar Penjahit.png")));
+        if(parentCode == pandCode) panduanBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/sidebarbdn/Panduan.png")));
+        if(parentCode == lapCode) laporanBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/sidebarbdn/Laporan.png")));
+        
     }
 
     /**
@@ -58,6 +63,8 @@ public class SidebarAdminView extends javax.swing.JPanel {
         logoutBtn = new javax.swing.JLabel();
         transactionBtn = new javax.swing.JLabel();
         tailorBtn = new javax.swing.JLabel();
+        panduanBtn = new javax.swing.JLabel();
+        laporanBtn = new javax.swing.JLabel();
         sidebarImg = new javax.swing.JLabel();
 
         setMinimumSize(new java.awt.Dimension(277, 708));
@@ -114,6 +121,22 @@ public class SidebarAdminView extends javax.swing.JPanel {
         add(tailorBtn);
         tailorBtn.setBounds(38, 385, 199, 49);
 
+        panduanBtn.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                panduanBtnMouseClicked(evt);
+            }
+        });
+        add(panduanBtn);
+        panduanBtn.setBounds(38, 527, 200, 50);
+
+        laporanBtn.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                laporanBtnMouseClicked(evt);
+            }
+        });
+        add(laporanBtn);
+        laporanBtn.setBounds(38, 456, 200, 50);
+
         sidebarImg.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/Sidebar Admin.png"))); // NOI18N
         add(sidebarImg);
         sidebarImg.setBounds(0, 0, 277, 708);
@@ -149,12 +172,24 @@ public class SidebarAdminView extends javax.swing.JPanel {
         parent.dispose();
     }//GEN-LAST:event_tailorBtnMouseClicked
 
+    private void panduanBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panduanBtnMouseClicked
+        new PanduanAdminView().setVisible(true);
+        parent.dispose();
+    }//GEN-LAST:event_panduanBtnMouseClicked
+
+    private void laporanBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_laporanBtnMouseClicked
+        new LaporanAdminView().setVisible(true);
+        parent.dispose();
+    }//GEN-LAST:event_laporanBtnMouseClicked
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel customerBtn;
     private javax.swing.JLabel dashboardBtn;
+    private javax.swing.JLabel laporanBtn;
     private javax.swing.JLabel logoutBtn;
     private javax.swing.JLabel packageBtn;
+    private javax.swing.JLabel panduanBtn;
     private javax.swing.JLabel sidebarImg;
     private javax.swing.JLabel tailorBtn;
     private javax.swing.JLabel transactionBtn;
