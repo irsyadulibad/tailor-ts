@@ -8,12 +8,14 @@ package polije.ppl.tailor.view.util;
  *
  * @author muhai
  */
-public class Popup_berhasil extends javax.swing.JFrame {
+public class PopupSuccess extends javax.swing.JFrame {
+    String msg;
 
     /**
      * Creates new form Popup_berhasil
      */
-    public Popup_berhasil() {
+    public PopupSuccess(String message) {
+        this.msg = message;
         initComponents();
     }
 
@@ -27,7 +29,6 @@ public class Popup_berhasil extends javax.swing.JFrame {
     private void initComponents() {
 
         text1 = new javax.swing.JLabel();
-        text2 = new javax.swing.JLabel();
         btn = new javax.swing.JLabel();
         view = new javax.swing.JLabel();
 
@@ -36,14 +37,9 @@ public class Popup_berhasil extends javax.swing.JFrame {
         getContentPane().setLayout(null);
 
         text1.setFont(new java.awt.Font("Ubuntu", 1, 36)); // NOI18N
-        text1.setText("Data Berhasil ");
+        text1.setText("Data Berhasil Disimpan");
         getContentPane().add(text1);
-        text1.setBounds(180, 140, 242, 60);
-
-        text2.setFont(new java.awt.Font("Ubuntu", 1, 36)); // NOI18N
-        text2.setText("Disimpan");
-        getContentPane().add(text2);
-        text2.setBounds(180, 190, 159, 40);
+        text1.setBounds(180, 140, 270, 120);
 
         btn.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -70,41 +66,15 @@ public class Popup_berhasil extends javax.swing.JFrame {
      * @param args the command line arguments
      */
     public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Popup_berhasil.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Popup_berhasil.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Popup_berhasil.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Popup_berhasil.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new Popup_berhasil().setVisible(true);
-            }
-        });
+    }
+    
+    public static void show(String message) {
+        new PopupSuccess(message).setVisible(true);
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel btn;
     private javax.swing.JLabel text1;
-    private javax.swing.JLabel text2;
     private javax.swing.JLabel view;
     // End of variables declaration//GEN-END:variables
 }

@@ -63,13 +63,13 @@ public class TambahTransaksiView extends javax.swing.JFrame {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
-        dateInput = new JDateChooser();
+
         namapakaian = new javax.swing.JTextField();
         jumlah = new javax.swing.JTextField();
         harga = new javax.swing.JTextField();
         btn_kembali = new javax.swing.JLabel();
         btn_simpan = new javax.swing.JLabel();
-        btn_simpan2 = new javax.swing.JLabel();
+        btn_save = new javax.swing.JLabel();
         btn_hapus = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
@@ -77,14 +77,12 @@ public class TambahTransaksiView extends javax.swing.JFrame {
         catatan = new javax.swing.JTextArea();
         grandTotal = new javax.swing.JLabel();
         sidebar = new javax.swing.JPanel();
+        btn_reset = new javax.swing.JLabel();
         view = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(1088, 708));
         getContentPane().setLayout(null);
-
-        dateInput.setBounds(680, 223, 230, 30);
-        getContentPane().add(dateInput);
 
         namapakaian.setFont(new java.awt.Font("Ubuntu", 0, 14)); // NOI18N
         namapakaian.setHorizontalAlignment(javax.swing.JTextField.LEFT);
@@ -134,8 +132,14 @@ public class TambahTransaksiView extends javax.swing.JFrame {
         });
         getContentPane().add(btn_simpan);
         btn_simpan.setBounds(830, 300, 40, 40);
-        getContentPane().add(btn_simpan2);
-        btn_simpan2.setBounds(835, 650, 90, 40);
+
+        btn_save.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btn_saveMouseClicked(evt);
+            }
+        });
+        getContentPane().add(btn_save);
+        btn_save.setBounds(835, 650, 90, 40);
 
         btn_hapus.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -184,6 +188,14 @@ public class TambahTransaksiView extends javax.swing.JFrame {
         sidebar.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 0, 0));
         getContentPane().add(sidebar);
         sidebar.setBounds(0, 0, 277, 708);
+
+        btn_reset.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btn_resetMouseClicked(evt);
+            }
+        });
+        getContentPane().add(btn_reset);
+        btn_reset.setBounds(400, 650, 90, 40);
 
         view.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/pages/Tambah Transaksi.png"))); // NOI18N
         getContentPane().add(view);
@@ -376,6 +388,14 @@ public class TambahTransaksiView extends javax.swing.JFrame {
         );
     }//GEN-LAST:event_jTable1MouseClicked
 
+    private void btn_saveMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_saveMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btn_saveMouseClicked
+
+    private void btn_resetMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_resetMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btn_resetMouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -418,8 +438,9 @@ public class TambahTransaksiView extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel btn_hapus;
     private javax.swing.JLabel btn_kembali;
+    private javax.swing.JLabel btn_reset;
+    private javax.swing.JLabel btn_save;
     private javax.swing.JLabel btn_simpan;
-    private javax.swing.JLabel btn_simpan2;
     private javax.swing.JTextArea catatan;
     private javax.swing.JLabel grandTotal;
     private javax.swing.JTextField harga;
