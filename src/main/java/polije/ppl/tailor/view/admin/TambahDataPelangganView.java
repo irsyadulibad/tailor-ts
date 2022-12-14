@@ -15,6 +15,7 @@ import polije.ppl.tailor.entity.Customer;
 import polije.ppl.tailor.repository.CustomerRepository;
 import polije.ppl.tailor.repository.Repository;
 import polije.ppl.tailor.util.ValidationUtil;
+import polije.ppl.tailor.view.util.PopupSuccess;
 import polije.ppl.tailor.view.util.SidebarAdminView;
 
 /**
@@ -172,16 +173,17 @@ public class TambahDataPelangganView extends javax.swing.JFrame {
                 txt_alamat.getText()
         );
         Set<ConstraintViolation<Customer>> vols = ValidationUtil.validate(customer);
-
-        if(vols.size() < 1) {
-            custRepo.add(customer);
-            JOptionPane.showMessageDialog(this, "Data berhasil ditambahkan");
-
-            new DataPelangganView().setVisible(true);
-            this.dispose();
-        } else {
+        
+        if(vols.size() > 0) {
             JOptionPane.showMessageDialog(this, ValidationUtil.getErrorsAsString(vols, "\n"));
+            return;
         }
+
+        custRepo.add(customer);
+        
+        new DataPelangganView().setVisible(true);
+        this.dispose();
+        PopupSuccess.show("Data berhasil \ndisimpan");
     }//GEN-LAST:event_btn_simpanMouseClicked
 
     private void btn_backMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_backMouseClicked
