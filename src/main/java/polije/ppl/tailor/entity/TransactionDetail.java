@@ -1,11 +1,26 @@
 package polije.ppl.tailor.entity;
 
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+
 public class TransactionDetail implements Entity {
     public final static String tableName = "transaction_details";
 
-    private int id, qty, price;
+    private int id;
+
+    @NotNull(message = "Jumlah harus diisi")
+    @Min(1)
+    private int qty;
+
+    @NotNull(message = "Harga harus diisi")
+    @Min(1)
+    private int price;
+
     private Package pkg;
     private Transaction transaction;
+
+    @NotBlank(message = "Nama pakaian harus diisi")
     private String clothName;
 
     public TransactionDetail() { }
