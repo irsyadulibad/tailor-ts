@@ -27,7 +27,6 @@ import polije.ppl.tailor.repository.AccountRepository;
 import polije.ppl.tailor.repository.CustomerRepository;
 import polije.ppl.tailor.repository.PackageRepository;
 import polije.ppl.tailor.view.util.SearchableComboBox;
-import polije.ppl.tailor.view.util.SidebarAdminView;
 
 /**
  *
@@ -46,9 +45,6 @@ public class TambahTransaksiView extends javax.swing.JFrame {
         fillComboBox();
         initComponents();
         initTransparent();
-        
-        sidebar.add(new SidebarAdminView(this));
-        sidebar.setBackground(new java.awt.Color(255, 255, 255, 0));
         loadTable();
     }
 
@@ -81,7 +77,6 @@ public class TambahTransaksiView extends javax.swing.JFrame {
         jTable1 = new javax.swing.JTable();
         jScrollPane2 = new javax.swing.JScrollPane();
         catatan = new javax.swing.JTextArea();
-        sidebar = new javax.swing.JPanel();
         grandTotal = new javax.swing.JLabel();
         view = new javax.swing.JLabel();
 
@@ -253,11 +248,6 @@ public class TambahTransaksiView extends javax.swing.JFrame {
         getContentPane().add(jScrollPane2);
         jScrollPane2.setBounds(410, 505, 510, 120);
 
-        sidebar.setMinimumSize(new java.awt.Dimension(277, 708));
-        sidebar.setPreferredSize(new java.awt.Dimension(1089, 708));
-        sidebar.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 0, 0));
-        getContentPane().add(sidebar);
-        sidebar.setBounds(0, 0, 277, 708);
         grandTotal.setFont(new java.awt.Font("Ubuntu", 0, 16)); // NOI18N
         getContentPane().add(grandTotal);
         grandTotal.setBounds(730, 450, 180, 27);
@@ -533,7 +523,6 @@ public class TambahTransaksiView extends javax.swing.JFrame {
     private javax.swing.JTable jTable1;
     private javax.swing.JTextField jumlah;
     private javax.swing.JTextField namapakaian;
-    private javax.swing.JPanel sidebar;
     private javax.swing.JTextField txt_tanggal;
     private javax.swing.JLabel view;
     // End of variables declaration//GEN-END:variables
