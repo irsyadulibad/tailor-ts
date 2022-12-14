@@ -27,6 +27,7 @@ import polije.ppl.tailor.repository.AccountRepository;
 import polije.ppl.tailor.repository.CustomerRepository;
 import polije.ppl.tailor.repository.PackageRepository;
 import polije.ppl.tailor.view.util.SearchableComboBox;
+import polije.ppl.tailor.view.util.SidebarAdminView;
 
 /**
  *
@@ -46,6 +47,9 @@ public class TambahTransaksiView extends javax.swing.JFrame {
         initComponents();
         initTransparent();
         loadTable();
+        
+        sidebar.add(new SidebarAdminView(this));
+        sidebar.setBackground(new java.awt.Color(255, 255, 255, 0));
     }
 
     /**
@@ -65,19 +69,12 @@ public class TambahTransaksiView extends javax.swing.JFrame {
         btn_simpan = new javax.swing.JLabel();
         btn_simpan2 = new javax.swing.JLabel();
         btn_hapus = new javax.swing.JLabel();
-        btn_beranda = new javax.swing.JLabel();
-        btn_pakey = new javax.swing.JLabel();
-        btn_pelanggan = new javax.swing.JLabel();
-        btn_transaksi = new javax.swing.JLabel();
-        btn_penjahit = new javax.swing.JLabel();
-        btn_laporan = new javax.swing.JLabel();
-        btn_panduan = new javax.swing.JLabel();
-        btn_keluar = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         jScrollPane2 = new javax.swing.JScrollPane();
         catatan = new javax.swing.JTextArea();
         grandTotal = new javax.swing.JLabel();
+        sidebar = new javax.swing.JPanel();
         view = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -154,70 +151,6 @@ public class TambahTransaksiView extends javax.swing.JFrame {
         getContentPane().add(btn_hapus);
         btn_hapus.setBounds(873, 300, 40, 40);
 
-        btn_beranda.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btn_berandaMouseClicked(evt);
-            }
-        });
-        getContentPane().add(btn_beranda);
-        btn_beranda.setBounds(37, 103, 200, 50);
-
-        btn_pakey.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btn_pakeyMouseClicked(evt);
-            }
-        });
-        getContentPane().add(btn_pakey);
-        btn_pakey.setBounds(37, 175, 200, 50);
-
-        btn_pelanggan.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btn_pelangganMouseClicked(evt);
-            }
-        });
-        getContentPane().add(btn_pelanggan);
-        btn_pelanggan.setBounds(37, 245, 200, 50);
-
-        btn_transaksi.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btn_transaksiMouseClicked(evt);
-            }
-        });
-        getContentPane().add(btn_transaksi);
-        btn_transaksi.setBounds(37, 315, 200, 50);
-
-        btn_penjahit.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btn_penjahitMouseClicked(evt);
-            }
-        });
-        getContentPane().add(btn_penjahit);
-        btn_penjahit.setBounds(37, 386, 200, 50);
-
-        btn_laporan.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btn_laporanMouseClicked(evt);
-            }
-        });
-        getContentPane().add(btn_laporan);
-        btn_laporan.setBounds(37, 457, 200, 50);
-
-        btn_panduan.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btn_panduanMouseClicked(evt);
-            }
-        });
-        getContentPane().add(btn_panduan);
-        btn_panduan.setBounds(37, 527, 200, 50);
-
-        btn_keluar.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btn_keluarMouseClicked(evt);
-            }
-        });
-        getContentPane().add(btn_keluar);
-        btn_keluar.setBounds(40, 597, 200, 50);
-
         jTable1.setFont(new java.awt.Font("Ubuntu", 0, 14)); // NOI18N
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -251,6 +184,12 @@ public class TambahTransaksiView extends javax.swing.JFrame {
         grandTotal.setFont(new java.awt.Font("Ubuntu", 0, 16)); // NOI18N
         getContentPane().add(grandTotal);
         grandTotal.setBounds(730, 450, 180, 27);
+
+        sidebar.setMinimumSize(new java.awt.Dimension(277, 708));
+        sidebar.setPreferredSize(new java.awt.Dimension(1089, 708));
+        sidebar.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 0, 0));
+        getContentPane().add(sidebar);
+        sidebar.setBounds(0, 0, 277, 708);
 
         view.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/pages/Tambah Transaksi.png"))); // NOI18N
         getContentPane().add(view);
@@ -423,38 +362,6 @@ public class TambahTransaksiView extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_btn_hapusMouseClicked
 
-    private void btn_berandaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_berandaMouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btn_berandaMouseClicked
-
-    private void btn_pakeyMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_pakeyMouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btn_pakeyMouseClicked
-
-    private void btn_pelangganMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_pelangganMouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btn_pelangganMouseClicked
-
-    private void btn_transaksiMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_transaksiMouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btn_transaksiMouseClicked
-
-    private void btn_penjahitMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_penjahitMouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btn_penjahitMouseClicked
-
-    private void btn_laporanMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_laporanMouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btn_laporanMouseClicked
-
-    private void btn_panduanMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_panduanMouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btn_panduanMouseClicked
-
-    private void btn_keluarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_keluarMouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btn_keluarMouseClicked
-
     private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
         int index = jTable1.rowAtPoint(evt.getPoint());
         TransactionDetail detail = details.get(index);
@@ -503,18 +410,10 @@ public class TambahTransaksiView extends javax.swing.JFrame {
     private javax.swing.JComboBox tailorInput;
     private javax.swing.JComboBox packageInput;
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel btn_beranda;
     private javax.swing.JLabel btn_hapus;
-    private javax.swing.JLabel btn_keluar;
     private javax.swing.JLabel btn_kembali;
-    private javax.swing.JLabel btn_laporan;
-    private javax.swing.JLabel btn_pakey;
-    private javax.swing.JLabel btn_panduan;
-    private javax.swing.JLabel btn_pelanggan;
-    private javax.swing.JLabel btn_penjahit;
     private javax.swing.JLabel btn_simpan;
     private javax.swing.JLabel btn_simpan2;
-    private javax.swing.JLabel btn_transaksi;
     private javax.swing.JTextArea catatan;
     private javax.swing.JLabel grandTotal;
     private javax.swing.JTextField harga;
@@ -523,6 +422,7 @@ public class TambahTransaksiView extends javax.swing.JFrame {
     private javax.swing.JTable jTable1;
     private javax.swing.JTextField jumlah;
     private javax.swing.JTextField namapakaian;
+    private javax.swing.JPanel sidebar;
     private javax.swing.JTextField txt_tanggal;
     private javax.swing.JLabel view;
     // End of variables declaration//GEN-END:variables
