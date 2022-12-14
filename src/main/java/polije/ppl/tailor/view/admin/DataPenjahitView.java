@@ -160,7 +160,6 @@ public class DataPenjahitView extends javax.swing.JFrame {
     }
 
     private void loadTable(List<Account> accounts) {
-        System.out.println(accounts.size());
         int no = 1;
         DefaultTableModel model = new DefaultTableModel();
 
