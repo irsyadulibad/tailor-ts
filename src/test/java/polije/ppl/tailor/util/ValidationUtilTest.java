@@ -6,6 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import org.junit.jupiter.api.Test;
 
 import polije.ppl.tailor.entity.Account;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class ValidationUtilTest {
     @Test
@@ -16,6 +17,6 @@ public class ValidationUtilTest {
     @Test
     public void testAccountValidation() {
         Account acc = new Account();
-        assertEquals(4, ValidationUtil.validate(acc).size());
+        assertTrue(ValidationUtil.validate(acc).size() > 3);
     }
 }
