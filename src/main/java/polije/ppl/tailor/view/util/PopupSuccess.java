@@ -8,12 +8,12 @@ package polije.ppl.tailor.view.util;
  *
  * @author muhai
  */
-public class Popup_berhasil extends javax.swing.JFrame {
+public class PopupSuccess extends javax.swing.JFrame {
 
     /**
-     * Creates new form Popup_berhasil
+     * Creates new form PopupSuccess
      */
-    public Popup_berhasil() {
+    public PopupSuccess() {
         initComponents();
     }
 
@@ -83,20 +83,20 @@ public class Popup_berhasil extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Popup_berhasil.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(PopupSuccess.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Popup_berhasil.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(PopupSuccess.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Popup_berhasil.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(PopupSuccess.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Popup_berhasil.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(PopupSuccess.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Popup_berhasil().setVisible(true);
+                new PopupSuccess().setVisible(true);
             }
         });
     }

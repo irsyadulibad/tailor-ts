@@ -135,7 +135,7 @@ public class TambahDataPelangganView extends javax.swing.JFrame {
             }
         });
         getContentPane().add(btn_back);
-        btn_back.setBounds(380, 190, 40, 40);
+        btn_back.setBounds(377, 192, 40, 40);
 
         sidebar.setMinimumSize(new java.awt.Dimension(277, 708));
         sidebar.setPreferredSize(new java.awt.Dimension(1089, 708));
