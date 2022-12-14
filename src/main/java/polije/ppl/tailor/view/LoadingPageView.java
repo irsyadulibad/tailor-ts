@@ -39,6 +39,7 @@ public class LoadingPageView extends javax.swing.JFrame {
         jPanel1.setPreferredSize(new java.awt.Dimension(1088, 708));
         jPanel1.setLayout(null);
 
+        jPanel2.setBackground(new java.awt.Color(255, 255, 255));
         jPanel2.setForeground(new java.awt.Color(0, 0, 80));
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
