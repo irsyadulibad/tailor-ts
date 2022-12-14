@@ -13,6 +13,8 @@ import java.util.Set;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
+import com.toedter.calendar.JDateChooser;
+
 import jakarta.validation.ConstraintViolation;
 import polije.ppl.tailor.data.AccountRole;
 import polije.ppl.tailor.data.ComboItem;
@@ -38,6 +40,7 @@ public class TambahTransaksiView extends javax.swing.JFrame {
     private Repository<Customer> custRepo = new CustomerRepository();
     private Repository<Package> pkgRepo = new PackageRepository();
     private List<TransactionDetail> details = new ArrayList<>();
+    private Integer activeDetail;
 
     /**
      * Creates new form TambahTransaksiView
@@ -47,7 +50,7 @@ public class TambahTransaksiView extends javax.swing.JFrame {
         initComponents();
         initTransparent();
         loadTable();
-        
+
         sidebar.add(new SidebarAdminView(this));
         sidebar.setBackground(new java.awt.Color(255, 255, 255, 0));
     }
@@ -60,8 +63,7 @@ public class TambahTransaksiView extends javax.swing.JFrame {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
-
-        txt_tanggal = new javax.swing.JTextField();
+        dateInput = new JDateChooser();
         namapakaian = new javax.swing.JTextField();
         jumlah = new javax.swing.JTextField();
         harga = new javax.swing.JTextField();
@@ -81,16 +83,8 @@ public class TambahTransaksiView extends javax.swing.JFrame {
         setMinimumSize(new java.awt.Dimension(1088, 708));
         getContentPane().setLayout(null);
 
-        txt_tanggal.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
-        txt_tanggal.setHorizontalAlignment(javax.swing.JTextField.LEFT);
-        txt_tanggal.setBorder(null);
-        txt_tanggal.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txt_tanggalActionPerformed(evt);
-            }
-        });
-        getContentPane().add(txt_tanggal);
-        txt_tanggal.setBounds(680, 220, 230, 30);
+        dateInput.setBounds(680, 223, 230, 30);
+        getContentPane().add(dateInput);
 
         namapakaian.setFont(new java.awt.Font("Ubuntu", 0, 14)); // NOI18N
         namapakaian.setHorizontalAlignment(javax.swing.JTextField.LEFT);
@@ -246,8 +240,8 @@ public class TambahTransaksiView extends javax.swing.JFrame {
     }
 
     private void initTransparent() {
-        txt_tanggal.setOpaque(false);
-        txt_tanggal.setBackground(new java.awt.Color(255, 255, 255, 0));
+        dateInput.setOpaque(false);
+        dateInput.setBackground(new java.awt.Color(255, 255, 255, 0));
 
         customerInput.setOpaque(false);
         customerInput.setBackground(new java.awt.Color(255, 255, 255, 0));
@@ -313,10 +307,6 @@ public class TambahTransaksiView extends javax.swing.JFrame {
         namapakaian.setText("");
     }
 
-    private void txt_tanggalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_tanggalActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txt_tanggalActionPerformed
-
     private void namapakaianActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_namapakaianActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_namapakaianActionPerformed
@@ -326,9 +316,10 @@ public class TambahTransaksiView extends javax.swing.JFrame {
     }//GEN-LAST:event_jumlahActionPerformed
 
     private void btn_simpanMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_simpanMouseClicked
+        TransactionDetail detail = (activeDetail == null) ?
+            new TransactionDetail() : details.get(activeDetail);
         ComboItem pkgItem = (ComboItem) packageInput.getSelectedItem();
         Package pkg = pkgRepo.get(pkgItem.getKey());
-        TransactionDetail detail = new TransactionDetail();
         String price = harga.getText();
         String qty = jumlah.getText();
 
@@ -344,7 +335,7 @@ public class TambahTransaksiView extends javax.swing.JFrame {
             return;
         }
 
-        details.add(detail);
+        if(activeDetail == null) details.add(detail);
         loadTable();
         resetInputDetail();
     }//GEN-LAST:event_btn_simpanMouseClicked
@@ -359,16 +350,30 @@ public class TambahTransaksiView extends javax.swing.JFrame {
     }//GEN-LAST:event_hargaActionPerformed
 
     private void btn_hapusMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_hapusMouseClicked
-        // TODO add your handling code here:
+        if(activeDetail == null) {
+            JOptionPane.showMessageDialog(this, "Anda harus memilih data terlebih dahulu");
+            return;
+        }
+
+        details.remove((int) activeDetail);
+        activeDetail = null;
+
+        loadTable();
+        resetInputDetail();
     }//GEN-LAST:event_btn_hapusMouseClicked
 
     private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
         int index = jTable1.rowAtPoint(evt.getPoint());
         TransactionDetail detail = details.get(index);
+        activeDetail = index;
 
         jumlah.setText(String.valueOf(detail.getQty()));
         namapakaian.setText(detail.getClothName());
         harga.setText(String.valueOf(detail.getPrice()));
+        packageInput.setSelectedItem(new ComboItem(
+            detail.getPackage().getId(),
+            detail.getPackage().getName())
+        );
     }//GEN-LAST:event_jTable1MouseClicked
 
     /**
@@ -409,6 +414,7 @@ public class TambahTransaksiView extends javax.swing.JFrame {
     private javax.swing.JComboBox customerInput;
     private javax.swing.JComboBox tailorInput;
     private javax.swing.JComboBox packageInput;
+    private JDateChooser dateInput;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel btn_hapus;
     private javax.swing.JLabel btn_kembali;
@@ -423,7 +429,6 @@ public class TambahTransaksiView extends javax.swing.JFrame {
     private javax.swing.JTextField jumlah;
     private javax.swing.JTextField namapakaian;
     private javax.swing.JPanel sidebar;
-    private javax.swing.JTextField txt_tanggal;
     private javax.swing.JLabel view;
     // End of variables declaration//GEN-END:variables
 }
