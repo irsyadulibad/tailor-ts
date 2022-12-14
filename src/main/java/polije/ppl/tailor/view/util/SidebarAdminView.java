@@ -79,7 +79,7 @@ public class SidebarAdminView extends javax.swing.JPanel {
             }
         });
         add(dashboardBtn);
-        dashboardBtn.setBounds(38, 104, 199, 49);
+        dashboardBtn.setBounds(38, 103, 199, 49);
 
         packageBtn.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -119,7 +119,7 @@ public class SidebarAdminView extends javax.swing.JPanel {
             }
         });
         add(tailorBtn);
-        tailorBtn.setBounds(38, 385, 199, 49);
+        tailorBtn.setBounds(38, 386, 199, 49);
 
         panduanBtn.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -127,7 +127,7 @@ public class SidebarAdminView extends javax.swing.JPanel {
             }
         });
         add(panduanBtn);
-        panduanBtn.setBounds(38, 527, 200, 50);
+        panduanBtn.setBounds(38, 526, 200, 50);
 
         laporanBtn.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {

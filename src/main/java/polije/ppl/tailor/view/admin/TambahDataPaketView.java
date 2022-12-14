@@ -13,6 +13,7 @@ import polije.ppl.tailor.entity.Package;
 import polije.ppl.tailor.repository.PackageRepository;
 import polije.ppl.tailor.repository.Repository;
 import polije.ppl.tailor.util.ValidationUtil;
+import polije.ppl.tailor.view.util.SidebarAdminView;
 
 /**
  *
@@ -26,6 +27,9 @@ public class TambahDataPaketView extends javax.swing.JFrame {
      */
     public TambahDataPaketView() {
         initComponents();
+        
+        sidebar.add(new SidebarAdminView(this));
+        sidebar.setBackground(new java.awt.Color(255, 255, 255, 0));
 
         txt_name.setOpaque(false);
         txt_name.setBackground(new java.awt.Color(255, 255, 255, 0));
@@ -48,6 +52,7 @@ public class TambahDataPaketView extends javax.swing.JFrame {
         btn_simpan = new javax.swing.JLabel();
         btn_kembali = new javax.swing.JLabel();
         btn_reset = new javax.swing.JLabel();
+        sidebar = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -88,6 +93,12 @@ public class TambahDataPaketView extends javax.swing.JFrame {
         });
         getContentPane().add(btn_reset);
         btn_reset.setBounds(390, 340, 90, 30);
+
+        sidebar.setMinimumSize(new java.awt.Dimension(277, 708));
+        sidebar.setPreferredSize(new java.awt.Dimension(1089, 708));
+        sidebar.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 0, 0));
+        getContentPane().add(sidebar);
+        sidebar.setBounds(0, 0, 277, 708);
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/pages/Tambah Data Paket.png"))); // NOI18N
         jLabel1.setMaximumSize(new java.awt.Dimension(1088, 708));
@@ -166,6 +177,7 @@ public class TambahDataPaketView extends javax.swing.JFrame {
     private javax.swing.JLabel btn_reset;
     private javax.swing.JLabel btn_simpan;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JPanel sidebar;
     private javax.swing.JTextField txt_name;
     private javax.swing.JTextField txt_price;
     // End of variables declaration//GEN-END:variables

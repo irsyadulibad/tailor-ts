@@ -15,6 +15,7 @@ import polije.ppl.tailor.entity.Account;
 import polije.ppl.tailor.repository.AccountRepository;
 import polije.ppl.tailor.repository.Repository;
 import polije.ppl.tailor.util.ValidationUtil;
+import polije.ppl.tailor.view.util.SidebarAdminView;
 
 /**
  *
@@ -28,6 +29,10 @@ public class TambahDataPenjahitView extends javax.swing.JFrame {
      */
     public TambahDataPenjahitView() {
         initComponents();
+        
+        sidebar.add(new SidebarAdminView(this));
+        sidebar.setBackground(new java.awt.Color(255, 255, 255, 0));
+        
         txt_namapenjahit.setOpaque(false);
         txt_namapenjahit.setBackground(new java.awt.Color(255, 255, 255, 0));
 
@@ -58,6 +63,7 @@ public class TambahDataPenjahitView extends javax.swing.JFrame {
         btn_reset = new javax.swing.JLabel();
         btn_simpan = new javax.swing.JLabel();
         btn_kembali = new javax.swing.JLabel();
+        sidebar = new javax.swing.JPanel();
         view = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -111,6 +117,12 @@ public class TambahDataPenjahitView extends javax.swing.JFrame {
         });
         getContentPane().add(btn_kembali);
         btn_kembali.setBounds(370, 190, 50, 40);
+
+        sidebar.setMinimumSize(new java.awt.Dimension(277, 708));
+        sidebar.setPreferredSize(new java.awt.Dimension(1089, 708));
+        sidebar.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 0, 0));
+        getContentPane().add(sidebar);
+        sidebar.setBounds(0, 0, 277, 708);
 
         view.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/pages/Tambah Penjahit.png"))); // NOI18N
         getContentPane().add(view);
@@ -194,6 +206,7 @@ public class TambahDataPenjahitView extends javax.swing.JFrame {
     private javax.swing.JLabel btn_reset;
     private javax.swing.JLabel btn_simpan;
     private javax.swing.JPasswordField pass;
+    private javax.swing.JPanel sidebar;
     private javax.swing.JTextField txt_email;
     private javax.swing.JTextField txt_namapenjahit;
     private javax.swing.JTextField txt_username;

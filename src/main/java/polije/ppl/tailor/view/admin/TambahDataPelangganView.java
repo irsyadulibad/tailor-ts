@@ -15,6 +15,7 @@ import polije.ppl.tailor.entity.Customer;
 import polije.ppl.tailor.repository.CustomerRepository;
 import polije.ppl.tailor.repository.Repository;
 import polije.ppl.tailor.util.ValidationUtil;
+import polije.ppl.tailor.view.util.SidebarAdminView;
 
 /**
  *
@@ -28,22 +29,26 @@ public class TambahDataPelangganView extends javax.swing.JFrame {
      */
     public TambahDataPelangganView() {
         initComponents();
-           txt_namapelanggan.setOpaque(false);
-           txt_namapelanggan.setBackground(new java.awt.Color(255, 255, 255, 0));
+        
+        sidebar.add(new SidebarAdminView(this));
+        sidebar.setBackground(new java.awt.Color(255, 255, 255, 0));
+        
+        txt_namapelanggan.setOpaque(false);
+        txt_namapelanggan.setBackground(new java.awt.Color(255, 255, 255, 0));
 
-           txt_nohp.setOpaque(false);
-           txt_nohp.setBackground(new java.awt.Color(255, 255, 255, 0));
+        txt_nohp.setOpaque(false);
+        txt_nohp.setBackground(new java.awt.Color(255, 255, 255, 0));
 
-           txt_umur.setOpaque(false);
-           txt_umur.setBackground(new java.awt.Color(255, 255, 255, 0));
+        txt_umur.setOpaque(false);
+        txt_umur.setBackground(new java.awt.Color(255, 255, 255, 0));
 
-           jScrollPane1.setOpaque(false);
-           jScrollPane1.getViewport().setOpaque(false);
-           jScrollPane1.setBorder(null);
-           jScrollPane1.setViewportBorder(null);
+        jScrollPane1.setOpaque(false);
+        jScrollPane1.getViewport().setOpaque(false);
+        jScrollPane1.setBorder(null);
+        jScrollPane1.setViewportBorder(null);
 
-           txt_alamat.setBorder(null);
-           txt_alamat.setBackground(new Color(0,0,0,0));
+        txt_alamat.setBorder(null);
+        txt_alamat.setBackground(new Color(0,0,0,0));
     }
 
     /**
@@ -63,6 +68,7 @@ public class TambahDataPelangganView extends javax.swing.JFrame {
         btn_simpan = new javax.swing.JLabel();
         btn_reset = new javax.swing.JLabel();
         btn_back = new javax.swing.JLabel();
+        sidebar = new javax.swing.JPanel();
         view = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -130,6 +136,12 @@ public class TambahDataPelangganView extends javax.swing.JFrame {
         });
         getContentPane().add(btn_back);
         btn_back.setBounds(380, 190, 40, 40);
+
+        sidebar.setMinimumSize(new java.awt.Dimension(277, 708));
+        sidebar.setPreferredSize(new java.awt.Dimension(1089, 708));
+        sidebar.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 0, 0));
+        getContentPane().add(sidebar);
+        sidebar.setBounds(0, 0, 277, 708);
 
         view.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/pages/Tambah Pelanggan.png"))); // NOI18N
         getContentPane().add(view);
@@ -224,6 +236,7 @@ public class TambahDataPelangganView extends javax.swing.JFrame {
     private javax.swing.JLabel btn_reset;
     private javax.swing.JLabel btn_simpan;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JPanel sidebar;
     private javax.swing.JTextArea txt_alamat;
     private javax.swing.JTextField txt_namapelanggan;
     private javax.swing.JTextField txt_nohp;
