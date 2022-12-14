@@ -18,12 +18,12 @@ public class DataTransaksiView extends javax.swing.JFrame {
      */
     public DataTransaksiView() {
         initComponents();
-        
+
         sidebar.add(new SidebarAdminView(this));
         sidebar.setBackground(new java.awt.Color(255, 255, 255, 0));
-        
-         search.setOpaque(false);
-         search.setBackground(new java.awt.Color(255, 255, 255, 0));
+
+        search.setOpaque(false);
+        search.setBackground(new java.awt.Color(255, 255, 255, 0));
     }
 
     /**
@@ -44,7 +44,6 @@ public class DataTransaksiView extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(1088, 708));
-        setPreferredSize(new java.awt.Dimension(1088, 708));
         getContentPane().setLayout(null);
 
         search.setFont(new java.awt.Font("Ubuntu", 0, 14)); // NOI18N
@@ -80,6 +79,12 @@ public class DataTransaksiView extends javax.swing.JFrame {
 
         getContentPane().add(jScrollPane1);
         jScrollPane1.setBounds(364, 260, 570, 290);
+
+        btn_tambahdata.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btn_tambahdataMouseClicked(evt);
+            }
+        });
         getContentPane().add(btn_tambahdata);
         btn_tambahdata.setBounds(800, 106, 130, 40);
 
@@ -104,6 +109,11 @@ public class DataTransaksiView extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_searchActionPerformed
 
+    private void btn_tambahdataMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_tambahdataMouseClicked
+        new TambahTransaksiView().setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btn_tambahdataMouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -111,7 +121,7 @@ public class DataTransaksiView extends javax.swing.JFrame {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
