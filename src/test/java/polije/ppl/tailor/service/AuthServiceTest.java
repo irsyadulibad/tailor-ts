@@ -57,7 +57,6 @@ public class AuthServiceTest {
 
     @Test @Order(3)
     public void testReset() {
-        System.out.println(account.getId());
         VerificationRepository verifyRepo = new VerificationRepository();
         Verification verify = verifyRepo.get(new HashMap<>() {{
             put("account_id", account.getId());

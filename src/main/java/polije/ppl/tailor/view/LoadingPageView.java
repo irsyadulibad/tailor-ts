@@ -16,6 +16,7 @@ public class LoadingPageView extends javax.swing.JFrame {
      */
     public LoadingPageView() {
         initComponents();
+        // jPanel2.setBackground();
     }
 
     /**
@@ -84,7 +85,7 @@ public class LoadingPageView extends javax.swing.JFrame {
     public static void main(String args[]) {
       LoadingPageView loading = new LoadingPageView();
       loading.setVisible(true);
-      
+
       try{
           for (int i=0; i<100; i++){
               Thread.sleep(15);
@@ -93,11 +94,11 @@ public class LoadingPageView extends javax.swing.JFrame {
           }
           new LandingPageView().setVisible(true);
           loading.dispose();
-          
+
       }catch(InterruptedException e){
-          
+
       }
-      
+
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
