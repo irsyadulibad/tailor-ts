@@ -49,9 +49,12 @@ public class EditDataPenjahitView extends javax.swing.JFrame {
         username = new javax.swing.JTextField();
         email = new javax.swing.JTextField();
         password = new javax.swing.JPasswordField();
+        btn_hapus = new javax.swing.JLabel();
+        simpan = new javax.swing.JLabel();
         background = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setMinimumSize(new java.awt.Dimension(1089, 708));
         getContentPane().setLayout(null);
 
         sidebar.setMinimumSize(new java.awt.Dimension(277, 708));
@@ -90,6 +93,22 @@ public class EditDataPenjahitView extends javax.swing.JFrame {
         getContentPane().add(password);
         password.setBounds(397, 402, 500, 40);
 
+        btn_hapus.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btn_hapusMouseClicked(evt);
+            }
+        });
+        getContentPane().add(btn_hapus);
+        btn_hapus.setBounds(390, 460, 80, 30);
+
+        simpan.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                simpanMouseClicked(evt);
+            }
+        });
+        getContentPane().add(simpan);
+        simpan.setBounds(817, 460, 90, 30);
+
         background.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/pages/Edit Data Penjahit.png"))); // NOI18N
         getContentPane().add(background);
         background.setBounds(0, 0, 1089, 708);
@@ -101,6 +120,14 @@ public class EditDataPenjahitView extends javax.swing.JFrame {
         new DataPenjahitView().setVisible(true);
         this.dispose();
     }//GEN-LAST:event_backbtnMouseClicked
+
+    private void btn_hapusMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_hapusMouseClicked
+       
+    }//GEN-LAST:event_btn_hapusMouseClicked
+
+    private void simpanMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_simpanMouseClicked
+        
+    }//GEN-LAST:event_simpanMouseClicked
 
     /**
      * @param args the command line arguments
@@ -140,10 +167,12 @@ public class EditDataPenjahitView extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel backbtn;
     private javax.swing.JLabel background;
+    private javax.swing.JLabel btn_hapus;
     private javax.swing.JTextField email;
     private javax.swing.JTextField namapenjahit;
     private javax.swing.JPasswordField password;
     private javax.swing.JPanel sidebar;
+    private javax.swing.JLabel simpan;
     private javax.swing.JTextField username;
     // End of variables declaration//GEN-END:variables
 }

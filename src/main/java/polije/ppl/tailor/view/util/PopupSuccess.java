@@ -12,7 +12,7 @@ public class PopupSuccess extends javax.swing.JFrame {
     String msg;
 
     /**
-     * Creates new form Popup_berhasil
+     * Creates new form PopupSuccess
      */
     public PopupSuccess(String message) {
         this.msg = message;
@@ -67,7 +67,7 @@ public class PopupSuccess extends javax.swing.JFrame {
      */
     public static void main(String args[]) {
     }
-    
+
     public static void show(String message) {
         new PopupSuccess(message).setVisible(true);
     }

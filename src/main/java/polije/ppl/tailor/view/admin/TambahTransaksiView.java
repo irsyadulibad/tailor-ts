@@ -123,7 +123,7 @@ public class TambahTransaksiView extends javax.swing.JFrame {
             }
         });
         getContentPane().add(btn_kembali);
-        btn_kembali.setBounds(390, 85, 50, 40);
+        btn_kembali.setBounds(395, 89, 40, 30);
 
         btn_simpan.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -147,7 +147,7 @@ public class TambahTransaksiView extends javax.swing.JFrame {
             }
         });
         getContentPane().add(btn_hapus);
-        btn_hapus.setBounds(873, 300, 40, 40);
+        btn_hapus.setBounds(877, 307, 30, 30);
 
         jTable1.setFont(new java.awt.Font("Ubuntu", 0, 14)); // NOI18N
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
