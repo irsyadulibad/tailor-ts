@@ -89,7 +89,7 @@ public class TambahTransaksiView extends javax.swing.JFrame {
         view = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setMinimumSize(new java.awt.Dimension(1088, 708));
+        setMinimumSize(new java.awt.Dimension(1088, 730));
         getContentPane().setLayout(null);
 
         dateInput.setBounds(680, 223, 230, 30);
