@@ -4,7 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import java.time.LocalDate;
+import java.util.Date;
 
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
@@ -55,7 +55,7 @@ public class TransactionDetailRepositoryTest {
         pkg = pkgRepo.get(packageId);
 
         transactionId = transRepo.add(new Transaction(
-            10000, account, customer, LocalDate.now(), LocalDate.now(), "-", TransactionStatus.finish
+            10000, account, customer, new Date(), new Date(), "-", TransactionStatus.finish
         ));
 
         transaction = transRepo.get(transactionId);

@@ -74,8 +74,8 @@ public class TransactionRepository implements Repository<Transaction> {
 
         try(PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
             stmt.setString(1, trans.getStatus().toString());
-            stmt.setDate(2, Date.valueOf(trans.getDate()));
-            stmt.setDate(3, Date.valueOf(trans.getDueDate()));
+            stmt.setDate(2, new Date(trans.getDate().getTime()));
+            stmt.setDate(3, new Date(trans.getDueDate().getTime()));
             stmt.setInt(4, trans.getTotal());
             stmt.setString(5, trans.getNote());
             stmt.setInt(6, trans.getAccount().getId());
@@ -94,7 +94,7 @@ public class TransactionRepository implements Repository<Transaction> {
 
         try(PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setString(1, trans.getStatus().toString());
-            stmt.setDate(2, Date.valueOf(trans.getDueDate()));
+            stmt.setDate(2, new Date(trans.getDueDate().getTime()));
             stmt.setInt(3, trans.getTotal());
             stmt.setString(4, trans.getNote());
             stmt.setInt(5, trans.getId());
@@ -127,8 +127,8 @@ public class TransactionRepository implements Repository<Transaction> {
             result.getInt("total"),
             new AccountRepository().get(accId),
             new CustomerRepository().get(custId),
-            result.getDate("date").toLocalDate(),
-            result.getDate("due_date").toLocalDate(),
+            result.getDate("date"),
+            result.getDate("due_date"),
             result.getString("note"),
             TransactionStatus.valueOf(result.getString("status"))
         );

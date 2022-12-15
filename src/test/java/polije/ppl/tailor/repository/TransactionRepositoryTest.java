@@ -4,7 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import java.time.LocalDate;
+import java.util.Date;
 
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
@@ -54,8 +54,8 @@ public class TransactionRepositoryTest {
             20000,
             account,
             customer,
-            LocalDate.now(),
-            LocalDate.now(),
+            new Date(),
+            new Date(),
             "No Notes",
             TransactionStatus.finish
         );
@@ -76,8 +76,8 @@ public class TransactionRepositoryTest {
             25000,
             account,
             customer,
-            LocalDate.now(),
-            LocalDate.now(),
+            new Date(),
+            new Date(),
             "No Notes",
             TransactionStatus.unfinish
         );

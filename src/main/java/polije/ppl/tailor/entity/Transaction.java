@@ -1,6 +1,6 @@
 package polije.ppl.tailor.entity;
 
-import java.time.LocalDate;
+import java.util.Date;
 
 import polije.ppl.tailor.data.TransactionStatus;
 
@@ -9,14 +9,14 @@ public class Transaction implements Entity {
 
     private Integer id, total;
     private String note;
-    private LocalDate dueDate, date;
+    private Date dueDate, date;
     private TransactionStatus status;
     private Account account;
     private Customer customer;
 
     public Transaction() {}
 
-    public Transaction(Integer total, Account account, Customer customer, LocalDate date, LocalDate dueDate, String note, TransactionStatus status) {
+    public Transaction(Integer total, Account account, Customer customer, Date date, Date dueDate, String note, TransactionStatus status) {
         this.total = total;
         this.account = account;
         this.customer = customer;
@@ -58,19 +58,19 @@ public class Transaction implements Entity {
         this.customer = customer;
     }
 
-    public LocalDate getDate() {
+    public Date getDate() {
         return this.date;
     }
 
-    public void setDate(LocalDate date) {
+    public void setDate(Date date) {
         this.date = date;
     }
 
-    public LocalDate getDueDate() {
+    public Date getDueDate() {
         return dueDate;
     }
 
-    public void setDueDate(LocalDate dueDate) {
+    public void setDueDate(Date dueDate) {
         this.dueDate = dueDate;
     }
 

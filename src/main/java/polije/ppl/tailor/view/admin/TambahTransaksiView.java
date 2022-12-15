@@ -63,7 +63,7 @@ public class TambahTransaksiView extends javax.swing.JFrame {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
-
+        dateInput = new JDateChooser();
         namapakaian = new javax.swing.JTextField();
         jumlah = new javax.swing.JTextField();
         harga = new javax.swing.JTextField();
@@ -83,6 +83,9 @@ public class TambahTransaksiView extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(1088, 708));
         getContentPane().setLayout(null);
+
+        dateInput.setBounds(680, 223, 230, 30);
+        getContentPane().add(dateInput);
 
         namapakaian.setFont(new java.awt.Font("Ubuntu", 0, 14)); // NOI18N
         namapakaian.setHorizontalAlignment(javax.swing.JTextField.LEFT);
@@ -389,7 +392,8 @@ public class TambahTransaksiView extends javax.swing.JFrame {
     }//GEN-LAST:event_jTable1MouseClicked
 
     private void btn_saveMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_saveMouseClicked
-        // TODO add your handling code here:
+        // Date
+        System.out.println(dateInput.getDate());
     }//GEN-LAST:event_btn_saveMouseClicked
 
     private void btn_resetMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_resetMouseClicked
