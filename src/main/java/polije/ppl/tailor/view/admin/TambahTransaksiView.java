@@ -6,6 +6,7 @@
 package polije.ppl.tailor.view.admin;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Set;
@@ -18,11 +19,16 @@ import com.toedter.calendar.JDateChooser;
 import jakarta.validation.ConstraintViolation;
 import polije.ppl.tailor.data.AccountRole;
 import polije.ppl.tailor.data.ComboItem;
+import polije.ppl.tailor.data.TransactionStatus;
 import polije.ppl.tailor.entity.Account;
 import polije.ppl.tailor.entity.Customer;
 import polije.ppl.tailor.entity.Package;
+import polije.ppl.tailor.entity.Transaction;
 import polije.ppl.tailor.entity.TransactionDetail;
 import polije.ppl.tailor.repository.Repository;
+import polije.ppl.tailor.repository.TransactionDetailRepository;
+import polije.ppl.tailor.repository.TransactionRepository;
+import polije.ppl.tailor.service.validation.TransactionValidation;
 import polije.ppl.tailor.util.NumberUtil;
 import polije.ppl.tailor.util.ValidationUtil;
 import polije.ppl.tailor.repository.AccountRepository;
@@ -39,8 +45,10 @@ public class TambahTransaksiView extends javax.swing.JFrame {
     private Repository<Account> accRepo = new AccountRepository();
     private Repository<Customer> custRepo = new CustomerRepository();
     private Repository<Package> pkgRepo = new PackageRepository();
+    private Repository<Transaction> transRepo = new TransactionRepository();
+    private Repository<TransactionDetail> detailRepo = new TransactionDetailRepository();
     private List<TransactionDetail> details = new ArrayList<>();
-    private Integer activeDetail;
+    private Integer activeDetail, total;
 
     /**
      * Creates new form TambahTransaksiView
@@ -312,6 +320,7 @@ public class TambahTransaksiView extends javax.swing.JFrame {
             });
         }
 
+        this.total = total;
         jTable1.setModel(model);
         grandTotal.setText(NumberUtil.formatDec(total));
     }
@@ -392,8 +401,34 @@ public class TambahTransaksiView extends javax.swing.JFrame {
     }//GEN-LAST:event_jTable1MouseClicked
 
     private void btn_saveMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_saveMouseClicked
-        // Date
-        System.out.println(dateInput.getDate());
+        ComboItem customer = (ComboItem) customerInput.getSelectedItem();
+        ComboItem tailor = (ComboItem) tailorInput.getSelectedItem();
+        Date dueDate = dateInput.getDate();
+        TransactionValidation comboValidation = new TransactionValidation(customer, tailor);
+
+        Set<ConstraintViolation<TransactionValidation>> vols = ValidationUtil.validate(comboValidation);
+        if(vols.size() > 0) {
+            JOptionPane.showMessageDialog(this, ValidationUtil.getErrorsAsString(vols, "\n"));
+            return;
+        }
+
+        Transaction transaction = new Transaction(
+            total,
+            accRepo.get(tailor.getKey()),
+            custRepo.get(customer.getKey()),
+            new Date(),
+            dueDate,
+            catatan.getText(),
+            TransactionStatus.unfinish
+        );
+
+        int id = transRepo.add(transaction);
+        transaction.setId(id);
+        addDetails(transaction);
+
+        JOptionPane.showMessageDialog(this, "Data transaksi berhasil disimpan");
+        new DataTransaksiView().setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_btn_saveMouseClicked
 
     private void btn_resetMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_resetMouseClicked
@@ -433,6 +468,13 @@ public class TambahTransaksiView extends javax.swing.JFrame {
                 new TambahTransaksiView().setVisible(true);
             }
         });
+    }
+
+    private void addDetails(Transaction transaction) {
+        for(TransactionDetail detail: details) {
+            detail.setTransaction(transaction);
+            detailRepo.add(detail);
+        }
     }
 
     private javax.swing.JComboBox customerInput;
