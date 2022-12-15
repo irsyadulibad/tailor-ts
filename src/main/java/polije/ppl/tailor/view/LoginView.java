@@ -97,11 +97,12 @@ public class LoginView extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void masukMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_masukMouseClicked
-        if(new AuthService().login(username.getText(), pass.getText())) {
-            new ViewUtil().authRedirector(this);
-        } else {
+        if(!new AuthService().login(username.getText(), pass.getText())) {
             JOptionPane.showMessageDialog(this, "Username atau Password salah!");
+            return;
         }
+
+        new ViewUtil().authRedirector(this);
     }//GEN-LAST:event_masukMouseClicked
 
     private void resetMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_resetMouseClicked

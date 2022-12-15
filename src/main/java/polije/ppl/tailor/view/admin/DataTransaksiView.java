@@ -11,6 +11,7 @@ import javax.swing.table.DefaultTableModel;
 import polije.ppl.tailor.entity.Transaction;
 import polije.ppl.tailor.repository.Repository;
 import polije.ppl.tailor.repository.TransactionRepository;
+import polije.ppl.tailor.util.NumberUtil;
 import polije.ppl.tailor.view.util.SidebarAdminView;
 
 /**
@@ -172,7 +173,7 @@ public class DataTransaksiView extends javax.swing.JFrame {
                 no++,
                 transaction.getDate().toString(),
                 transaction.getStatus().toString(),
-                transaction.getTotal(),
+                NumberUtil.formatDec(transaction.getTotal()),
                 transaction.getAccount().getFullname()
             });
         }
