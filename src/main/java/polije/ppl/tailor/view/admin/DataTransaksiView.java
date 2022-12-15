@@ -5,6 +5,13 @@
  */
 package polije.ppl.tailor.view.admin;
 
+import java.util.List;
+import javax.swing.table.DefaultTableModel;
+
+import polije.ppl.tailor.entity.Transaction;
+import polije.ppl.tailor.repository.Repository;
+import polije.ppl.tailor.repository.TransactionRepository;
+import polije.ppl.tailor.util.NumberUtil;
 import polije.ppl.tailor.view.util.SidebarAdminView;
 
 /**
@@ -12,12 +19,14 @@ import polije.ppl.tailor.view.util.SidebarAdminView;
  * @author muhai
  */
 public class DataTransaksiView extends javax.swing.JFrame {
+    private Repository<Transaction> transRepo = new TransactionRepository();
 
     /**
      * Creates new form DataTransaksiView
      */
     public DataTransaksiView() {
         initComponents();
+        loadTable(transRepo.get());
 
         sidebar.add(new SidebarAdminView(this));
         sidebar.setBackground(new java.awt.Color(255, 255, 255, 0));
@@ -147,6 +156,29 @@ public class DataTransaksiView extends javax.swing.JFrame {
                 new DataTransaksiView().setVisible(true);
             }
         });
+    }
+
+    private void loadTable(List<Transaction> transactions) {
+        int no = 1;
+        DefaultTableModel model = new DefaultTableModel();
+
+        model.addColumn("No");
+        model.addColumn("Tanggal");
+        model.addColumn("Status");
+        model.addColumn("Total");
+        model.addColumn("Penjahit");
+
+        for(Transaction transaction: transactions) {
+            model.addRow(new Object[] {
+                no++,
+                transaction.getDate().toString(),
+                transaction.getStatus().toString(),
+                NumberUtil.formatDec(transaction.getTotal()),
+                transaction.getAccount().getFullname()
+            });
+        }
+
+        jTable1.setModel(model);
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
