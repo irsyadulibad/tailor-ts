@@ -51,7 +51,7 @@ public class LaporanAdminView extends javax.swing.JFrame {
         BackGround = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setMinimumSize(new java.awt.Dimension(1089, 708));
+        setMinimumSize(new java.awt.Dimension(1089, 740));
         setResizable(false);
         getContentPane().setLayout(null);
 

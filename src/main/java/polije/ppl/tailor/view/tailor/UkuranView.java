@@ -43,7 +43,8 @@ public class UkuranView extends javax.swing.JFrame {
         imginti = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setMinimumSize(new java.awt.Dimension(1089, 708));
+        setMinimumSize(new java.awt.Dimension(1089, 740));
+        setPreferredSize(new java.awt.Dimension(1089, 740));
         getContentPane().setLayout(null);
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(

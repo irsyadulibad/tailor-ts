@@ -32,7 +32,7 @@ public class DashBoardPenjahitView extends javax.swing.JFrame {
     private void initComponents() {
 
         sidebar = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
+        background = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(1088, 708));
@@ -44,9 +44,12 @@ public class DashBoardPenjahitView extends javax.swing.JFrame {
         getContentPane().add(sidebar);
         sidebar.setBounds(0, 0, 277, 708);
 
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/pages/tailor-dashborad.png"))); // NOI18N
-        getContentPane().add(jLabel1);
-        jLabel1.setBounds(0, 0, 1089, 708);
+        background.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/pages/Dashborad Penjahit.png"))); // NOI18N
+        background.setMaximumSize(new java.awt.Dimension(1089, 740));
+        background.setMinimumSize(new java.awt.Dimension(1089, 740));
+        background.setPreferredSize(new java.awt.Dimension(1089, 740));
+        getContentPane().add(background);
+        background.setBounds(-3, -4, 1180, 710);
 
         pack();
         setLocationRelativeTo(null);
@@ -88,7 +91,7 @@ public class DashBoardPenjahitView extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel background;
     private javax.swing.JPanel sidebar;
     // End of variables declaration//GEN-END:variables
 }

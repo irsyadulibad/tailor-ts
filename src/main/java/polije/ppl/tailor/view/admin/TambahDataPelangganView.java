@@ -73,7 +73,7 @@ public class TambahDataPelangganView extends javax.swing.JFrame {
         view = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(1088, 708));
+        setPreferredSize(new java.awt.Dimension(1088, 740));
         getContentPane().setLayout(null);
 
         txt_nohp.setFont(new java.awt.Font("Ubuntu", 0, 20)); // NOI18N

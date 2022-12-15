@@ -55,7 +55,7 @@ public class DataPaketView extends javax.swing.JFrame {
         view = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setMinimumSize(new java.awt.Dimension(1088, 708));
+        setMinimumSize(new java.awt.Dimension(1088, 740));
         getContentPane().setLayout(null);
 
         table_datapaket.setFont(new java.awt.Font("Ubuntu", 0, 14)); // NOI18N
