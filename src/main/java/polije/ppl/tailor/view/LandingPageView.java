@@ -46,8 +46,20 @@ public class LandingPageView extends javax.swing.JFrame {
         btn_masuk.setBounds(720, 600, 130, 50);
         getContentPane().add(tentang_aplikasi);
         tentang_aplikasi.setBounds(650, 20, 140, 30);
+
+        btn_masuk3.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btn_masuk3MouseClicked(evt);
+            }
+        });
         getContentPane().add(btn_masuk3);
         btn_masuk3.setBounds(970, 20, 80, 30);
+
+        btn_panduan.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btn_panduanMouseClicked(evt);
+            }
+        });
         getContentPane().add(btn_panduan);
         btn_panduan.setBounds(840, 20, 90, 30);
 
@@ -63,6 +75,16 @@ public class LandingPageView extends javax.swing.JFrame {
         new LoginView().setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btn_masukMouseClicked
+
+    private void btn_panduanMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_panduanMouseClicked
+        new PanduanLandingPageView().setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btn_panduanMouseClicked
+
+    private void btn_masuk3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_masuk3MouseClicked
+        new LoginView().setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btn_masuk3MouseClicked
 
     /**
      * @param args the command line arguments
