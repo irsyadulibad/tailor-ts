@@ -83,6 +83,11 @@ public class DataPenjahitView extends javax.swing.JFrame {
                 txt_searchActionPerformed(evt);
             }
         });
+        txt_search.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txt_searchKeyReleased(evt);
+            }
+        });
         getContentPane().add(txt_search);
         txt_search.setBounds(710, 200, 170, 35);
 
@@ -117,7 +122,6 @@ public class DataPenjahitView extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void txt_searchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_searchActionPerformed
-        // TODO add your handling code here:
     }//GEN-LAST:event_txt_searchActionPerformed
 
     private void btn_tambahMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_tambahMouseEntered
@@ -130,8 +134,24 @@ public class DataPenjahitView extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_tambahMouseClicked
 
     private void table_tailorMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_table_tailorMouseClicked
-        // TODO add your handling code here:
+        int row = table_tailor.getSelectedRow();
+        String value = table_tailor.getModel().getValueAt(row, 4).toString();
+        Account account = accRepo.get(Integer.valueOf(value));
+
+        new EditDataPenjahitView(account).setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_table_tailorMouseClicked
+
+    private void txt_searchKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_searchKeyReleased
+        String value = txt_search.getText();
+        List<Account> accounts = accRepo.search(new HashMap<>() {{
+            put("fullname", value);
+            put("email", value);
+            put("username", value);
+        }});
+
+        loadTable(accounts);
+    }//GEN-LAST:event_txt_searchKeyReleased
 
     /**
      * @param args the command line arguments
@@ -179,6 +199,8 @@ public class DataPenjahitView extends javax.swing.JFrame {
         model.addColumn("ID");
 
         for(Account account: accounts) {
+            if(account.getRole() == AccountRole.admin) continue;
+
             model.addRow(new Object[] {
                 no++,
                 account.getFullname(),
