@@ -67,6 +67,30 @@ public class CustomerRepository implements Repository<Customer> {
         return customers;
     }
 
+    public List<Customer> search(Map<String, Object> values) {
+        int iterate = 0;
+        String sql = "SELECT * FROM "+ tableName +" WHERE ";
+        List<Customer> customers = new ArrayList<>();
+
+        for(String valueKey: values.keySet()) {
+            if(iterate > 0) sql += " AND ";
+            sql += valueKey +" LIKE CONCAT( '%',?,'%')";
+
+            iterate++;
+        }
+
+        try(PreparedStatement stmt = conn.prepareStatement(sql)) {
+            DatabaseUtil.prepareStmt(stmt, values);;
+            ResultSet rs = stmt.executeQuery();
+
+            while(rs.next()) {
+                customers.add(mapToEntity(rs));
+            }
+        }catch(SQLException e) {}
+
+        return customers;
+    }
+
     public Integer add(Customer cust) {
         String sql = "INSERT INTO "+ tableName +" (`fullname`, `age`, `phone`, `address`) VALUES (?, ?, ?, ?)";
 

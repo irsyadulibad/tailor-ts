@@ -54,7 +54,7 @@ public class EditDataPenjahitView extends javax.swing.JFrame {
         background = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setMinimumSize(new java.awt.Dimension(1089, 740));
+        setMinimumSize(new java.awt.Dimension(1089, 708));
         getContentPane().setLayout(null);
 
         sidebar.setMinimumSize(new java.awt.Dimension(277, 708));
@@ -114,6 +114,7 @@ public class EditDataPenjahitView extends javax.swing.JFrame {
         background.setBounds(0, 0, 1089, 708);
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void backbtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_backbtnMouseClicked

@@ -46,7 +46,7 @@ public class EditDataTransaksiView extends javax.swing.JFrame {
         background = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setMinimumSize(new java.awt.Dimension(1089, 740));
+        setMinimumSize(new java.awt.Dimension(1089, 708));
         getContentPane().setLayout(null);
 
         namapakaian.setFont(new java.awt.Font("Ubuntu", 0, 14)); // NOI18N
@@ -149,6 +149,7 @@ public class EditDataTransaksiView extends javax.swing.JFrame {
         background.setBounds(0, 0, 1089, 708);
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void namapakaianActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_namapakaianActionPerformed

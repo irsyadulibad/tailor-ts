@@ -69,6 +69,30 @@ public class TransactionRepository implements Repository<Transaction> {
         return transactions;
     }
 
+    public List<Transaction> search(Map<String, Object> values) {
+        int iterate = 0;
+        String sql = "SELECT * FROM "+ tableName +" WHERE ";
+        List<Transaction> transactions = new ArrayList<>();
+
+        for(String valueKey: values.keySet()) {
+            if(iterate > 0) sql += " AND ";
+            sql += valueKey +" LIKE CONCAT( '%',?,'%')";
+
+            iterate++;
+        }
+
+        try(PreparedStatement stmt = conn.prepareStatement(sql)) {
+            DatabaseUtil.prepareStmt(stmt, values);;
+            ResultSet rs = stmt.executeQuery();
+
+            while(rs.next()) {
+                transactions.add(mapToEntity(rs));
+            }
+        }catch(SQLException e) {}
+
+        return transactions;
+    }
+
     public Integer add(Transaction trans) {
         String sql = "INSERT INTO "+ tableName +" (`status`, `date`, `due_date`, `total`, `note`, `account_id`, `customer_id`) VALUES (?, ?, ?, ?, ?, ?, ?)";
 

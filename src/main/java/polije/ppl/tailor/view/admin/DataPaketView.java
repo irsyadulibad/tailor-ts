@@ -5,6 +5,7 @@
  */
 package polije.ppl.tailor.view.admin;
 
+import java.util.HashMap;
 import java.util.List;
 
 import javax.swing.table.DefaultTableModel;
@@ -118,14 +119,21 @@ public class DataPaketView extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_tambahdataMouseClicked
 
     private void txt_pencarianKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_pencarianKeyReleased
-        // TODO add your handling code here:
+        List<Package> packages = pkgRepo.search(new HashMap<>() {{
+            put("name", txt_pencarian.getText());
+            put("price", txt_pencarian.getText());
+        }});
+
+        loadTable(packages);
     }//GEN-LAST:event_txt_pencarianKeyReleased
 
     private void table_datapaketMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_table_datapaketMouseClicked
         int row = table_datapaket.getSelectedRow();
         String value = table_datapaket.getModel().getValueAt(row, 3).toString();
+        Package pkg = pkgRepo.get(Integer.valueOf(value));
 
-        System.out.append(value);
+        new EditDataPaketView(pkg).setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_table_datapaketMouseClicked
 
     /**

@@ -67,6 +67,30 @@ public class PackageRepository implements Repository<Package> {
         return packages;
     }
 
+    public List<Package> search(Map<String, Object> values) {
+        int iterate = 0;
+        String sql = "SELECT * FROM "+ tableName +" WHERE ";
+        List<Package> packages = new ArrayList<>();
+
+        for(String valueKey: values.keySet()) {
+            if(iterate > 0) sql += " OR ";
+            sql += valueKey +" LIKE CONCAT( '%',?,'%')";
+
+            iterate++;
+        }
+
+        try(PreparedStatement stmt = conn.prepareStatement(sql)) {
+            DatabaseUtil.prepareStmt(stmt, values);
+            ResultSet rs = stmt.executeQuery();
+
+            while(rs.next()) {
+                packages.add(mapToEntity(rs));
+            }
+        }catch(SQLException e) {}
+
+        return packages;
+    }
+
     public Integer add(Package pkg) {
         String sql = "INSERT INTO "+ tableName +" (`name`, `price`) VALUES (?, ?)";
 

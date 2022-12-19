@@ -4,6 +4,15 @@
  */
 package polije.ppl.tailor.view.admin;
 
+import java.util.Set;
+
+import javax.swing.JOptionPane;
+
+import jakarta.validation.ConstraintViolation;
+import polije.ppl.tailor.entity.Package;
+import polije.ppl.tailor.repository.PackageRepository;
+import polije.ppl.tailor.repository.Repository;
+import polije.ppl.tailor.util.ValidationUtil;
 import polije.ppl.tailor.view.util.SidebarAdminView;
 
 /**
@@ -11,16 +20,21 @@ import polije.ppl.tailor.view.util.SidebarAdminView;
  * @author Hafidz
  */
 public class EditDataPaketView extends javax.swing.JFrame {
+    private Package pkg;
+    private Repository<Package> pkgRepo = new PackageRepository();
 
     /**
      * Creates new form EditDataPaketView
      */
-    public EditDataPaketView() {
+    public EditDataPaketView(Package pkg) {
+        this.pkg = pkg;
+
         initComponents();
-        
+        fillForm();
+
         sidebar.add(new SidebarAdminView(this));
         sidebar.setBackground(new java.awt.Color(255, 255, 255, 0));
-        
+
         tipe_pakaian.setOpaque(false);
         tipe_pakaian.setBackground(new java.awt.Color(255, 255, 255, 0));
 
@@ -95,6 +109,7 @@ public class EditDataPaketView extends javax.swing.JFrame {
         background.setBounds(0, 0, 1088, 708);
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void bbtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bbtnMouseClicked
@@ -103,11 +118,35 @@ public class EditDataPaketView extends javax.swing.JFrame {
     }//GEN-LAST:event_bbtnMouseClicked
 
     private void btn_hapusMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_hapusMouseClicked
-        
+        int clicked = JOptionPane.showConfirmDialog(this, "Apakah anda yakin?");
+
+        if(clicked == 0) {
+            pkgRepo.delete(pkg.getId());
+
+            JOptionPane.showMessageDialog(this, "Data berhasil dihapus");
+            new DataPaketView().setVisible(true);
+            this.dispose();
+        }
     }//GEN-LAST:event_btn_hapusMouseClicked
 
     private void btn_simpanMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_simpanMouseClicked
-       
+        String hargaVal = harga.getText();
+
+        pkg.setName(tipe_pakaian.getText());
+        pkg.setPrice(hargaVal.isBlank() ? 0 : Integer.parseInt(hargaVal));
+
+        Set<ConstraintViolation<Package>> vols = ValidationUtil.validate(pkg);
+
+        if(vols.size() > 0) {
+            JOptionPane.showMessageDialog(this, ValidationUtil.getErrorsAsString(vols, "\n"));
+            return;
+        }
+
+        pkgRepo.update(pkg);
+
+        JOptionPane.showMessageDialog(this, "Data berhasil disimpan");
+        new DataPaketView().setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_btn_simpanMouseClicked
 
     /**
@@ -117,7 +156,7 @@ public class EditDataPaketView extends javax.swing.JFrame {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
@@ -136,13 +175,11 @@ public class EditDataPaketView extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(EditDataPaketView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
+    }
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new EditDataPaketView().setVisible(true);
-            }
-        });
+    private void fillForm() {
+        tipe_pakaian.setText(pkg.getName());
+        harga.setText(String.valueOf(pkg.getPrice()));
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
