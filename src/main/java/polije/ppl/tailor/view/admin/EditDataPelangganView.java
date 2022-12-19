@@ -5,6 +5,15 @@
 package polije.ppl.tailor.view.admin;
 
 import java.awt.Color;
+import java.util.Set;
+
+import javax.swing.JOptionPane;
+
+import jakarta.validation.ConstraintViolation;
+import polije.ppl.tailor.entity.Customer;
+import polije.ppl.tailor.repository.CustomerRepository;
+import polije.ppl.tailor.repository.Repository;
+import polije.ppl.tailor.util.ValidationUtil;
 import polije.ppl.tailor.view.util.SidebarAdminView;
 
 /**
@@ -12,16 +21,21 @@ import polije.ppl.tailor.view.util.SidebarAdminView;
  * @author Hafidz
  */
 public class EditDataPelangganView extends javax.swing.JFrame {
+    private Customer customer;
+    private Repository<Customer> custRepo = new CustomerRepository();
 
     /**
      * Creates new form EditDataPelangganView
      */
-    public EditDataPelangganView() {
+    public EditDataPelangganView(Customer customer) {
+        this.customer = customer;
+
         initComponents();
-        
+        fillForm();
+
         sidebar.add(new SidebarAdminView(this));
         sidebar.setBackground(new java.awt.Color(255, 255, 255, 0));
-        
+
         namapelanggan.setOpaque(false);
         namapelanggan.setBackground(new java.awt.Color(255, 255, 255, 0));
 
@@ -80,31 +94,19 @@ public class EditDataPelangganView extends javax.swing.JFrame {
 
         namapelanggan.setFont(new java.awt.Font("Ubuntu", 0, 20)); // NOI18N
         namapelanggan.setBorder(null);
-        namapelanggan.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                namapelangganActionPerformed(evt);
-            }
-        });
+
         getContentPane().add(namapelanggan);
         namapelanggan.setBounds(398, 272, 510, 30);
 
         umur.setFont(new java.awt.Font("Ubuntu", 0, 20)); // NOI18N
         umur.setBorder(null);
-        umur.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                umurActionPerformed(evt);
-            }
-        });
+
         getContentPane().add(umur);
         umur.setBounds(398, 330, 510, 30);
 
         nohp.setFont(new java.awt.Font("Ubuntu", 0, 20)); // NOI18N
         nohp.setBorder(null);
-        nohp.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                nohpActionPerformed(evt);
-            }
-        });
+
         getContentPane().add(nohp);
         nohp.setBounds(398, 390, 510, 30);
 
@@ -145,24 +147,38 @@ public class EditDataPelangganView extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_btn_backMouseClicked
 
-    private void namapelangganActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_namapelangganActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_namapelangganActionPerformed
-
-    private void umurActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_umurActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_umurActionPerformed
-
-    private void nohpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nohpActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_nohpActionPerformed
-
     private void btn_resetMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_resetMouseClicked
-        
+        int clicked = JOptionPane.showConfirmDialog(this, "Apakah anda yakin?");
+
+        if(clicked == 0) {
+            custRepo.delete(customer.getId());
+
+            JOptionPane.showMessageDialog(this, "Data berhasil dihapus");
+            new DataPelangganView().setVisible(true);
+            this.dispose();
+        }
     }//GEN-LAST:event_btn_resetMouseClicked
 
     private void btn_simpanMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_simpanMouseClicked
-        
+        String age = umur.getText();
+
+        customer.setFullname(namapelanggan.getText());
+        customer.setPhone(nohp.getText());
+        customer.setAge(age.isBlank() ? 0 : Integer.valueOf(age));
+        customer.setAddress(alamat.getText());
+
+        Set<ConstraintViolation<Customer>> vols = ValidationUtil.validate(customer);
+
+        if(vols.size() > 0) {
+            JOptionPane.showMessageDialog(this, ValidationUtil.getErrorsAsString(vols, "\n"));
+            return;
+        }
+
+        custRepo.update(customer);
+
+        JOptionPane.showMessageDialog(this, "Data berhasil disimpan");
+        new DataPelangganView().setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_btn_simpanMouseClicked
 
     /**
@@ -172,7 +188,7 @@ public class EditDataPelangganView extends javax.swing.JFrame {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
@@ -191,13 +207,13 @@ public class EditDataPelangganView extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(EditDataPelangganView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
+    }
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new EditDataPelangganView().setVisible(true);
-            }
-        });
+    private void fillForm() {
+        namapelanggan.setText(customer.getFullname());
+        nohp.setText(customer.getPhone());
+        umur.setText(String.valueOf(customer.getAge()));
+        alamat.setText(customer.getAddress());
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

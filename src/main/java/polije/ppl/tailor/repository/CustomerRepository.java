@@ -73,7 +73,7 @@ public class CustomerRepository implements Repository<Customer> {
         List<Customer> customers = new ArrayList<>();
 
         for(String valueKey: values.keySet()) {
-            if(iterate > 0) sql += " AND ";
+            if(iterate > 0) sql += " OR ";
             sql += valueKey +" LIKE CONCAT( '%',?,'%')";
 
             iterate++;

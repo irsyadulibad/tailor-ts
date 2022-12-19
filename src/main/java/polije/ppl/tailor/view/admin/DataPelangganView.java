@@ -5,6 +5,7 @@
  */
 package polije.ppl.tailor.view.admin;
 
+import java.util.HashMap;
 import java.util.List;
 
 import javax.swing.table.DefaultTableModel;
@@ -54,7 +55,7 @@ public class DataPelangganView extends javax.swing.JFrame {
         view = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setMinimumSize(new java.awt.Dimension(1088, 740));
+        setMinimumSize(new java.awt.Dimension(1088, 708));
         getContentPane().setLayout(null);
 
         jTable1.setFont(new java.awt.Font("Ubuntu", 0, 14)); // NOI18N
@@ -69,6 +70,11 @@ public class DataPelangganView extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        jTable1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTable1MouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(jTable1);
 
         getContentPane().add(jScrollPane1);
@@ -113,13 +119,28 @@ public class DataPelangganView extends javax.swing.JFrame {
     }//GEN-LAST:event_txt_searchKeyPressed
 
     private void txt_searchKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_searchKeyReleased
-        // TODO add your handling code here:
+        List<Customer> packages = custRepo.search(new HashMap<>() {{
+            put("fullname", txt_search.getText());
+            put("age", txt_search.getText());
+            put("phone", txt_search.getText());
+        }});
+
+        loadTable(packages);
     }//GEN-LAST:event_txt_searchKeyReleased
 
     private void btn_tambahdataMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_tambahdataMouseClicked
         new TambahDataPelangganView().setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btn_tambahdataMouseClicked
+
+    private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
+        int row = jTable1.getSelectedRow();
+        String value = jTable1.getModel().getValueAt(row, 4).toString();
+        Customer customer = custRepo.get(Integer.parseInt(value));
+
+        new EditDataPelangganView(customer).setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_jTable1MouseClicked
 
     /**
      * @param args the command line arguments

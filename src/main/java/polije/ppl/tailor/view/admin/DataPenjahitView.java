@@ -57,7 +57,7 @@ public class DataPenjahitView extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setMinimumSize(new java.awt.Dimension(1088, 740));
+        setMinimumSize(new java.awt.Dimension(1088, 708));
         getContentPane().setLayout(null);
 
         sidebar.setMinimumSize(new java.awt.Dimension(277, 708));
@@ -98,6 +98,11 @@ public class DataPenjahitView extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        table_tailor.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                table_tailorMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(table_tailor);
 
         getContentPane().add(jScrollPane1);
@@ -123,6 +128,10 @@ public class DataPenjahitView extends javax.swing.JFrame {
         new TambahDataPenjahitView().setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btn_tambahMouseClicked
+
+    private void table_tailorMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_table_tailorMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_table_tailorMouseClicked
 
     /**
      * @param args the command line arguments

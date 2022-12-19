@@ -74,7 +74,7 @@ public class AccountRepository implements Repository<Account> {
         List<Account> accounts = new ArrayList<>();
 
         for(String valueKey: values.keySet()) {
-            if(iterate > 0) sql += " AND ";
+            if(iterate > 0) sql += " OR ";
             sql += valueKey +" LIKE CONCAT( '%',?,'%')";
 
             iterate++;

@@ -52,7 +52,7 @@ public class DataTransaksiView extends javax.swing.JFrame {
         view = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setMinimumSize(new java.awt.Dimension(1088, 740));
+        setMinimumSize(new java.awt.Dimension(1088, 708));
         getContentPane().setLayout(null);
 
         search.setFont(new java.awt.Font("Ubuntu", 0, 14)); // NOI18N
@@ -84,6 +84,11 @@ public class DataTransaksiView extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        jTable1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTable1MouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(jTable1);
 
         getContentPane().add(jScrollPane1);
@@ -122,6 +127,10 @@ public class DataTransaksiView extends javax.swing.JFrame {
         new TambahTransaksiView().setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btn_tambahdataMouseClicked
+
+    private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTable1MouseClicked
 
     /**
      * @param args the command line arguments
