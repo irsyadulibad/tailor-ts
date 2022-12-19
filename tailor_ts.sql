@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Dec 19, 2022 at 08:44 AM
+-- Generation Time: Dec 19, 2022 at 04:12 PM
 -- Server version: 10.9.4-MariaDB
 -- PHP Version: 8.1.13
 
@@ -86,7 +86,7 @@ CREATE TABLE `transactions` (
   `status` enum('finish','unfinish') NOT NULL,
   `date` date NOT NULL,
   `due_date` date DEFAULT NULL,
-  `total` int(7) NOT NULL,
+  `total` int(7) NOT NULL DEFAULT 0,
   `note` text NOT NULL,
   `account_id` int(11) NOT NULL,
   `customer_id` int(11) NOT NULL
