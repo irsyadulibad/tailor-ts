@@ -12,6 +12,7 @@ import polije.ppl.tailor.entity.Transaction;
 import polije.ppl.tailor.repository.Repository;
 import polije.ppl.tailor.repository.TransactionRepository;
 import polije.ppl.tailor.util.NumberUtil;
+import polije.ppl.tailor.util.ViewUtil;
 import polije.ppl.tailor.view.util.SidebarAdminView;
 
 /**
@@ -129,7 +130,6 @@ public class DataTransaksiView extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_tambahdataMouseClicked
 
     private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
-        // TODO add your handling code here:
     }//GEN-LAST:event_jTable1MouseClicked
 
     /**
@@ -176,6 +176,7 @@ public class DataTransaksiView extends javax.swing.JFrame {
         model.addColumn("Status");
         model.addColumn("Total");
         model.addColumn("Penjahit");
+        model.addColumn("ID");
 
         for(Transaction transaction: transactions) {
             model.addRow(new Object[] {
@@ -183,11 +184,13 @@ public class DataTransaksiView extends javax.swing.JFrame {
                 transaction.getDate().toString(),
                 transaction.getStatus().toString(),
                 NumberUtil.formatDec(transaction.getTotal()),
-                transaction.getAccount().getFullname()
+                transaction.getAccount().getFullname(),
+                transaction.getId()
             });
         }
 
         jTable1.setModel(model);
+        ViewUtil.hideTableColumn(jTable1, 5);
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -102,15 +102,14 @@ public class TransactionRepository implements Repository<Transaction> {
     }
 
     public Integer add(Transaction trans) {
-        String sql = "INSERT INTO "+ tableName +" (`status`, `date`, `due_date`, `total`, `note`, `account_id`, `customer_id`) VALUES (?, ?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO "+ tableName +" (`status`, `date`, `due_date`, `note`, `account_id`, `customer_id`) VALUES (?, ?, ?, ?, ?, ?)";
 
         try(PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
             stmt.setString(1, trans.getStatus().toString());
             stmt.setDate(2, new Date(trans.getDate().getTime()));
-            stmt.setInt(4, trans.getTotal());
-            stmt.setString(5, trans.getNote());
-            stmt.setInt(6, trans.getAccount().getId());
-            stmt.setInt(7, trans.getCustomer().getId());
+            stmt.setString(4, trans.getNote());
+            stmt.setInt(5, trans.getAccount().getId());
+            stmt.setInt(6, trans.getCustomer().getId());
 
             if (trans.getDueDate() == null) {
                 stmt.setNull(3, Types.DATE);
@@ -129,14 +128,13 @@ public class TransactionRepository implements Repository<Transaction> {
 
     public boolean update(Transaction trans) {
         String sql = "UPDATE " + tableName
-                + " SET status = ?, due_date = ?, total = ?, note = ? WHERE transaction_id = ?";
+                + " SET status = ?, due_date = ?, note = ? WHERE transaction_id = ?";
 
         try (PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setString(1, trans.getStatus().toString());
             stmt.setDate(2, new Date(trans.getDueDate().getTime()));
-            stmt.setInt(3, trans.getTotal());
-            stmt.setString(4, trans.getNote());
-            stmt.setInt(5, trans.getId());
+            stmt.setString(3, trans.getNote());
+            stmt.setInt(4, trans.getId());
 
             stmt.executeUpdate();
             return stmt.getUpdateCount() > 0;
