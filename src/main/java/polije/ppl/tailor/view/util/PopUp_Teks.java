@@ -9,12 +9,12 @@ package polije.ppl.tailor.view.util;
  *
  * @author muhai
  */
-public class PopUp_Validation extends javax.swing.JFrame {
+public class PopUp_Teks extends javax.swing.JFrame {
 
     /**
-     * Creates new form PopUp_Validation
+     * Creates new form PopUp_Teks
      */
-    public PopUp_Validation() {
+    public PopUp_Teks() {
         initComponents();
     }
 
@@ -27,32 +27,32 @@ public class PopUp_Validation extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        btn = new javax.swing.JLabel();
+        close = new javax.swing.JLabel();
         view = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(null);
 
-        btn.addMouseListener(new java.awt.event.MouseAdapter() {
+        close.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnMouseClicked(evt);
+                closeMouseClicked(evt);
             }
         });
-        getContentPane().add(btn);
-        btn.setBounds(160, 240, 140, 50);
+        getContentPane().add(close);
+        close.setBounds(185, 283, 90, 30);
 
-        view.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/PopUp_Validasi.png"))); // NOI18N
+        view.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/PopUp_teks.png"))); // NOI18N
         getContentPane().add(view);
         view.setBounds(0, 0, 460, 347);
 
-        setSize(new java.awt.Dimension(480, 393));
+        setSize(new java.awt.Dimension(478, 394));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnMouseClicked
+    private void closeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_closeMouseClicked
         // TODO add your handling code here:
         dispose();
-    }//GEN-LAST:event_btnMouseClicked
+    }//GEN-LAST:event_closeMouseClicked
 
     /**
      * @param args the command line arguments
@@ -71,26 +71,26 @@ public class PopUp_Validation extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(PopUp_Validation.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(PopUp_Teks.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(PopUp_Validation.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(PopUp_Teks.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(PopUp_Validation.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(PopUp_Teks.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(PopUp_Validation.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(PopUp_Teks.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new PopUp_Validation().setVisible(true);
+                new PopUp_Teks().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel btn;
+    private javax.swing.JLabel close;
     private javax.swing.JLabel view;
     // End of variables declaration//GEN-END:variables
 }
