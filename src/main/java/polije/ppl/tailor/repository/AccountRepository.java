@@ -68,6 +68,30 @@ public class AccountRepository implements Repository<Account> {
         return accounts;
     }
 
+    public List<Account> search(Map<String, Object> values) {
+        int iterate = 0;
+        String sql = "SELECT * FROM "+ tableName +" WHERE ";
+        List<Account> accounts = new ArrayList<>();
+
+        for(String valueKey: values.keySet()) {
+            if(iterate > 0) sql += " OR ";
+            sql += valueKey +" LIKE CONCAT( '%',?,'%')";
+
+            iterate++;
+        }
+
+        try(PreparedStatement stmt = conn.prepareStatement(sql)) {
+            DatabaseUtil.prepareStmt(stmt, values);;
+            ResultSet rs = stmt.executeQuery();
+
+            while(rs.next()) {
+                accounts.add(mapToEntity(rs));
+            }
+        }catch(SQLException e) {}
+
+        return accounts;
+    }
+
     public Integer add(Account acc) {
         String sql = "INSERT INTO "+ tableName +" (`fullname`, `password`, `email`, `username`, `role`) VALUES (?, ?, ?, ?, ?)";
 

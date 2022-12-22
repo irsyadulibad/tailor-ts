@@ -77,16 +77,39 @@ public class TransactionRepository implements Repository<Transaction> {
         return transactions;
     }
 
+    public List<Transaction> search(Map<String, Object> values) {
+        int iterate = 0;
+        String sql = "SELECT * FROM "+ tableName +" WHERE ";
+        List<Transaction> transactions = new ArrayList<>();
+
+        for(String valueKey: values.keySet()) {
+            if(iterate > 0) sql += " OR ";
+            sql += valueKey +" LIKE CONCAT( '%',?,'%')";
+
+            iterate++;
+        }
+
+        try(PreparedStatement stmt = conn.prepareStatement(sql)) {
+            DatabaseUtil.prepareStmt(stmt, values);;
+            ResultSet rs = stmt.executeQuery();
+
+            while(rs.next()) {
+                transactions.add(mapToEntity(rs));
+            }
+        }catch(SQLException e) {}
+
+        return transactions;
+    }
+
     public Integer add(Transaction trans) {
-        String sql = "INSERT INTO "+ tableName +" (`status`, `date`, `due_date`, `total`, `note`, `account_id`, `customer_id`) VALUES (?, ?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO "+ tableName +" (`status`, `date`, `due_date`, `note`, `account_id`, `customer_id`) VALUES (?, ?, ?, ?, ?, ?)";
 
         try(PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
             stmt.setString(1, trans.getStatus().toString());
             stmt.setDate(2, new Date(trans.getDate().getTime()));
-            stmt.setInt(4, trans.getTotal());
-            stmt.setString(5, trans.getNote());
-            stmt.setInt(6, trans.getAccount().getId());
-            stmt.setInt(7, trans.getCustomer().getId());
+            stmt.setString(4, trans.getNote());
+            stmt.setInt(5, trans.getAccount().getId());
+            stmt.setInt(6, trans.getCustomer().getId());
 
             if (trans.getDueDate() == null) {
                 stmt.setNull(3, Types.DATE);
@@ -105,14 +128,13 @@ public class TransactionRepository implements Repository<Transaction> {
 
     public boolean update(Transaction trans) {
         String sql = "UPDATE " + tableName
-                + " SET status = ?, due_date = ?, total = ?, note = ? WHERE transaction_id = ?";
+                + " SET status = ?, due_date = ?, note = ? WHERE transaction_id = ?";
 
         try (PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setString(1, trans.getStatus().toString());
             stmt.setDate(2, new Date(trans.getDueDate().getTime()));
-            stmt.setInt(3, trans.getTotal());
-            stmt.setString(4, trans.getNote());
-            stmt.setInt(5, trans.getId());
+            stmt.setString(3, trans.getNote());
+            stmt.setInt(4, trans.getId());
 
             stmt.executeUpdate();
             return stmt.getUpdateCount() > 0;

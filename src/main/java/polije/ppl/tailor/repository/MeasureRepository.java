@@ -67,6 +67,30 @@ public class MeasureRepository implements Repository<Measure> {
         return measures;
     }
 
+    public List<Measure> search(Map<String, Object> values) {
+        int iterate = 0;
+        String sql = "SELECT * FROM "+ tableName +" WHERE ";
+        List<Measure> measures = new ArrayList<>();
+
+        for(String valueKey: values.keySet()) {
+            if(iterate > 0) sql += " OR ";
+            sql += valueKey +" LIKE CONCAT( '%',?,'%')";
+
+            iterate++;
+        }
+
+        try(PreparedStatement stmt = conn.prepareStatement(sql)) {
+            DatabaseUtil.prepareStmt(stmt, values);;
+            ResultSet rs = stmt.executeQuery();
+
+            while(rs.next()) {
+                measures.add(mapToEntity(rs));
+            }
+        }catch(SQLException e) {}
+
+        return measures;
+    }
+
     public Integer add(Measure meas) {
         String sql = "INSERT INTO "+ tableName +" (`cloth_type`, `items`, `customer_id`) VALUES (?, ?, ?)";
 

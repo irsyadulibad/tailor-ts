@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Dec 08, 2022 at 08:04 AM
+-- Generation Time: Dec 19, 2022 at 04:12 PM
 -- Server version: 10.9.4-MariaDB
 -- PHP Version: 8.1.13
 
@@ -86,7 +86,7 @@ CREATE TABLE `transactions` (
   `status` enum('finish','unfinish') NOT NULL,
   `date` date NOT NULL,
   `due_date` date DEFAULT NULL,
-  `total` int(7) NOT NULL,
+  `total` int(7) NOT NULL DEFAULT 0,
   `note` text NOT NULL,
   `account_id` int(11) NOT NULL,
   `customer_id` int(11) NOT NULL
@@ -106,6 +106,28 @@ CREATE TABLE `transaction_details` (
   `transaction_id` int(11) NOT NULL,
   `package_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Triggers `transaction_details`
+--
+DELIMITER $$
+CREATE TRIGGER `delete_transaction_total` AFTER DELETE ON `transaction_details` FOR EACH ROW UPDATE `transactions`
+    SET `total` = `total` - (OLD.`price` * OLD.`qty`)
+    WHERE `transaction_id` = OLD.`transaction_id`
+$$
+DELIMITER ;
+DELIMITER $$
+CREATE TRIGGER `sum_transaction_total` AFTER INSERT ON `transaction_details` FOR EACH ROW UPDATE `transactions`
+    SET `total` = `total` + (NEW.`price` * NEW.`qty`)
+    WHERE `transaction_id` = NEW.`transaction_id`
+$$
+DELIMITER ;
+DELIMITER $$
+CREATE TRIGGER `update_transaction_total` AFTER UPDATE ON `transaction_details` FOR EACH ROW UPDATE `transactions`    
+    SET `total` = `total` - (OLD.`price` * OLD.`qty`) + (NEW.`price` * NEW.`qty`)
+    WHERE `transaction_id` = NEW.`transaction_id`
+$$
+DELIMITER ;
 
 -- --------------------------------------------------------
 

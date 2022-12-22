@@ -31,6 +31,13 @@ public interface Repository<E extends Entity> {
     public List<E> get(Map<String, Object> values);
 
     /**
+     * Get all records with like query
+     * @param values
+     * @return
+     */
+    public List<E> search(Map<String, Object> values);
+
+    /**
      * Insert record to database
      * @param entity
      * @return

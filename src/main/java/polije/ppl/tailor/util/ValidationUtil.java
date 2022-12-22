@@ -1,6 +1,5 @@
 package polije.ppl.tailor.util;
 
-import java.util.Collections;
 import java.util.Set;
 
 import jakarta.validation.ConstraintViolation;
