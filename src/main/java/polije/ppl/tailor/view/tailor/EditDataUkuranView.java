@@ -10,12 +10,12 @@ import polije.ppl.tailor.view.LandingPageView;
  *
  * @author Hafidz
  */
-public class EditDataUkuran extends javax.swing.JFrame {
+public class EditDataUkuranView extends javax.swing.JFrame {
 
     /**
      * Creates new form EditDataUkuran
      */
-    public EditDataUkuran() {
+    public EditDataUkuranView() {
         initComponents();
         
         plg.setOpaque(false);
@@ -225,20 +225,21 @@ public class EditDataUkuran extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(EditDataUkuran.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(EditDataUkuranView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(EditDataUkuran.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(EditDataUkuranView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(EditDataUkuran.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(EditDataUkuranView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(EditDataUkuran.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(EditDataUkuranView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new EditDataUkuran().setVisible(true);
+                new EditDataUkuranView().setVisible(true);
             }
         });
     }
