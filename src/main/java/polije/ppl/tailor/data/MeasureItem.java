@@ -1,7 +1,12 @@
 package polije.ppl.tailor.data;
 
+import jakarta.validation.constraints.NotNull;
+
 public class MeasureItem {
+    @NotNull(message = "Nama ukuran harus diisi")
     private String name;
+
+    @NotNull(message = "Nilai ukuran harus diisi")
     private Integer value;
 
     public MeasureItem() {}

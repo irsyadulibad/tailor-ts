@@ -5,6 +5,7 @@
  */
 package polije.ppl.tailor.view.tailor;
 
+import java.util.HashMap;
 import java.util.List;
 
 import javax.swing.table.DefaultTableModel;
@@ -55,7 +56,6 @@ public class UkuranView extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(1089, 740));
-        setPreferredSize(new java.awt.Dimension(1089, 740));
         getContentPane().setLayout(null);
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
@@ -69,6 +69,11 @@ public class UkuranView extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        jTable1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTable1MouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(jTable1);
 
         getContentPane().add(jScrollPane1);
@@ -87,6 +92,11 @@ public class UkuranView extends javax.swing.JFrame {
         search.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 searchActionPerformed(evt);
+            }
+        });
+        search.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                searchKeyReleased(evt);
             }
         });
         getContentPane().add(search);
@@ -114,6 +124,18 @@ public class UkuranView extends javax.swing.JFrame {
     private void searchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchActionPerformed
 
     }//GEN-LAST:event_searchActionPerformed
+
+    private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTable1MouseClicked
+
+    private void searchKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_searchKeyReleased
+        List<Measure> measures = measRepo.search(new HashMap<>() {{
+            put("cloth_type", search.getText());
+        }});
+
+        loadTable(measures);
+    }//GEN-LAST:event_searchKeyReleased
 
     /**
      * @param args the command line arguments

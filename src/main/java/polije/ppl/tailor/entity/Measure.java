@@ -6,12 +6,15 @@ import java.util.List;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import jakarta.validation.constraints.NotBlank;
 import polije.ppl.tailor.data.MeasureItem;
 
 public class Measure implements Entity {
     public final static String tableName = "measures";
 
     private Integer id;
+
+    @NotBlank(message = "Tipe pakaian harus diisi")
     private String clothType;
     private JSONArray items = new JSONArray();
     private Customer customer;

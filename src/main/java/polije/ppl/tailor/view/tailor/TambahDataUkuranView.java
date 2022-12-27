@@ -5,6 +5,24 @@
  */
 package polije.ppl.tailor.view.tailor;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
+
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+
+import jakarta.validation.ConstraintViolation;
+import polije.ppl.tailor.data.ComboItem;
+import polije.ppl.tailor.data.MeasureItem;
+import polije.ppl.tailor.entity.Customer;
+import polije.ppl.tailor.entity.Measure;
+import polije.ppl.tailor.repository.CustomerRepository;
+import polije.ppl.tailor.repository.MeasureRepository;
+import polije.ppl.tailor.repository.Repository;
+import polije.ppl.tailor.service.validation.MeasureValidation;
+import polije.ppl.tailor.util.ValidationUtil;
+import polije.ppl.tailor.view.util.SearchableComboBox;
 import polije.ppl.tailor.view.util.SidebarTailorView;
 
 /**
@@ -12,26 +30,21 @@ import polije.ppl.tailor.view.util.SidebarTailorView;
  * @author Hafidz
  */
 public class TambahDataUkuranView extends javax.swing.JFrame {
+    private List<MeasureItem> items;
+    private Repository<Customer> custRepo = new CustomerRepository();
+    private Repository<Measure> measRepo = new MeasureRepository();
+    private Integer activeDetail;
 
     /**
      * Creates new form TambahDataUkuran
      */
     public TambahDataUkuranView() {
+        this.items = new ArrayList<>();
+
         initComponents();
-        plg.setOpaque(false);
-        plg.setBackground(new java.awt.Color(255, 255, 255, 0));
+        initTransparents();
 
-        tipepakaian.setOpaque(false);
-        tipepakaian.setBackground(new java.awt.Color(255, 255, 255, 0));
-
-        nama.setOpaque(false);
-        nama.setBackground(new java.awt.Color(255, 255, 255, 0));
-
-        nilai.setOpaque(false);
-        nilai.setBackground(new java.awt.Color(255, 255, 255, 0));
-
-        sidebar.add(new SidebarTailorView(this));
-        sidebar.setBackground(new java.awt.Color(255, 255, 255, 0));
+        loadTable();
     }
 
     /**
@@ -42,9 +55,7 @@ public class TambahDataUkuranView extends javax.swing.JFrame {
 
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
-
         tipepakaian = new javax.swing.JTextField();
-        plg = new javax.swing.JTextField();
         nilai = new javax.swing.JTextField();
         nama = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -59,28 +70,24 @@ public class TambahDataUkuranView extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(1089, 740));
-        setPreferredSize(new java.awt.Dimension(1089, 740));
         getContentPane().setLayout(null);
+
+        fillComboBox();
 
         tipepakaian.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
         tipepakaian.setBorder(null);
         getContentPane().add(tipepakaian);
-        tipepakaian.setBounds(395, 236, 510, 30);
-
-        plg.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
-        plg.setBorder(null);
-        getContentPane().add(plg);
-        plg.setBounds(395, 176, 510, 30);
+        tipepakaian.setBounds(405, 236, 490, 30);
 
         nilai.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
         nilai.setBorder(null);
         getContentPane().add(nilai);
-        nilai.setBounds(612, 327, 200, 30);
+        nilai.setBounds(622, 327, 180, 30);
 
         nama.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
         nama.setBorder(null);
         getContentPane().add(nama);
-        nama.setBounds(394, 327, 200, 30);
+        nama.setBounds(404, 327, 180, 30);
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -93,6 +100,11 @@ public class TambahDataUkuranView extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        jTable1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTable1MouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(jTable1);
 
         getContentPane().add(jScrollPane1);
@@ -113,6 +125,12 @@ public class TambahDataUkuranView extends javax.swing.JFrame {
         });
         getContentPane().add(hapus);
         hapus.setBounds(862, 328, 30, 30);
+
+        simpandata.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                simpandataMouseClicked(evt);
+            }
+        });
         getContentPane().add(simpandata);
         simpandata.setBounds(821, 645, 90, 30);
 
@@ -146,12 +164,56 @@ public class TambahDataUkuranView extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void simpanMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_simpanMouseClicked
+    private void initTransparents() {
+        plg.setOpaque(false);
+        plg.setBackground(new java.awt.Color(255, 255, 255, 0));
 
+        tipepakaian.setOpaque(false);
+        tipepakaian.setBackground(new java.awt.Color(255, 255, 255, 0));
+
+        nama.setOpaque(false);
+        nama.setBackground(new java.awt.Color(255, 255, 255, 0));
+
+        nilai.setOpaque(false);
+        nilai.setBackground(new java.awt.Color(255, 255, 255, 0));
+
+        sidebar.add(new SidebarTailorView(this));
+        sidebar.setBackground(new java.awt.Color(255, 255, 255, 0));
+    }
+
+    private void simpanMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_simpanMouseClicked
+        String value = nilai.getText();
+        MeasureItem item = (activeDetail == null) ?
+            new MeasureItem() : items.get(activeDetail);
+
+        item.setName(nama.getText());
+        item.setValue(value.isBlank() ? 0 : Integer.valueOf(value));
+
+        Set<ConstraintViolation<MeasureItem>> vols = ValidationUtil.validate(item);
+
+        if(vols.size() > 0) {
+            JOptionPane.showMessageDialog(this, ValidationUtil.getErrorsAsString(vols, "\n"));
+            return;
+        }
+
+        if(activeDetail == null) this.items.add(0, item);
+        activeDetail = null;
+
+        nilai.setText("");
+        loadTable();
     }//GEN-LAST:event_simpanMouseClicked
 
     private void hapusMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_hapusMouseClicked
+        if(activeDetail == null) {
+            JOptionPane.showMessageDialog(this, "Anda harus memilih data terlebih dahulu");
+            return;
+        }
 
+        items.remove((int) activeDetail);
+        activeDetail = null;
+
+        loadTable();
+        nilai.setText("");
     }//GEN-LAST:event_hapusMouseClicked
 
     private void resetMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_resetMouseClicked
@@ -162,6 +224,45 @@ public class TambahDataUkuranView extends javax.swing.JFrame {
         new UkuranView().setVisible(true);
         this.dispose();
     }//GEN-LAST:event_bbuttonMouseClicked
+
+    private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
+        int row = jTable1.getSelectedRow();
+        MeasureItem item = items.get(row);
+        this.activeDetail = row;
+
+        nama.setText(item.getName());
+        nilai.setText(String.valueOf(item.getValue()));
+    }//GEN-LAST:event_jTable1MouseClicked
+
+    private void simpandataMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_simpandataMouseClicked
+        ComboItem customer = (ComboItem) plg.getSelectedItem();
+        MeasureValidation comboValidation = new MeasureValidation(customer);
+
+        Set<ConstraintViolation<MeasureValidation>> vols = ValidationUtil.validate(comboValidation);
+
+        if(vols.size() > 0) {
+            JOptionPane.showMessageDialog(this, ValidationUtil.getErrorsAsString(vols, "\n"));
+            return;
+        }
+
+        Measure measure = new Measure(
+            custRepo.get(customer.getKey()),
+            tipepakaian.getText(),
+            this.items
+        );
+
+        Set<ConstraintViolation<Measure>> vols2 = ValidationUtil.validate(measure);
+        if(vols2.size() > 0) {
+            JOptionPane.showMessageDialog(this, ValidationUtil.getErrorsAsString(vols, "\n"));
+            return;
+        }
+
+        measRepo.add(measure);
+
+        JOptionPane.showMessageDialog(this, "Data ukuran berhasil disimpan");
+        new UkuranView().setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_simpandataMouseClicked
 
     /**
      * @param args the command line arguments
@@ -199,6 +300,40 @@ public class TambahDataUkuranView extends javax.swing.JFrame {
         });
     }
 
+    private void loadTable() {
+        DefaultTableModel model = new DefaultTableModel();
+
+        model.addColumn("Nama");
+        model.addColumn("Nilai (cm)");
+
+        for(MeasureItem item: this.items) {
+            model.addRow(new Object[] {
+                item.getName(),
+                item.getValue(),
+            });
+        }
+
+        jTable1.setModel(model);
+    }
+
+    private void fillComboBox() {
+        ComboItem[] items;
+        List<Customer> customers = custRepo.get();
+
+        items = new ComboItem[customers.size()];
+        for(int i = 0; i < customers.size(); i++) {
+            Customer customer = customers.get(i);
+            items[i] = new ComboItem(customer.getId(), customer.getFullname());
+        }
+
+        plg = new SearchableComboBox(items);
+        plg.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
+        plg.setBorder(null);
+        getContentPane().add(plg);
+        plg.setBounds(395, 176, 510, 30);
+    }
+
+    private javax.swing.JComboBox plg;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel bbutton;
     private javax.swing.JLabel hapus;
@@ -207,7 +342,6 @@ public class TambahDataUkuranView extends javax.swing.JFrame {
     private javax.swing.JTable jTable1;
     private javax.swing.JTextField nama;
     private javax.swing.JTextField nilai;
-    private javax.swing.JTextField plg;
     private javax.swing.JLabel reset;
     private javax.swing.JPanel sidebar;
     private javax.swing.JLabel simpan;
