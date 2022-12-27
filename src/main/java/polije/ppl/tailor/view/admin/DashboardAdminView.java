@@ -34,7 +34,7 @@ public class DashboardAdminView extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setMinimumSize(new java.awt.Dimension(1089, 740));
+        setMinimumSize(new java.awt.Dimension(1089, 708));
         getContentPane().setLayout(null);
 
         sidebar.setMinimumSize(new java.awt.Dimension(277, 708));
