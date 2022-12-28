@@ -14,7 +14,6 @@ import polije.ppl.tailor.entity.Measure;
 import polije.ppl.tailor.repository.MeasureRepository;
 import polije.ppl.tailor.repository.Repository;
 import polije.ppl.tailor.util.ViewUtil;
-import polije.ppl.tailor.view.admin.EditDataPaketView;
 import polije.ppl.tailor.view.util.SidebarTailorView;
 
 /**

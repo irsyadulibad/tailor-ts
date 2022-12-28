@@ -13,6 +13,7 @@ import polije.ppl.tailor.entity.Package;
 import polije.ppl.tailor.repository.PackageRepository;
 import polije.ppl.tailor.repository.Repository;
 import polije.ppl.tailor.util.ValidationUtil;
+import polije.ppl.tailor.util.ViewUtil;
 import polije.ppl.tailor.view.util.SidebarAdminView;
 
 /**
@@ -61,6 +62,11 @@ public class TambahDataPaketView extends javax.swing.JFrame {
 
         txt_price.setFont(new java.awt.Font("Ubuntu", 0, 20)); // NOI18N
         txt_price.setBorder(null);
+        txt_price.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txt_priceKeyReleased(evt);
+            }
+        });
         getContentPane().add(txt_price);
         txt_price.setBounds(410, 280, 490, 40);
 
@@ -110,6 +116,10 @@ public class TambahDataPaketView extends javax.swing.JFrame {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void txt_priceKeyReleased(java.awt.event.KeyEvent evt) {
+        ViewUtil.replaceNumberInput(txt_price);
+    }
 
     private void btn_simpanMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_simpanMouseClicked
         int price = txt_price.getText().isEmpty() ? 0 : Integer.parseInt(txt_price.getText());

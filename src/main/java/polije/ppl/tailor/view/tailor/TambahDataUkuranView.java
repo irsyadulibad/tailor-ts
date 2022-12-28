@@ -22,6 +22,7 @@ import polije.ppl.tailor.repository.MeasureRepository;
 import polije.ppl.tailor.repository.Repository;
 import polije.ppl.tailor.service.validation.MeasureValidation;
 import polije.ppl.tailor.util.ValidationUtil;
+import polije.ppl.tailor.util.ViewUtil;
 import polije.ppl.tailor.view.util.SearchableComboBox;
 import polije.ppl.tailor.view.util.SidebarTailorView;
 
@@ -81,6 +82,11 @@ public class TambahDataUkuranView extends javax.swing.JFrame {
 
         nilai.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
         nilai.setBorder(null);
+        nilai.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                nilaiKeyReleased(evt);
+            }
+        });
         getContentPane().add(nilai);
         nilai.setBounds(622, 327, 180, 30);
 
@@ -179,6 +185,10 @@ public class TambahDataUkuranView extends javax.swing.JFrame {
 
         sidebar.add(new SidebarTailorView(this));
         sidebar.setBackground(new java.awt.Color(255, 255, 255, 0));
+    }
+
+    private void nilaiKeyReleased(java.awt.event.KeyEvent evt) {
+        ViewUtil.replaceNumberInput(nilai);
     }
 
     private void simpanMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_simpanMouseClicked

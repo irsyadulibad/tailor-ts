@@ -13,6 +13,7 @@ import polije.ppl.tailor.entity.Package;
 import polije.ppl.tailor.repository.PackageRepository;
 import polije.ppl.tailor.repository.Repository;
 import polije.ppl.tailor.util.ValidationUtil;
+import polije.ppl.tailor.util.ViewUtil;
 import polije.ppl.tailor.view.util.SidebarAdminView;
 
 /**
@@ -76,6 +77,11 @@ public class EditDataPaketView extends javax.swing.JFrame {
 
         harga.setFont(new java.awt.Font("Ubuntu", 0, 20)); // NOI18N
         harga.setBorder(null);
+        harga.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                hargaKeyReleased(evt);
+            }
+        });
         getContentPane().add(harga);
         harga.setBounds(410, 280, 490, 40);
 
@@ -110,6 +116,10 @@ public class EditDataPaketView extends javax.swing.JFrame {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void hargaKeyReleased(java.awt.event.KeyEvent evt) {
+        ViewUtil.replaceNumberInput(harga);
+    }
 
     private void bbtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bbtnMouseClicked
         new DataPaketView().setVisible(true);

@@ -25,15 +25,16 @@ import polije.ppl.tailor.entity.Customer;
 import polije.ppl.tailor.entity.Package;
 import polije.ppl.tailor.entity.Transaction;
 import polije.ppl.tailor.entity.TransactionDetail;
+import polije.ppl.tailor.repository.AccountRepository;
+import polije.ppl.tailor.repository.CustomerRepository;
+import polije.ppl.tailor.repository.PackageRepository;
 import polije.ppl.tailor.repository.Repository;
 import polije.ppl.tailor.repository.TransactionDetailRepository;
 import polije.ppl.tailor.repository.TransactionRepository;
 import polije.ppl.tailor.service.validation.TransactionValidation;
 import polije.ppl.tailor.util.NumberUtil;
 import polije.ppl.tailor.util.ValidationUtil;
-import polije.ppl.tailor.repository.AccountRepository;
-import polije.ppl.tailor.repository.CustomerRepository;
-import polije.ppl.tailor.repository.PackageRepository;
+import polije.ppl.tailor.util.ViewUtil;
 import polije.ppl.tailor.view.util.SearchableComboBox;
 import polije.ppl.tailor.view.util.SidebarAdminView;
 
@@ -109,9 +110,9 @@ public class TambahTransaksiView extends javax.swing.JFrame {
         jumlah.setFont(new java.awt.Font("Ubuntu", 0, 14)); // NOI18N
         jumlah.setHorizontalAlignment(javax.swing.JTextField.LEFT);
         jumlah.setBorder(null);
-        jumlah.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jumlahActionPerformed(evt);
+        jumlah.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jumlahKeyReleased(evt);
             }
         });
         getContentPane().add(jumlah);
@@ -123,6 +124,11 @@ public class TambahTransaksiView extends javax.swing.JFrame {
         harga.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 hargaActionPerformed(evt);
+            }
+        });
+        harga.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                hargaKeyReleased(evt);
             }
         });
         getContentPane().add(harga);
@@ -335,8 +341,8 @@ public class TambahTransaksiView extends javax.swing.JFrame {
 
     }//GEN-LAST:event_namapakaianActionPerformed
 
-    private void jumlahActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jumlahActionPerformed
-
+    private void jumlahKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jumlahActionPerformed
+        ViewUtil.replaceNumberInput(jumlah);
     }//GEN-LAST:event_jumlahActionPerformed
 
     private void btn_simpanMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_simpanMouseClicked
@@ -434,6 +440,10 @@ public class TambahTransaksiView extends javax.swing.JFrame {
     private void btn_resetMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_resetMouseClicked
 
     }//GEN-LAST:event_btn_resetMouseClicked
+
+    private void hargaKeyReleased(java.awt.event.KeyEvent evt) {
+        ViewUtil.replaceNumberInput(harga);
+    }
 
     /**
      * @param args the command line arguments

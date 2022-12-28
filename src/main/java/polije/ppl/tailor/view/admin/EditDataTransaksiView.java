@@ -4,6 +4,7 @@
  */
 package polije.ppl.tailor.view.admin;
 
+import polije.ppl.tailor.util.ViewUtil;
 import polije.ppl.tailor.view.util.SidebarAdminView;
 
 /**
@@ -62,9 +63,9 @@ public class EditDataTransaksiView extends javax.swing.JFrame {
         jumlah.setFont(new java.awt.Font("Ubuntu", 0, 14)); // NOI18N
         jumlah.setHorizontalAlignment(javax.swing.JTextField.LEFT);
         jumlah.setBorder(null);
-        jumlah.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jumlahActionPerformed(evt);
+        jumlah.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jumlahKeyReleased(evt);
             }
         });
         getContentPane().add(jumlah);
@@ -73,9 +74,9 @@ public class EditDataTransaksiView extends javax.swing.JFrame {
         harga.setFont(new java.awt.Font("Ubuntu", 0, 14)); // NOI18N
         harga.setHorizontalAlignment(javax.swing.JTextField.LEFT);
         harga.setBorder(null);
-        harga.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                hargaActionPerformed(evt);
+        harga.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                hargaKeyReleased(evt);
             }
         });
         getContentPane().add(harga);
@@ -155,12 +156,12 @@ public class EditDataTransaksiView extends javax.swing.JFrame {
 
     }//GEN-LAST:event_namapakaianActionPerformed
 
-    private void jumlahActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jumlahActionPerformed
-
+    private void jumlahKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jumlahActionPerformed
+        ViewUtil.replaceNumberInput(jumlah);
     }//GEN-LAST:event_jumlahActionPerformed
 
-    private void hargaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_hargaActionPerformed
-
+    private void hargaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_hargaActionPerformed
+        ViewUtil.replaceNumberInput(harga);
     }//GEN-LAST:event_hargaActionPerformed
 
     private void btn_simpanMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_simpanMouseClicked

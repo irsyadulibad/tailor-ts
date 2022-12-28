@@ -14,6 +14,7 @@ import polije.ppl.tailor.entity.Customer;
 import polije.ppl.tailor.repository.CustomerRepository;
 import polije.ppl.tailor.repository.Repository;
 import polije.ppl.tailor.util.ValidationUtil;
+import polije.ppl.tailor.util.ViewUtil;
 import polije.ppl.tailor.view.util.SidebarAdminView;
 
 /**
@@ -99,7 +100,11 @@ public class EditDataPelangganView extends javax.swing.JFrame {
 
         umur.setFont(new java.awt.Font("Ubuntu", 0, 20)); // NOI18N
         umur.setBorder(null);
-
+        umur.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                umurKeyReleased(evt);
+            }
+        });
         getContentPane().add(umur);
         umur.setBounds(398, 330, 510, 30);
 
@@ -140,6 +145,10 @@ public class EditDataPelangganView extends javax.swing.JFrame {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void umurKeyReleased(java.awt.event.KeyEvent evt) {
+        ViewUtil.replaceNumberInput(umur);
+    }
 
     private void btn_backMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_backMouseClicked
         new DataPelangganView().setVisible(true);

@@ -15,6 +15,7 @@ import polije.ppl.tailor.entity.Customer;
 import polije.ppl.tailor.repository.CustomerRepository;
 import polije.ppl.tailor.repository.Repository;
 import polije.ppl.tailor.util.ValidationUtil;
+import polije.ppl.tailor.util.ViewUtil;
 import polije.ppl.tailor.view.util.PopupSuccess;
 import polije.ppl.tailor.view.util.SidebarAdminView;
 
@@ -97,9 +98,9 @@ public class TambahDataPelangganView extends javax.swing.JFrame {
 
         txt_umur.setFont(new java.awt.Font("Ubuntu", 0, 20)); // NOI18N
         txt_umur.setBorder(null);
-        txt_umur.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txt_umurActionPerformed(evt);
+        txt_umur.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txt_umurKeyReleased(evt);
             }
         });
         getContentPane().add(txt_umur);
@@ -159,8 +160,8 @@ public class TambahDataPelangganView extends javax.swing.JFrame {
 
     }//GEN-LAST:event_txt_namapelangganActionPerformed
 
-    private void txt_umurActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_umurActionPerformed
-
+    private void txt_umurKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_umurActionPerformed
+        ViewUtil.replaceNumberInput(txt_umur);
     }//GEN-LAST:event_txt_umurActionPerformed
 
     private void btn_simpanMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_simpanMouseClicked
