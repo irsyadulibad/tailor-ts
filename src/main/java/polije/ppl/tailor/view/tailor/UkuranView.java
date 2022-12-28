@@ -126,7 +126,12 @@ public class UkuranView extends javax.swing.JFrame {
     }//GEN-LAST:event_searchActionPerformed
 
     private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
-        // TODO add your handling code here:
+        int row = jTable1.getSelectedRow();
+        String value = jTable1.getModel().getValueAt(row, 3).toString();
+        Measure measure = measRepo.get(Integer.valueOf(value));
+
+        new EditDataUkuranView(measure);
+        this.dispose();
     }//GEN-LAST:event_jTable1MouseClicked
 
     private void searchKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_searchKeyReleased
