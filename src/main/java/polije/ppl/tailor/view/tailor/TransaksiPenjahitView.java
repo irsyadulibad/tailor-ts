@@ -5,6 +5,16 @@
  */
 package polije.ppl.tailor.view.tailor;
 
+import java.util.HashMap;
+import java.util.List;
+
+import javax.swing.table.DefaultTableModel;
+
+import polije.ppl.tailor.data.SessionData;
+import polije.ppl.tailor.entity.Transaction;
+import polije.ppl.tailor.repository.TransactionRepository;
+import polije.ppl.tailor.util.NumberUtil;
+import polije.ppl.tailor.util.ViewUtil;
 import polije.ppl.tailor.view.util.SidebarTailorView;
 
 /**
@@ -12,6 +22,7 @@ import polije.ppl.tailor.view.util.SidebarTailorView;
  * @author Hafidz
  */
 public class TransaksiPenjahitView extends javax.swing.JFrame {
+    private TransactionRepository transRepo = new TransactionRepository();
 
     /**
      * Creates new form TransaksiPenjahit
@@ -24,6 +35,12 @@ public class TransaksiPenjahitView extends javax.swing.JFrame {
 
         sidebar.add(new SidebarTailorView(this));
         sidebar.setBackground(new java.awt.Color(255, 255, 255, 0));
+
+        loadTable(transRepo.get(
+            new HashMap<>() {{
+                put("account_id", SessionData.account.getId());
+            }}
+        ));
     }
 
     /**
@@ -64,9 +81,9 @@ public class TransaksiPenjahitView extends javax.swing.JFrame {
 
         search.setFont(new java.awt.Font("Ubuntu", 0, 16)); // NOI18N
         search.setBorder(null);
-        search.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                searchActionPerformed(evt);
+        search.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                searchKeyReleased(evt);
             }
         });
         getContentPane().add(search);
@@ -86,8 +103,16 @@ public class TransaksiPenjahitView extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void searchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchActionPerformed
+    private void searchKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_searchActionPerformed
+        List<Transaction> transactions = transRepo.searchByAccount(
+            SessionData.account,
+            new HashMap<>() {{
+                put("total", search.getText());
+                put("status", search.getText());
+            }}
+        );
 
+        loadTable(transactions);
     }//GEN-LAST:event_searchActionPerformed
 
     /**
@@ -124,6 +149,30 @@ public class TransaksiPenjahitView extends javax.swing.JFrame {
                 new TransaksiPenjahitView().setVisible(true);
             }
         });
+    }
+
+    private void loadTable(List<Transaction> transactions) {
+        int no = 1;
+        DefaultTableModel model = new DefaultTableModel();
+
+        model.addColumn("No");
+        model.addColumn("Tanggal");
+        model.addColumn("Status");
+        model.addColumn("Total");
+        model.addColumn("ID");
+
+        for(Transaction transaction: transactions) {
+            model.addRow(new Object[] {
+                no++,
+                transaction.getDate().toString(),
+                transaction.getStatus().toString(),
+                NumberUtil.formatDec(transaction.getTotal()),
+                transaction.getId()
+            });
+        }
+
+        jTable1.setModel(model);
+        ViewUtil.hideTableColumn(jTable1, 4);
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

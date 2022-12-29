@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.Map;
 
 import polije.ppl.tailor.data.TransactionStatus;
+import polije.ppl.tailor.entity.Account;
 import polije.ppl.tailor.entity.Transaction;
 import polije.ppl.tailor.util.DatabaseUtil;
 
@@ -90,7 +91,34 @@ public class TransactionRepository implements Repository<Transaction> {
         }
 
         try(PreparedStatement stmt = conn.prepareStatement(sql)) {
-            DatabaseUtil.prepareStmt(stmt, values);;
+            DatabaseUtil.prepareStmt(stmt, values);
+            ResultSet rs = stmt.executeQuery();
+
+            while(rs.next()) {
+                transactions.add(mapToEntity(rs));
+            }
+        }catch(SQLException e) {}
+
+        return transactions;
+    }
+
+    public List<Transaction> searchByAccount(Account account, Map<String, Object> values) {
+        int iterate = 0;
+        String sql = "SELECT * FROM "+ tableName +" WHERE ";
+        List<Transaction> transactions = new ArrayList<>();
+
+        for(String valueKey: values.keySet()) {
+            if(iterate > 0) sql += " OR ";
+            sql += valueKey +" LIKE CONCAT( '%',?,'%')";
+
+            iterate++;
+        }
+
+        sql += " AND account_id = ?";
+
+        try(PreparedStatement stmt = conn.prepareStatement(sql)) {
+            DatabaseUtil.prepareStmt(stmt, values);
+            stmt.setInt(values.keySet().size() + 1, account.getId());
             ResultSet rs = stmt.executeQuery();
 
             while(rs.next()) {
