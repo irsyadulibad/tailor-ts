@@ -236,7 +236,15 @@ public class EditDataUkuranView extends javax.swing.JFrame {
     }//GEN-LAST:event_hapusMouseClicked
 
     private void resetMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_resetMouseClicked
+        int clicked = JOptionPane.showConfirmDialog(this, "Apakah anda yakin?");
 
+        if(clicked == 0) {
+            measRepo.delete(measure.getId());
+
+            JOptionPane.showMessageDialog(this, "Data berhasil dihapus");
+            new UkuranView().setVisible(true);
+            this.dispose();
+        }
     }//GEN-LAST:event_resetMouseClicked
 
     private void bbuttonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bbuttonMouseClicked
