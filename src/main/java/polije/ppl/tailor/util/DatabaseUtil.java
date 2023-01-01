@@ -4,6 +4,8 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.Date;
+import java.util.List;
 import java.util.Map;
 
 import com.mysql.cj.jdbc.Driver;
@@ -34,19 +36,27 @@ public class DatabaseUtil {
         return conn;
     }
 
-    public static void prepareStmt(PreparedStatement stmt, Map<String, Object> values) {
-        try {
-            int i = 1;
+    public static void prepareStmt(PreparedStatement stmt, Map<String, Object> values) throws SQLException {
+        int i = 1;
 
-            for(String key: values.keySet()) {
-                Object value = values.get(key);
+        for(String key: values.keySet()) {
+            Object value = values.get(key);
+            setValues(stmt, i++, value);
+        }
+    }
 
-                if(value instanceof String) stmt.setString(i, String.valueOf(value));
-                if(value instanceof Integer) stmt.setInt(i, (Integer) value);
-                if(value instanceof TransactionStatus) stmt.setString(i, String.valueOf(value));
+    public static void prepareStmt(PreparedStatement stmt, List<Object> values) throws SQLException {
+        int i = 1;
 
-                i++;
-            }
-        } catch(SQLException e) {}
+        for(Object value: values) {
+            setValues(stmt, i++, value);
+        }
+    }
+
+    private static void setValues(PreparedStatement stmt, int row, Object value) throws SQLException {
+        if(value instanceof String) stmt.setString(row, String.valueOf(value));
+        if(value instanceof Integer) stmt.setInt(row, (Integer) value);
+        if(value instanceof TransactionStatus) stmt.setString(row, String.valueOf(value));
+        if(value instanceof Date) stmt.setDate(row, new java.sql.Date(((Date) value).getTime()));
     }
 }

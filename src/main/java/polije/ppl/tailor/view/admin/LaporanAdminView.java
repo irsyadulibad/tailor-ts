@@ -4,6 +4,12 @@
  */
 package polije.ppl.tailor.view.admin;
 
+import java.util.List;
+import javax.swing.table.DefaultTableModel;
+
+import polije.ppl.tailor.entity.Transaction;
+import polije.ppl.tailor.repository.TransactionRepository;
+import polije.ppl.tailor.util.NumberUtil;
 import polije.ppl.tailor.view.util.SidebarAdminView;
 
 /**
@@ -11,6 +17,7 @@ import polije.ppl.tailor.view.util.SidebarAdminView;
  * @author Hafidz
  */
 public class LaporanAdminView extends javax.swing.JFrame {
+    private TransactionRepository transRepo = new TransactionRepository();
 
     /**
      * Creates new form LaporanAdminView
@@ -24,12 +31,13 @@ public class LaporanAdminView extends javax.swing.JFrame {
         total.setOpaque(false);
         total.setBackground(new java.awt.Color(255, 255, 255, 0));
 
-        tanggal.setOpaque(false);
-        tanggal.setBackground(new java.awt.Color(255, 255, 255, 0));
+        startDate.setOpaque(false);
+        startDate.setBackground(new java.awt.Color(255, 255, 255, 0));
 
-        tanggalawal.setOpaque(false);
-        tanggalawal.setBackground(new java.awt.Color(255, 255, 255, 0));
+        endDate.setOpaque(false);
+        endDate.setBackground(new java.awt.Color(255, 255, 255, 0));
 
+        loadTable(transRepo.get());
     }
 
     /**
@@ -45,8 +53,8 @@ public class LaporanAdminView extends javax.swing.JFrame {
         jTable1 = new javax.swing.JTable();
         EksporData = new javax.swing.JLabel();
         total = new javax.swing.JTextField();
-        tanggal = new javax.swing.JTextField();
-        tanggalawal = new javax.swing.JTextField();
+        startDate = new com.toedter.calendar.JDateChooser();
+        endDate = new com.toedter.calendar.JDateChooser();
         BackGround = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -75,6 +83,12 @@ public class LaporanAdminView extends javax.swing.JFrame {
 
         getContentPane().add(jScrollPane1);
         jScrollPane1.setBounds(360, 230, 570, 330);
+
+        EksporData.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                EksporDataMouseClicked(evt);
+            }
+        });
         getContentPane().add(EksporData);
         EksporData.setBounds(800, 106, 130, 40);
 
@@ -87,16 +101,10 @@ public class LaporanAdminView extends javax.swing.JFrame {
         });
         getContentPane().add(total);
         total.setBounds(780, 587, 130, 30);
-
-        tanggal.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        tanggal.setBorder(null);
-        getContentPane().add(tanggal);
-        tanggal.setBounds(520, 170, 160, 40);
-
-        tanggalawal.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        tanggalawal.setBorder(null);
-        getContentPane().add(tanggalawal);
-        tanggalawal.setBounds(740, 170, 160, 40);
+        getContentPane().add(startDate);
+        startDate.setBounds(520, 177, 160, 30);
+        getContentPane().add(endDate);
+        endDate.setBounds(740, 177, 160, 30);
 
         BackGround.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/pages/Laporan.png"))); // NOI18N
         getContentPane().add(BackGround);
@@ -109,6 +117,10 @@ public class LaporanAdminView extends javax.swing.JFrame {
     private void totalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_totalActionPerformed
 
     }//GEN-LAST:event_totalActionPerformed
+
+    private void EksporDataMouseClicked(java.awt.event.MouseEvent evt) {
+        System.out.println(startDate.getDate());
+    }
 
     /**
      * @param args the command line arguments
@@ -145,14 +157,37 @@ public class LaporanAdminView extends javax.swing.JFrame {
         });
     }
 
+    private void loadTable(List<Transaction> transactions) {
+        int no = 1;
+        DefaultTableModel model = new DefaultTableModel();
+
+        model.addColumn("No");
+        model.addColumn("Tanggal");
+        model.addColumn("Pelanggan");
+        model.addColumn("Status");
+        model.addColumn("Total");
+
+        for(Transaction transaction: transactions) {
+            model.addRow(new Object[] {
+                no++,
+                transaction.getDate().toString(),
+                transaction.getCustomer().getFullname(),
+                transaction.getStatus().toString(),
+                NumberUtil.formatDec(transaction.getTotal()),
+            });
+        }
+
+        jTable1.setModel(model);
+    }
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel BackGround;
     private javax.swing.JLabel EksporData;
+    private com.toedter.calendar.JDateChooser endDate;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
     private javax.swing.JPanel sidebar;
-    private javax.swing.JTextField tanggal;
-    private javax.swing.JTextField tanggalawal;
+    private com.toedter.calendar.JDateChooser startDate;
     private javax.swing.JTextField total;
     // End of variables declaration//GEN-END:variables
 }

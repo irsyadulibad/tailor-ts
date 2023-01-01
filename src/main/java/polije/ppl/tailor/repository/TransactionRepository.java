@@ -188,6 +188,21 @@ public class TransactionRepository implements Repository<Transaction> {
         return false;
     }
 
+    public List<Transaction> customQuery(String query, List<Object> values) {
+        List<Transaction> transactions = new ArrayList<>();
+
+        try (PreparedStatement stmt = conn.prepareStatement(query)) {
+            DatabaseUtil.prepareStmt(stmt, values);
+            ResultSet rs = stmt.executeQuery();
+
+            while(rs.next()) {
+                transactions.add(mapToEntity(rs));
+            }
+        } catch(SQLException e) { e.printStackTrace(); }
+
+        return transactions;
+    }
+
     private Transaction mapToEntity(ResultSet result) throws SQLException {
         int custId = result.getInt("customer_id");
         int accId = result.getInt("account_id");
