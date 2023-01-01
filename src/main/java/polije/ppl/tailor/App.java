@@ -2,7 +2,7 @@ package polije.ppl.tailor;
 
 import javax.swing.UIManager.LookAndFeelInfo;
 
-import polije.ppl.tailor.view.LoadingPageView;
+import polije.ppl.tailor.view.LoadingView;
 
 /**
  * Hello world!
@@ -21,10 +21,6 @@ public class App
             }
         } catch(Exception e) { e.printStackTrace(); }
 
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                LoadingPageView.main(args);
-            }
-        });
+        LoadingView.main(args);
     }
 }
