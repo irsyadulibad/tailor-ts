@@ -44,6 +44,12 @@ public class LandingPageView extends javax.swing.JFrame {
         });
         getContentPane().add(btn_masuk);
         btn_masuk.setBounds(720, 600, 130, 50);
+
+        tentang_aplikasi.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tentang_aplikasiMouseClicked(evt);
+            }
+        });
         getContentPane().add(tentang_aplikasi);
         tentang_aplikasi.setBounds(650, 20, 140, 30);
 
@@ -85,6 +91,12 @@ public class LandingPageView extends javax.swing.JFrame {
         new LoginView().setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btn_masuk3MouseClicked
+
+    private void tentang_aplikasiMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tentang_aplikasiMouseClicked
+        // TODO add your handling code here:
+        new TentangKami().setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_tentang_aplikasiMouseClicked
 
     /**
      * @param args the command line arguments
