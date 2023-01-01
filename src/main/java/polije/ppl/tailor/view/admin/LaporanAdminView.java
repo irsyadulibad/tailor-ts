@@ -4,11 +4,12 @@
  */
 package polije.ppl.tailor.view.admin;
 
-import java.util.List;
+import java.util.Date;
 import javax.swing.table.DefaultTableModel;
 
+import polije.ppl.tailor.data.TransactionStatus;
 import polije.ppl.tailor.entity.Transaction;
-import polije.ppl.tailor.repository.TransactionRepository;
+import polije.ppl.tailor.service.ReportService;
 import polije.ppl.tailor.util.NumberUtil;
 import polije.ppl.tailor.view.util.SidebarAdminView;
 
@@ -17,27 +18,18 @@ import polije.ppl.tailor.view.util.SidebarAdminView;
  * @author Hafidz
  */
 public class LaporanAdminView extends javax.swing.JFrame {
-    private TransactionRepository transRepo = new TransactionRepository();
-
     /**
      * Creates new form LaporanAdminView
      */
     public LaporanAdminView() {
         initComponents();
+        initTransparents();
 
         sidebar.add(new SidebarAdminView(this));
         sidebar.setBackground(new java.awt.Color(255, 255, 255, 0));
+        startDate.setDate(new Date());
 
-        total.setOpaque(false);
-        total.setBackground(new java.awt.Color(255, 255, 255, 0));
-
-        startDate.setOpaque(false);
-        startDate.setBackground(new java.awt.Color(255, 255, 255, 0));
-
-        endDate.setOpaque(false);
-        endDate.setBackground(new java.awt.Color(255, 255, 255, 0));
-
-        loadTable(transRepo.get());
+        loadTable();
     }
 
     /**
@@ -55,6 +47,7 @@ public class LaporanAdminView extends javax.swing.JFrame {
         total = new javax.swing.JTextField();
         startDate = new com.toedter.calendar.JDateChooser();
         endDate = new com.toedter.calendar.JDateChooser();
+        status = new javax.swing.JComboBox<>();
         BackGround = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -82,13 +75,7 @@ public class LaporanAdminView extends javax.swing.JFrame {
         jScrollPane1.setViewportView(jTable1);
 
         getContentPane().add(jScrollPane1);
-        jScrollPane1.setBounds(360, 230, 570, 330);
-
-        EksporData.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                EksporDataMouseClicked(evt);
-            }
-        });
+        jScrollPane1.setBounds(350, 230, 570, 330);
         getContentPane().add(EksporData);
         EksporData.setBounds(800, 106, 130, 40);
 
@@ -101,22 +88,73 @@ public class LaporanAdminView extends javax.swing.JFrame {
         });
         getContentPane().add(total);
         total.setBounds(780, 587, 130, 30);
+
+        startDate.setFont(new java.awt.Font("Ubuntu", 0, 15)); // NOI18N
+        startDate.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+            public void propertyChange(java.beans.PropertyChangeEvent evt) {
+                startDatePropertyChange(evt);
+            }
+        });
         getContentPane().add(startDate);
-        startDate.setBounds(520, 177, 160, 30);
+        startDate.setBounds(410, 177, 155, 30);
+
+        endDate.setFont(new java.awt.Font("Ubuntu", 0, 15)); // NOI18N
+        endDate.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+            public void propertyChange(java.beans.PropertyChangeEvent evt) {
+                endDatePropertyChange(evt);
+            }
+        });
         getContentPane().add(endDate);
-        endDate.setBounds(740, 177, 160, 30);
+        endDate.setBounds(755, 177, 155, 30);
+
+        status.setFont(new java.awt.Font("Ubuntu", 0, 15)); // NOI18N
+        status.setModel(new javax.swing.DefaultComboBoxModel<>(
+            new Object[] {
+                null, TransactionStatus.finish, TransactionStatus.unfinish
+            }
+        ));
+        status.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                statusPropertyChange(evt);
+            }
+        });
+        getContentPane().add(status);
+        status.setBounds(615, 180, 90, 24);
 
         BackGround.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/pages/Laporan.png"))); // NOI18N
         getContentPane().add(BackGround);
-        BackGround.setBounds(0, 0, 1089, 708);
+        BackGround.setBounds(0, 0, 1088, 708);
 
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+    private void initTransparents() {
+        total.setOpaque(false);
+        total.setBackground(new java.awt.Color(255, 255, 255, 0));
+
+        startDate.setOpaque(false);
+        startDate.setBackground(new java.awt.Color(255, 255, 255, 0));
+
+        endDate.setOpaque(false);
+        endDate.setBackground(new java.awt.Color(255, 255, 255, 0));
+    }
+
     private void totalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_totalActionPerformed
 
     }//GEN-LAST:event_totalActionPerformed
+
+    private void startDatePropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_startDatePropertyChange
+        loadTable();
+    }//GEN-LAST:event_startDatePropertyChange
+
+    private void statusPropertyChange(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_statusPropertyChange
+        loadTable();
+    }//GEN-LAST:event_statusPropertyChange
+
+    private void endDatePropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_endDatePropertyChange
+        loadTable();
+    }//GEN-LAST:event_endDatePropertyChange
 
     private void EksporDataMouseClicked(java.awt.event.MouseEvent evt) {
         System.out.println(startDate.getDate());
@@ -157,7 +195,13 @@ public class LaporanAdminView extends javax.swing.JFrame {
         });
     }
 
-    private void loadTable(List<Transaction> transactions) {
+    private void loadTable() {
+        ReportService service = new ReportService(
+            startDate.getDate(),
+            endDate.getDate(),
+            (TransactionStatus) status.getSelectedItem()
+        );
+
         int no = 1;
         DefaultTableModel model = new DefaultTableModel();
 
@@ -167,7 +211,7 @@ public class LaporanAdminView extends javax.swing.JFrame {
         model.addColumn("Status");
         model.addColumn("Total");
 
-        for(Transaction transaction: transactions) {
+        for(Transaction transaction: service.getData()) {
             model.addRow(new Object[] {
                 no++,
                 transaction.getDate().toString(),
@@ -188,6 +232,7 @@ public class LaporanAdminView extends javax.swing.JFrame {
     private javax.swing.JTable jTable1;
     private javax.swing.JPanel sidebar;
     private com.toedter.calendar.JDateChooser startDate;
+    private javax.swing.JComboBox<Object> status;
     private javax.swing.JTextField total;
     // End of variables declaration//GEN-END:variables
 }
