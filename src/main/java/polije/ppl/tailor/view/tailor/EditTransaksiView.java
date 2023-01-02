@@ -5,7 +5,20 @@
  */
 package polije.ppl.tailor.view.tailor;
 
-import java.awt.Color;
+import com.toedter.calendar.JDateChooser;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import polije.ppl.tailor.data.TransactionStatus;
+import polije.ppl.tailor.entity.Transaction;
+import polije.ppl.tailor.entity.TransactionDetail;
+import polije.ppl.tailor.repository.Repository;
+import polije.ppl.tailor.repository.TransactionDetailRepository;
+import polije.ppl.tailor.repository.TransactionRepository;
+import polije.ppl.tailor.util.NumberUtil;
 import polije.ppl.tailor.view.util.SidebarTailorView;
 
 /**
@@ -13,20 +26,44 @@ import polije.ppl.tailor.view.util.SidebarTailorView;
  * @author Hafidz
  */
 public class EditTransaksiView extends javax.swing.JFrame {
+    
+    private Transaction transaction;
+    private Repository<Transaction> transRepo = new TransactionRepository();
+    private Repository<TransactionDetail> detailRepo = new TransactionDetailRepository();
+    private List<TransactionDetail> details = new ArrayList<>();
+    private Integer activeDetail, total;
 
     /**
      * Creates new form EditTransaksiView
+     * @param trans
      */
-    public EditTransaksiView() {
+    public EditTransaksiView(Transaction trans) {
+        this.transaction = trans;
+        
+        
+        
         initComponents();
-        namapelanggan.setOpaque(false);
-        namapelanggan.setBackground(new java.awt.Color(255, 255, 255, 0));
+        fillInput();
+        initTransparent();
+        loadTable(detailRepo.get(new HashMap<String, Object>(){{
+            put("transaction_id", transaction.getId());
+        }}));
 
-        status.setOpaque(false);
-        status.setBackground(new java.awt.Color(255, 255, 255, 0));
-
-        tglambil.setOpaque(false);
-        tglambil.setBackground(new java.awt.Color(255, 255, 255, 0));
+        sidebar.add(new SidebarTailorView(this));
+        sidebar.setBackground(new java.awt.Color(255, 255, 255, 0));
+    }
+    
+    private void fillInput() {
+        namapelanggan.setText(transaction.getCustomer().getFullname());
+        duedate.setDate(transaction.getDueDate());
+        catatan.setText(transaction.getNote());
+        totalharga.setText(NumberUtil.formatDec(transaction.getTotal()));
+        status.setSelectedItem(transaction.getStatus());
+   }
+    
+    private void initTransparent() {
+        duedate.setOpaque(false);
+        duedate.setBackground(new java.awt.Color(255, 255, 255, 0));
 
         totalharga.setOpaque(false);
         totalharga.setBackground(new java.awt.Color(255, 255, 255, 0));
@@ -36,11 +73,37 @@ public class EditTransaksiView extends javax.swing.JFrame {
         jScrollPane2.setBorder(null);
         jScrollPane2.setViewportBorder(null);
 
-        catatan.setBorder(null);
-        catatan.setBackground(new Color(0,0,0,0));
+        catatan.setOpaque(false);
+        catatan.setBackground(new java.awt.Color(255, 255, 255, 0));
+    }
+    
+    private void loadTable(List<TransactionDetail> details) {
+        int no = 1;
+        int total = 0;
+        DefaultTableModel model = new DefaultTableModel();
 
-        sidebar.add(new SidebarTailorView(this));
-        sidebar.setBackground(new java.awt.Color(255, 255, 255, 0));
+        model.addColumn("No");
+        model.addColumn("Nama Pakaian");
+        model.addColumn("Harga");
+        model.addColumn("Jumlah");
+        model.addColumn("Subtotal");
+
+        for(TransactionDetail detail: details) {
+            int subTotal = detail.getPrice() * detail.getQty();
+            total += subTotal;
+
+            model.addRow(new Object[] {
+                no++,
+                detail.getClothName(),
+                NumberUtil.formatDec(detail.getPrice()),
+                NumberUtil.formatDec(detail.getQty()),
+                NumberUtil.formatDec(subTotal)
+            });
+        }
+
+        this.total = total;
+        pensanan.setModel(model);
+        
     }
 
     /**
@@ -54,20 +117,19 @@ public class EditTransaksiView extends javax.swing.JFrame {
 
         sidebar = new javax.swing.JPanel();
         namapelanggan = new javax.swing.JTextField();
-        status = new javax.swing.JTextField();
-        tglambil = new javax.swing.JTextField();
-        totalharga = new javax.swing.JTextField();
         jScrollPane2 = new javax.swing.JScrollPane();
         catatan = new javax.swing.JTextArea();
         bbutton = new javax.swing.JLabel();
         simpan = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         pensanan = new javax.swing.JTable();
+        duedate = new com.toedter.calendar.JDateChooser();
+        status = new javax.swing.JComboBox<>();
+        totalharga = new javax.swing.JLabel();
         imginti = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(1089, 740));
-        setPreferredSize(new java.awt.Dimension(1089, 740));
         getContentPane().setLayout(null);
 
         sidebar.setMaximumSize(new java.awt.Dimension(277, 708));
@@ -76,6 +138,7 @@ public class EditTransaksiView extends javax.swing.JFrame {
         getContentPane().add(sidebar);
         sidebar.setBounds(0, 0, 277, 708);
 
+        namapelanggan.setEditable(false);
         namapelanggan.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
         namapelanggan.setBorder(null);
         namapelanggan.addActionListener(new java.awt.event.ActionListener() {
@@ -86,28 +149,9 @@ public class EditTransaksiView extends javax.swing.JFrame {
         getContentPane().add(namapelanggan);
         namapelanggan.setBounds(400, 140, 500, 30);
 
-        status.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
-        status.setBorder(null);
-        getContentPane().add(status);
-        status.setBounds(400, 210, 240, 30);
-
-        tglambil.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
-        tglambil.setBorder(null);
-        getContentPane().add(tglambil);
-        tglambil.setBounds(662, 210, 240, 30);
-
-        totalharga.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
-        totalharga.setBorder(null);
-        totalharga.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                totalhargaActionPerformed(evt);
-            }
-        });
-        getContentPane().add(totalharga);
-        totalharga.setBounds(717, 380, 180, 30);
-
         jScrollPane2.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
 
+        catatan.setEditable(false);
         catatan.setColumns(20);
         catatan.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
         catatan.setRows(5);
@@ -148,6 +192,20 @@ public class EditTransaksiView extends javax.swing.JFrame {
         getContentPane().add(jScrollPane1);
         jScrollPane1.setBounds(390, 280, 510, 80);
 
+        duedate.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
+        getContentPane().add(duedate);
+        duedate.setBounds(660, 210, 250, 30);
+
+        status.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
+        status.setModel(new DefaultComboBoxModel<>(TransactionStatus.values())
+        );
+        getContentPane().add(status);
+        status.setBounds(400, 210, 240, 30);
+
+        totalharga.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
+        getContentPane().add(totalharga);
+        totalharga.setBounds(710, 380, 190, 30);
+
         imginti.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/pages/tailor-edittrans.png"))); // NOI18N
         getContentPane().add(imginti);
         imginti.setBounds(0, 0, 1089, 708);
@@ -160,15 +218,19 @@ public class EditTransaksiView extends javax.swing.JFrame {
 
     }//GEN-LAST:event_namapelangganActionPerformed
 
-    private void totalhargaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_totalhargaActionPerformed
-
-    }//GEN-LAST:event_totalhargaActionPerformed
-
     private void bbuttonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bbuttonMouseClicked
-
+        new TransaksiPenjahitView().setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_bbuttonMouseClicked
 
     private void simpanMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_simpanMouseClicked
+        transaction.setStatus((TransactionStatus)status.getSelectedItem());
+        transaction.setDueDate(duedate.getDate());
+        transRepo.update(transaction);
+        
+        JOptionPane.showMessageDialog(this, "Data transaksi berhasil disimpan");
+        new TransaksiPenjahitView().setVisible(true);
+        this.dispose();
 
     }//GEN-LAST:event_simpanMouseClicked
 
@@ -197,19 +259,20 @@ public class EditTransaksiView extends javax.swing.JFrame {
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(EditTransaksiView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+    }
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new EditTransaksiView().setVisible(true);
-            }
-        });
-    }
 
+    
+    private javax.swing.JComboBox customerInput;
+    private javax.swing.JComboBox tailorInput;
+    private javax.swing.JComboBox packageInput;
+    private JDateChooser dateInput;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel bbutton;
     private javax.swing.JTextArea catatan;
+    private com.toedter.calendar.JDateChooser duedate;
     private javax.swing.JLabel imginti;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
@@ -217,8 +280,7 @@ public class EditTransaksiView extends javax.swing.JFrame {
     private javax.swing.JTable pensanan;
     private javax.swing.JPanel sidebar;
     private javax.swing.JLabel simpan;
-    private javax.swing.JTextField status;
-    private javax.swing.JTextField tglambil;
-    private javax.swing.JTextField totalharga;
+    private javax.swing.JComboBox<TransactionStatus> status;
+    private javax.swing.JLabel totalharga;
     // End of variables declaration//GEN-END:variables
 }
