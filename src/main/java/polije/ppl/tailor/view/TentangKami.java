@@ -47,6 +47,7 @@ public class TentangKami extends javax.swing.JFrame {
         view.setBounds(0, -10, 1080, 730);
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void backMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_backMouseClicked
