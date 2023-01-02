@@ -59,7 +59,7 @@ JOIN customers ON transactions.customer_id = customers.customer_id;]]>
 				<textElement textAlignment="Right">
 					<font size="10"/>
 				</textElement>
-				<text><![CDATA[Laporan transaksi ini adalah data yang digenerate sesuai dengan pilihan dan filter pada aplikasi. Pilih nama yang sesuai jika anda ingin menyimpan laporan ini.]]></text>
+				<text><![CDATA[Laporan transaksi ini adalah data yang digenerate sesuai dengan pilihan dan filter pada aplikasi. Pilih nama berkas yang sesuai jika anda ingin menyimpan laporan ini.]]></text>
 			</staticText>
 		</band>
 	</title>
@@ -76,27 +76,27 @@ JOIN customers ON transactions.customer_id = customers.customer_id;]]>
 			</line>
 			<staticText>
 				<reportElement style="Column header" x="0" y="0" width="133" height="15" forecolor="#736343" uuid="ede937ba-9b6f-4555-8818-b3e98c64aa01"/>
-				<text><![CDATA[transaction_id]]></text>
+				<text><![CDATA[ID Transaksi]]></text>
 			</staticText>
 			<staticText>
 				<reportElement style="Column header" x="133" y="0" width="133" height="15" forecolor="#736343" uuid="819167a4-4c5a-4fe1-b011-0053f6b55496"/>
-				<text><![CDATA[date]]></text>
+				<text><![CDATA[Tanggal Transaksi]]></text>
 			</staticText>
 			<staticText>
 				<reportElement style="Column header" x="266" y="0" width="133" height="15" forecolor="#736343" uuid="2e418f73-2859-4916-abfe-add99c3798e5"/>
-				<text><![CDATA[fullname]]></text>
+				<text><![CDATA[Nama Pelanggan]]></text>
 			</staticText>
 			<staticText>
 				<reportElement style="Column header" x="399" y="0" width="133" height="15" forecolor="#736343" uuid="2dafe7f8-743a-4c66-9225-a407cacda728"/>
-				<text><![CDATA[status]]></text>
+				<text><![CDATA[Status Transaksi]]></text>
 			</staticText>
 			<staticText>
 				<reportElement style="Column header" x="532" y="0" width="133" height="15" forecolor="#736343" uuid="37fd3894-4882-4831-9280-7be016aabbe0"/>
-				<text><![CDATA[due_date]]></text>
+				<text><![CDATA[Tanggal Ambil]]></text>
 			</staticText>
 			<staticText>
 				<reportElement style="Column header" x="665" y="0" width="133" height="15" forecolor="#736343" uuid="605352bc-4859-4204-b593-4004dd5d111e"/>
-				<text><![CDATA[total]]></text>
+				<text><![CDATA[Total]]></text>
 			</staticText>
 		</band>
 	</columnHeader>
