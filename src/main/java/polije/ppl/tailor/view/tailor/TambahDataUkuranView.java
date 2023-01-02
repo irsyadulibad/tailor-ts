@@ -229,7 +229,13 @@ public class TambahDataUkuranView extends javax.swing.JFrame {
     }//GEN-LAST:event_hapusMouseClicked
 
     private void resetMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_resetMouseClicked
-        
+        plg.setSelectedIndex(0);
+        nama.setText("");
+        nilai.setText("");
+        tipepakaian.setText("");
+        items.clear();
+
+        loadTable();
     }//GEN-LAST:event_resetMouseClicked
 
     private void bbuttonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bbuttonMouseClicked

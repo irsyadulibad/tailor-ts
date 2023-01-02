@@ -4,6 +4,10 @@
  */
 package polije.ppl.tailor.view.tailor;
 
+import java.util.Date;
+import polije.ppl.tailor.data.SessionData;
+import polije.ppl.tailor.repository.DashboardRepository;
+import polije.ppl.tailor.util.NumberUtil;
 import polije.ppl.tailor.view.util.SidebarTailorView;
 
 /**
@@ -11,6 +15,7 @@ import polije.ppl.tailor.view.util.SidebarTailorView;
  * @author ibad
  */
 public class DashBoardPenjahitView extends javax.swing.JFrame {
+    private DashboardRepository repo = new DashboardRepository();
 
     /**
      * Creates new form DashBoardPenjahitView
@@ -21,6 +26,9 @@ public class DashBoardPenjahitView extends javax.swing.JFrame {
 
         sidebar.add(new SidebarTailorView(this));
         sidebar.setBackground(new java.awt.Color(255, 255, 255, 0));
+        
+        int transaction = repo.getTransactionPerMonth(new Date(), SessionData.account);
+        totalTransaction.setText(NumberUtil.formatDec(transaction));
     }
 
     /**
@@ -33,6 +41,8 @@ public class DashBoardPenjahitView extends javax.swing.JFrame {
     private void initComponents() {
 
         sidebar = new javax.swing.JPanel();
+        totalTransaction = new javax.swing.JLabel();
+        totalIncome1 = new javax.swing.JLabel();
         background = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -44,6 +54,18 @@ public class DashBoardPenjahitView extends javax.swing.JFrame {
         sidebar.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 0, 0));
         getContentPane().add(sidebar);
         sidebar.setBounds(0, 0, 277, 708);
+
+        totalTransaction.setFont(new java.awt.Font("Ubuntu", 1, 15)); // NOI18N
+        totalTransaction.setForeground(new java.awt.Color(118, 159, 205));
+        totalTransaction.setText("jLabel2");
+        getContentPane().add(totalTransaction);
+        totalTransaction.setBounds(372, 247, 130, 18);
+
+        totalIncome1.setFont(new java.awt.Font("Ubuntu", 0, 12)); // NOI18N
+        totalIncome1.setForeground(new java.awt.Color(0, 0, 0));
+        totalIncome1.setText("bulan ini");
+        getContentPane().add(totalIncome1);
+        totalIncome1.setBounds(440, 267, 130, 15);
 
         background.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/pages/Dashborad Penjahit.png"))); // NOI18N
         background.setMaximumSize(new java.awt.Dimension(1089, 740));
@@ -94,5 +116,7 @@ public class DashBoardPenjahitView extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel background;
     private javax.swing.JPanel sidebar;
+    private javax.swing.JLabel totalIncome1;
+    private javax.swing.JLabel totalTransaction;
     // End of variables declaration//GEN-END:variables
 }
