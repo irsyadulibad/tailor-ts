@@ -94,7 +94,7 @@ public class LaporanAdminView extends javax.swing.JFrame {
             }
         });
         getContentPane().add(total);
-        total.setBounds(780, 587, 130, 30);
+        total.setBounds(780, 590, 130, 30);
 
         startDate.setFont(new java.awt.Font("Ubuntu", 0, 15)); // NOI18N
         startDate.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
@@ -216,6 +216,7 @@ public class LaporanAdminView extends javax.swing.JFrame {
         );
 
         int no = 1;
+        int grandtotal = 0;
         DefaultTableModel model = new DefaultTableModel();
 
         model.addColumn("No");
@@ -232,9 +233,11 @@ public class LaporanAdminView extends javax.swing.JFrame {
                 transaction.getStatus().toString(),
                 NumberUtil.formatDec(transaction.getTotal()),
             });
+            grandtotal += transaction.getTotal(); 
         }
 
         jTable1.setModel(model);
+        total.setText(NumberUtil.formatDec(grandtotal));
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
