@@ -76,6 +76,12 @@ public class LaporanAdminView extends javax.swing.JFrame {
 
         getContentPane().add(jScrollPane1);
         jScrollPane1.setBounds(350, 230, 570, 330);
+
+        EksporData.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                EksporDataMouseClicked(evt);
+            }
+        });
         getContentPane().add(EksporData);
         EksporData.setBounds(800, 106, 130, 40);
 
@@ -157,7 +163,13 @@ public class LaporanAdminView extends javax.swing.JFrame {
     }//GEN-LAST:event_endDatePropertyChange
 
     private void EksporDataMouseClicked(java.awt.event.MouseEvent evt) {
-        System.out.println(startDate.getDate());
+        ReportService service = new ReportService(
+            startDate.getDate(),
+            endDate.getDate(),
+            (TransactionStatus) status.getSelectedItem()
+        );
+
+        service.generate();
     }
 
     /**
