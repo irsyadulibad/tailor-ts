@@ -79,6 +79,16 @@
         <version>6.20.0</version>
     </dependency>
     <dependency>
+        <groupId>com.miglayout</groupId>
+        <artifactId>miglayout</artifactId>
+        <version>3.7.4</version>
+    </dependency>
+    <dependency>
+	<groupId>net.java.dev.timingframework</groupId>
+	<artifactId>timingframework</artifactId>
+	<version>1.0</version>
+    </dependency>
+    <dependency>
         <groupId>unknown.binary</groupId>
         <artifactId>AbsoluteLayout</artifactId>
         <version>SNAPSHOT</version>
