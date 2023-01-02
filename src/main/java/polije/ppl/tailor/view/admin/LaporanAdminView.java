@@ -22,6 +22,7 @@ public class LaporanAdminView extends javax.swing.JFrame {
      * Creates new form LaporanAdminView
      */
     public LaporanAdminView() {
+        this.setTitle("Laporan Admin - Tailor TS");
         initComponents();
         initTransparents();
 

@@ -16,6 +16,7 @@ public class DashBoardPenjahitView extends javax.swing.JFrame {
      * Creates new form DashBoardPenjahitView
      */
     public DashBoardPenjahitView() {
+        this.setTitle("DashBoard Penjahit - Tailor TS");
         initComponents();
 
         sidebar.add(new SidebarTailorView(this));

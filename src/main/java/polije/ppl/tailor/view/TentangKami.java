@@ -15,6 +15,7 @@ public class TentangKami extends javax.swing.JFrame {
      * Creates new form TentangKami
      */
     public TentangKami() {
+        this.setTitle("Tentang Kami - Tailor TS");
         initComponents();
     }
 

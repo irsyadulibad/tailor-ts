@@ -42,6 +42,7 @@ public class EditDataUkuranView extends javax.swing.JFrame {
      * Creates new form TambahDataUkuran
      */
     public EditDataUkuranView(Measure measure) {
+        this.setTitle("Edit Data Ukuran - Tailor TS");
         this.measure = measure;
         this.items = measure.getItemsCollection();
 

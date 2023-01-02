@@ -30,6 +30,7 @@ public class TambahDataPelangganView extends javax.swing.JFrame {
      * Creates new form TambahDataPelangganView
      */
     public TambahDataPelangganView() {
+        this.setTitle("Tambah Data Pelanggan - Tailor TS");
         initComponents();
 
         sidebar.add(new SidebarAdminView(this));

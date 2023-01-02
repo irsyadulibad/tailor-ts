@@ -27,6 +27,7 @@ public class UkuranView extends javax.swing.JFrame {
      * Creates new form UkuranView
      */
     public UkuranView() {
+        this.setTitle("Data Ukuran - Tailor TS");
         initComponents();
 
         search.setOpaque(false);

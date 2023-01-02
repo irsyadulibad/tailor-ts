@@ -27,6 +27,7 @@ public class EditDataPenjahitView extends javax.swing.JFrame {
      * Creates new form EditDataPenjahitView
      */
     public EditDataPenjahitView(Account account) {
+        this.setTitle("Edit Data Penjahit - Tailor TS");
         this.account = account;
 
         initComponents();

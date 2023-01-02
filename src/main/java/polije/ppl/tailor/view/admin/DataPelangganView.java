@@ -27,6 +27,7 @@ public class DataPelangganView extends javax.swing.JFrame {
      * Creates new form DataPelangganView
      */
     public DataPelangganView() {
+        this.setTitle("Data Pelanggan - Tailor TS");
         initComponents();
 
         sidebar.add(new SidebarAdminView(this));

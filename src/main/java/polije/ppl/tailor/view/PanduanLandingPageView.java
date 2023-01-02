@@ -14,6 +14,7 @@ public class PanduanLandingPageView extends javax.swing.JFrame {
      * Creates new form PanduanLandingPageView
      */
     public PanduanLandingPageView() {
+        this.setTitle("Panduan - Tailor TS");
         initComponents();
     }
 

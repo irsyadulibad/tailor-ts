@@ -17,6 +17,7 @@ public class LupaPasswordView extends javax.swing.JFrame {
      * Creates new form LupaPasswordView
      */
     public LupaPasswordView() {
+        this.setTitle("Lupa Password - Tailor TS");
         initComponents();
         initTransparents();
     }

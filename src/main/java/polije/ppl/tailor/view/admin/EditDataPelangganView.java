@@ -29,6 +29,7 @@ public class EditDataPelangganView extends javax.swing.JFrame {
      * Creates new form EditDataPelangganView
      */
     public EditDataPelangganView(Customer customer) {
+        this.setTitle("Edit Pelanggan Penjahit - Tailor TS");
         this.customer = customer;
 
         initComponents();
