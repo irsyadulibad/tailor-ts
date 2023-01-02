@@ -40,6 +40,7 @@ public class TambahDataUkuranView extends javax.swing.JFrame {
      * Creates new form TambahDataUkuran
      */
     public TambahDataUkuranView() {
+        this.setTitle("Tambah Data Ukuran - Tailor TS");
         this.items = new ArrayList<>();
 
         fillComboBox();

@@ -16,6 +16,7 @@ public class DashboardAdminView extends javax.swing.JFrame {
      * Creates new form DashboardAdminView
      */
     public DashboardAdminView() {
+        this.setTitle("DashBoard Admin - Tailor TS");
         initComponents();
 
         sidebar.add(new SidebarAdminView(this));

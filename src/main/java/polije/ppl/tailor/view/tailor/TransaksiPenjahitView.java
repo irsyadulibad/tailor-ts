@@ -28,6 +28,7 @@ public class TransaksiPenjahitView extends javax.swing.JFrame {
      * Creates new form TransaksiPenjahit
      */
     public TransaksiPenjahitView() {
+        this.setTitle("Transaksi Penjahit - Tailor TS");
         initComponents();
 
         search.setOpaque(false);

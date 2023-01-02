@@ -28,6 +28,7 @@ public class EditDataPaketView extends javax.swing.JFrame {
      * Creates new form EditDataPaketView
      */
     public EditDataPaketView(Package pkg) {
+        this.setTitle("Edit Data Paket - Tailor TS");
         this.pkg = pkg;
 
         initComponents();

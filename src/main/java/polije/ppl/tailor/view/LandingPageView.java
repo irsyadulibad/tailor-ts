@@ -15,6 +15,7 @@ public class LandingPageView extends javax.swing.JFrame {
      * Creates new form LandingPageView
      */
     public LandingPageView() {
+        this.setTitle("Landing Page - Tailor TS");
         initComponents();
     }
 

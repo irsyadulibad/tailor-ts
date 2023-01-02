@@ -20,6 +20,7 @@ public class LoginView extends javax.swing.JFrame {
      * Creates new form LoginView
      */
     public LoginView() {
+        this.setTitle("Login - Tailor TS");
         initComponents();
         username.setOpaque(false);
         username.setBackground(new java.awt.Color(255, 255, 255, 0));

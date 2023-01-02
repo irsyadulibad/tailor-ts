@@ -14,6 +14,7 @@ public class LoadingView extends javax.swing.JFrame {
      * Creates new form LoadingView
      */
     public LoadingView() {
+        this.setTitle("Loading - Tailor TS");
         initComponents();
     }
 

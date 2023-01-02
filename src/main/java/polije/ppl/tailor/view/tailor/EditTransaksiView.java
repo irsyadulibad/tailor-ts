@@ -38,9 +38,8 @@ public class EditTransaksiView extends javax.swing.JFrame {
      * @param trans
      */
     public EditTransaksiView(Transaction trans) {
+        this.setTitle("Edit Data Transaksi - Tailor TS");
         this.transaction = trans;
-        
-        
         
         initComponents();
         fillInput();

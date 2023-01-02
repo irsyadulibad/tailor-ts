@@ -27,6 +27,7 @@ public class DataPenjahitView extends javax.swing.JFrame {
      * Creates new form DataPenjahitView
      */
     public DataPenjahitView() {
+        this.setTitle("Data Penjahit - Tailor TS");
         initComponents();
 
         txt_search.setOpaque(false);
