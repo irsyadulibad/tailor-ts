@@ -64,6 +64,12 @@ public class EditTransaksiView extends javax.swing.JFrame {
         duedate.setOpaque(false);
         duedate.setBackground(new java.awt.Color(255, 255, 255, 0));
 
+        namapelanggan.setOpaque(false);
+        namapelanggan.setBackground(new java.awt.Color(255, 255, 255, 0));
+
+        status.setOpaque(false);
+        status.setBackground(new java.awt.Color(255, 255, 255, 0));
+
         totalharga.setOpaque(false);
         totalharga.setBackground(new java.awt.Color(255, 255, 255, 0));
 
@@ -193,17 +199,17 @@ public class EditTransaksiView extends javax.swing.JFrame {
 
         duedate.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
         getContentPane().add(duedate);
-        duedate.setBounds(660, 210, 250, 30);
+        duedate.setBounds(660, 209, 250, 30);
 
         status.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
         status.setModel(new DefaultComboBoxModel<>(TransactionStatus.values())
         );
         getContentPane().add(status);
-        status.setBounds(400, 210, 240, 30);
+        status.setBounds(400, 209, 240, 30);
 
         totalharga.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
         getContentPane().add(totalharga);
-        totalharga.setBounds(710, 380, 190, 30);
+        totalharga.setBounds(713, 380, 190, 30);
 
         imginti.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/pages/tailor-edittrans.png"))); // NOI18N
         getContentPane().add(imginti);
