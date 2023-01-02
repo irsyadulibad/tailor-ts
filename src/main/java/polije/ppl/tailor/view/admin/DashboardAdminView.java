@@ -4,7 +4,9 @@
  */
 package polije.ppl.tailor.view.admin;
 
+import java.awt.Color;
 import polije.ppl.tailor.view.util.SidebarAdminView;
+import raven.chart.ModelChart;
 
 /**
  *
@@ -18,6 +20,7 @@ public class DashboardAdminView extends javax.swing.JFrame {
     public DashboardAdminView() {
         this.setTitle("DashBoard Admin - Tailor TS");
         initComponents();
+        initChart();
 
         sidebar.add(new SidebarAdminView(this));
         sidebar.setBackground(new java.awt.Color(255, 255, 255, 0));
@@ -32,6 +35,7 @@ public class DashboardAdminView extends javax.swing.JFrame {
     private void initComponents() {
 
         sidebar = new javax.swing.JPanel();
+        chart = new raven.chart.CurveLineChart();
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -43,6 +47,11 @@ public class DashboardAdminView extends javax.swing.JFrame {
         getContentPane().add(sidebar);
         sidebar.setBounds(0, 0, 277, 708);
 
+        chart.setBorder(javax.swing.BorderFactory.createEmptyBorder(10, 10, 10, 10));
+        chart.setForeground(new java.awt.Color(0, 102, 102));
+        getContentPane().add(chart);
+        chart.setBounds(390, 360, 530, 290);
+
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/pages/Dashbord Admin.png"))); // NOI18N
         jLabel1.setAlignmentY(0.0F);
         getContentPane().add(jLabel1);
@@ -51,7 +60,16 @@ public class DashboardAdminView extends javax.swing.JFrame {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-
+    private void initChart() {
+        chart.addLegend("Pendapatan", Color.decode("#8360c3"), Color.decode("#2ebf91"));
+        chart.addData(new ModelChart("Januari", new double[] { 10 }));
+        chart.addData(new ModelChart("Februari", new double[] { 5 }));
+        chart.addData(new ModelChart("Maret", new double[] { 25 }));
+        chart.addData(new ModelChart("April", new double[] { 40 }));
+        chart.addData(new ModelChart("Mei", new double[] { 5 }));
+        
+        chart.start();
+    }
     /**
      * @param args the command line arguments
      */
@@ -88,6 +106,7 @@ public class DashboardAdminView extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private raven.chart.CurveLineChart chart;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel sidebar;
     // End of variables declaration//GEN-END:variables
