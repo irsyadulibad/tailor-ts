@@ -90,9 +90,9 @@ public class TransaksiPenjahitView extends javax.swing.JFrame {
 
         search.setFont(new java.awt.Font("Ubuntu", 0, 16)); // NOI18N
         search.setBorder(null);
-        search.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                searchActionPerformed(evt);
+        search.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                searchKeyReleased(evt);
             }
         });
         getContentPane().add(search);
