@@ -291,6 +291,11 @@ public class TambahTransaksiView extends javax.swing.JFrame {
         grandTotal.setOpaque(false);
         grandTotal.setBackground(new java.awt.Color(255, 255, 255, 0));
 
+        packageInput.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                packageInputPropertyChange(evt);
+            }
+        });
         packageInput.setOpaque(false);
         packageInput.setBackground(new java.awt.Color(255, 255, 255, 0));
 
@@ -337,6 +342,13 @@ public class TambahTransaksiView extends javax.swing.JFrame {
         jumlah.setText("");
         namapakaian.setText("");
     }
+
+    private void packageInputPropertyChange(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_statusPropertyChange
+        ComboItem pkgIpt = (ComboItem) packageInput.getSelectedItem();
+        Package pkget = pkgRepo.get(pkgIpt.getKey());
+
+        harga.setText(String.valueOf(pkget.getPrice()));
+    }//GEN-LAST:event_statusPropertyChange
 
     private void namapakaianActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_namapakaianActionPerformed
 
