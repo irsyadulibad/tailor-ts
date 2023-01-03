@@ -16,6 +16,7 @@ public class PanduanAdminView extends javax.swing.JFrame {
      * Creates new form PanduanAdminView
      */
     public PanduanAdminView() {
+        this.setTitle("Panduan - Tailor TS");
         initComponents();
 
         sidebar.add(new SidebarAdminView(this));

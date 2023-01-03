@@ -17,6 +17,7 @@ public class EditDataTransaksiView extends javax.swing.JFrame {
      * Creates new form EditDataTransaksiView
      */
     public EditDataTransaksiView() {
+        this.setTitle("Edit Data Transaksi - Tailor TS");
         initComponents();
 
         sidebar.add(new SidebarAdminView(this));

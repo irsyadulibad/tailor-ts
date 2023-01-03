@@ -22,6 +22,7 @@ public class LaporanAdminView extends javax.swing.JFrame {
      * Creates new form LaporanAdminView
      */
     public LaporanAdminView() {
+        this.setTitle("Laporan Admin - Tailor TS");
         initComponents();
         initTransparents();
 
@@ -76,6 +77,12 @@ public class LaporanAdminView extends javax.swing.JFrame {
 
         getContentPane().add(jScrollPane1);
         jScrollPane1.setBounds(350, 230, 570, 330);
+
+        EksporData.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                EksporDataMouseClicked(evt);
+            }
+        });
         getContentPane().add(EksporData);
         EksporData.setBounds(800, 106, 130, 40);
 
@@ -87,7 +94,7 @@ public class LaporanAdminView extends javax.swing.JFrame {
             }
         });
         getContentPane().add(total);
-        total.setBounds(780, 587, 130, 30);
+        total.setBounds(780, 590, 130, 30);
 
         startDate.setFont(new java.awt.Font("Ubuntu", 0, 15)); // NOI18N
         startDate.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
@@ -157,7 +164,13 @@ public class LaporanAdminView extends javax.swing.JFrame {
     }//GEN-LAST:event_endDatePropertyChange
 
     private void EksporDataMouseClicked(java.awt.event.MouseEvent evt) {
-        System.out.println(startDate.getDate());
+        ReportService service = new ReportService(
+            startDate.getDate(),
+            endDate.getDate(),
+            (TransactionStatus) status.getSelectedItem()
+        );
+
+        service.generate();
     }
 
     /**
@@ -203,6 +216,7 @@ public class LaporanAdminView extends javax.swing.JFrame {
         );
 
         int no = 1;
+        int grandtotal = 0;
         DefaultTableModel model = new DefaultTableModel();
 
         model.addColumn("No");
@@ -219,9 +233,11 @@ public class LaporanAdminView extends javax.swing.JFrame {
                 transaction.getStatus().toString(),
                 NumberUtil.formatDec(transaction.getTotal()),
             });
+            grandtotal += transaction.getTotal(); 
         }
 
         jTable1.setModel(model);
+        total.setText(NumberUtil.formatDec(grandtotal));
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

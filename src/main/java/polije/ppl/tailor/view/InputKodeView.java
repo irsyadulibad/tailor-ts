@@ -20,6 +20,7 @@ public class InputKodeView extends javax.swing.JFrame {
      * Creates new form InputKodeView
      */
     public InputKodeView() {
+        this.setTitle("Input Kode - Tailor TS");
         initComponents();
         kode.setOpaque(false);
         kode.setBackground(new java.awt.Color(255, 255, 255, 0));

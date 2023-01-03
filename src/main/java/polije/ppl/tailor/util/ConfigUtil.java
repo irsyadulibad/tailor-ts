@@ -3,15 +3,13 @@ package polije.ppl.tailor.util;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.nio.file.Paths;
 import java.util.Properties;
 
 public class ConfigUtil {
     private static Properties config;
-    private static String path = Paths.get(".").toAbsolutePath().normalize().toString();
 
     static {
-        try(InputStream input = new FileInputStream(path + "/config.properties")) {
+        try(InputStream input = ConfigUtil.class.getResource("/config/app.properties").openStream()) {
             Properties props = new Properties();
 
             props.load(input);

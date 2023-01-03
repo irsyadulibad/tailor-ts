@@ -55,6 +55,7 @@ public class TambahTransaksiView extends javax.swing.JFrame {
      * Creates new form TambahTransaksiView
      */
     public TambahTransaksiView() {
+        this.setTitle("Tambah Transaksi - Tailor TS");
         fillComboBox();
         initComponents();
         initTransparent();
@@ -438,7 +439,11 @@ public class TambahTransaksiView extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_saveMouseClicked
 
     private void btn_resetMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_resetMouseClicked
+        namapakaian.setText("");
+        catatan.setText("");
+        details.clear();
 
+        loadTable();
     }//GEN-LAST:event_btn_resetMouseClicked
 
     private void hargaKeyReleased(java.awt.event.KeyEvent evt) {

@@ -108,12 +108,13 @@ public class MeasureRepository implements Repository<Measure> {
     }
 
     public boolean update(Measure meas) {
-        String sql = "UPDATE "+ tableName +" SET cloth_type = ?, items = ? WHERE measure_id = ?";
+        String sql = "UPDATE "+ tableName +" SET customer_id = ?, cloth_type = ?, items = ? WHERE measure_id = ?";
 
         try(PreparedStatement stmt = conn.prepareStatement(sql)) {
-            stmt.setString(1, meas.getClothType());
-            stmt.setString(2, meas.getItems().toString());
-            stmt.setInt(3, meas.getId());
+            stmt.setInt(1, meas.getCustomer().getId());
+            stmt.setString(2, meas.getClothType());
+            stmt.setString(3, meas.getItems().toString());
+            stmt.setInt(4, meas.getId());
 
             stmt.executeUpdate();
             return stmt.getUpdateCount() > 0;

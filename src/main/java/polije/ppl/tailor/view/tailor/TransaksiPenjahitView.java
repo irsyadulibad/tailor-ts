@@ -28,6 +28,7 @@ public class TransaksiPenjahitView extends javax.swing.JFrame {
      * Creates new form TransaksiPenjahit
      */
     public TransaksiPenjahitView() {
+        this.setTitle("Transaksi Penjahit - Tailor TS");
         initComponents();
 
         search.setOpaque(false);
@@ -74,6 +75,14 @@ public class TransaksiPenjahitView extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+
+        jTable1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTable1MouseClicked(evt);
+
+            }
+        });
+
         jScrollPane1.setViewportView(jTable1);
 
         getContentPane().add(jScrollPane1);
@@ -115,6 +124,14 @@ public class TransaksiPenjahitView extends javax.swing.JFrame {
         loadTable(transactions);
     }//GEN-LAST:event_searchActionPerformed
 
+    private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_table_datapaketMouseClicked
+        int row = jTable1.getSelectedRow();
+        String value = jTable1.getModel().getValueAt(row, 5).toString();
+        Transaction trans = transRepo.get(Integer.valueOf(value));
+
+        new EditTransaksiView(trans).setVisible(true);
+        this.dispose();
+    }
     /**
      * @param args the command line arguments
      */
@@ -156,7 +173,8 @@ public class TransaksiPenjahitView extends javax.swing.JFrame {
         DefaultTableModel model = new DefaultTableModel();
 
         model.addColumn("No");
-        model.addColumn("Tanggal");
+        model.addColumn("Tanggal Transaksi");
+        model.addColumn("Tanggal Ambil");
         model.addColumn("Status");
         model.addColumn("Total");
         model.addColumn("ID");
@@ -165,6 +183,7 @@ public class TransaksiPenjahitView extends javax.swing.JFrame {
             model.addRow(new Object[] {
                 no++,
                 transaction.getDate().toString(),
+                transaction.getDueDate()== null ? "-": transaction.getDueDate().toString(),
                 transaction.getStatus().toString(),
                 NumberUtil.formatDec(transaction.getTotal()),
                 transaction.getId()
@@ -172,7 +191,7 @@ public class TransaksiPenjahitView extends javax.swing.JFrame {
         }
 
         jTable1.setModel(model);
-        ViewUtil.hideTableColumn(jTable1, 4);
+        ViewUtil.hideTableColumn(jTable1, 5);
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

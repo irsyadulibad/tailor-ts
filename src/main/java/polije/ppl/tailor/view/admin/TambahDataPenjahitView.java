@@ -28,6 +28,7 @@ public class TambahDataPenjahitView extends javax.swing.JFrame {
      * Creates new form TambahDataPenjahitView
      */
     public TambahDataPenjahitView() {
+        this.setTitle("Tambah Data Penjahit - Tailor TS");
         initComponents();
 
         sidebar.add(new SidebarAdminView(this));

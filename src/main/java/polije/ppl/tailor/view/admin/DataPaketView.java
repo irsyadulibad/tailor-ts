@@ -28,6 +28,7 @@ public class DataPaketView extends javax.swing.JFrame {
      * Creates new form DataPaketView
      */
     public DataPaketView() {
+        this.setTitle("Data Paket - Tailor TS");
         initComponents();
 
         sidebar.add(new SidebarAdminView(this));

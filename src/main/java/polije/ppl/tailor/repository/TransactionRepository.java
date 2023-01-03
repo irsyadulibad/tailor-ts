@@ -193,7 +193,6 @@ public class TransactionRepository implements Repository<Transaction> {
 
         try (PreparedStatement stmt = conn.prepareStatement(query)) {
             DatabaseUtil.prepareStmt(stmt, values);
-            System.out.println(stmt);
             ResultSet rs = stmt.executeQuery();
 
             while(rs.next()) {

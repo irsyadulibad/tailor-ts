@@ -26,6 +26,7 @@ public class PassBaruView extends javax.swing.JFrame {
      * Creates new form PassBaruView
      */
     public PassBaruView() {
+        this.setTitle("Ganti Password - Tailor TS");
         initComponents();
         pass.setOpaque(false);
         pass.setBackground(new java.awt.Color(255, 255, 255, 0));

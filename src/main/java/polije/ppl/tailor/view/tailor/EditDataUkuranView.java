@@ -5,7 +5,6 @@
  */
 package polije.ppl.tailor.view.tailor;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -13,7 +12,6 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 import jakarta.validation.ConstraintViolation;
-import org.json.JSONObject;
 import polije.ppl.tailor.data.ComboItem;
 import polije.ppl.tailor.data.MeasureItem;
 import polije.ppl.tailor.entity.Customer;
@@ -42,6 +40,7 @@ public class EditDataUkuranView extends javax.swing.JFrame {
      * Creates new form TambahDataUkuran
      */
     public EditDataUkuranView(Measure measure) {
+        this.setTitle("Edit Data Ukuran - Tailor TS");
         this.measure = measure;
         this.items = measure.getItemsCollection();
 
@@ -273,7 +272,7 @@ public class EditDataUkuranView extends javax.swing.JFrame {
         }
 
         measure.setClothType(tipepakaian.getText());
-        measure.getCustomer();
+        measure.setCustomer(custRepo.get(customer.getKey()));
         measure.setItems(items);
 
         Set<ConstraintViolation<Measure>> vols2 = ValidationUtil.validate(measure);

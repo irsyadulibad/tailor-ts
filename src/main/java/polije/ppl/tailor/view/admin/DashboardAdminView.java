@@ -4,22 +4,36 @@
  */
 package polije.ppl.tailor.view.admin;
 
+import java.awt.Color;
+import java.util.Date;
+import java.util.List;
+
+import polije.ppl.tailor.data.ChartData;
+import polije.ppl.tailor.repository.DashboardRepository;
+import polije.ppl.tailor.util.NumberUtil;
 import polije.ppl.tailor.view.util.SidebarAdminView;
+import raven.chart.ModelChart;
 
 /**
  *
  * @author ibad
  */
 public class DashboardAdminView extends javax.swing.JFrame {
+    private DashboardRepository repo = new DashboardRepository();
 
     /**
      * Creates new form DashboardAdminView
      */
     public DashboardAdminView() {
+        this.setTitle("DashBoard Admin - Tailor TS");
         initComponents();
+        initChart();
 
         sidebar.add(new SidebarAdminView(this));
         sidebar.setBackground(new java.awt.Color(255, 255, 255, 0));
+
+        totalIncome.setText(NumberUtil.formatDec(repo.getIncomePerMonth(new Date())));
+        totalCustomer.setText(NumberUtil.formatDec(repo.getCustomerTotal()));
     }
 
     /**
@@ -31,6 +45,10 @@ public class DashboardAdminView extends javax.swing.JFrame {
     private void initComponents() {
 
         sidebar = new javax.swing.JPanel();
+        chart = new raven.chart.CurveLineChart();
+        totalIncome = new javax.swing.JLabel();
+        totalIncome1 = new javax.swing.JLabel();
+        totalCustomer = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -42,6 +60,29 @@ public class DashboardAdminView extends javax.swing.JFrame {
         getContentPane().add(sidebar);
         sidebar.setBounds(0, 0, 277, 708);
 
+        chart.setBorder(javax.swing.BorderFactory.createEmptyBorder(10, 10, 10, 10));
+        chart.setForeground(new java.awt.Color(0, 102, 102));
+        getContentPane().add(chart);
+        chart.setBounds(390, 360, 530, 290);
+
+        totalIncome.setFont(new java.awt.Font("Ubuntu", 1, 15)); // NOI18N
+        totalIncome.setForeground(new java.awt.Color(118, 159, 205));
+        totalIncome.setText("jLabel2");
+        getContentPane().add(totalIncome);
+        totalIncome.setBounds(372, 247, 130, 18);
+
+        totalIncome1.setFont(new java.awt.Font("Ubuntu", 0, 12)); // NOI18N
+        totalIncome1.setForeground(new java.awt.Color(0, 0, 0));
+        totalIncome1.setText("bulan ini");
+        getContentPane().add(totalIncome1);
+        totalIncome1.setBounds(440, 267, 130, 15);
+
+        totalCustomer.setFont(new java.awt.Font("Ubuntu", 1, 15)); // NOI18N
+        totalCustomer.setForeground(new java.awt.Color(118, 159, 205));
+        totalCustomer.setText("jLabel2");
+        getContentPane().add(totalCustomer);
+        totalCustomer.setBounds(565, 247, 130, 18);
+
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/pages/Dashbord Admin.png"))); // NOI18N
         jLabel1.setAlignmentY(0.0F);
         getContentPane().add(jLabel1);
@@ -50,7 +91,21 @@ public class DashboardAdminView extends javax.swing.JFrame {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+    private void initChart() {
+        List<ChartData> cData = repo.getChartStats();
 
+        chart.addLegend("Pendapatan", Color.decode("#8360c3"), Color.decode("#2ebf91"));
+        chart.addLegend("Transaksi", Color.decode("#B279A7"), Color.decode("#D387AB"));
+
+        for(ChartData data: cData) {
+            chart.addData(new ModelChart(data.getMonth(), new double[] {
+                data.getAmount(),
+                data.getTransactions()
+            }));
+        }
+
+        if(cData.size() > 1) chart.start();
+    }
     /**
      * @param args the command line arguments
      */
@@ -87,7 +142,11 @@ public class DashboardAdminView extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private raven.chart.CurveLineChart chart;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel sidebar;
+    private javax.swing.JLabel totalCustomer;
+    private javax.swing.JLabel totalIncome;
+    private javax.swing.JLabel totalIncome1;
     // End of variables declaration//GEN-END:variables
 }

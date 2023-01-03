@@ -26,6 +26,7 @@ public class DataTransaksiView extends javax.swing.JFrame {
      * Creates new form DataTransaksiView
      */
     public DataTransaksiView() {
+        this.setTitle("Data Transaksi Admin - Tailor TS");
         initComponents();
         loadTable(transRepo.get());
 
