@@ -6,6 +6,7 @@
 package polije.ppl.tailor.view.admin;
 
 import java.util.List;
+
 import javax.swing.table.DefaultTableModel;
 
 import polije.ppl.tailor.entity.Transaction;
@@ -129,7 +130,13 @@ public class DataTransaksiView extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_btn_tambahdataMouseClicked
 
-    private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
+    private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//
+        int row = jTable1.getSelectedRow();
+        String value = jTable1.getModel().getValueAt(row, 5).toString();
+        Transaction transaction = transRepo.get(Integer.valueOf(value));
+
+        new EditDataTransaksiView(transaction).setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_jTable1MouseClicked
 
     /**
@@ -192,6 +199,7 @@ public class DataTransaksiView extends javax.swing.JFrame {
         jTable1.setModel(model);
         ViewUtil.hideTableColumn(jTable1, 5);
     }
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel btn_tambahdata;

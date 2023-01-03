@@ -156,13 +156,15 @@ public class TransactionRepository implements Repository<Transaction> {
 
     public boolean update(Transaction trans) {
         String sql = "UPDATE " + tableName
-                + " SET status = ?, due_date = ?, note = ? WHERE transaction_id = ?";
+                + " SET status = ?, note = ?, account_id = ?, customer_id = ?, due_date = ? WHERE transaction_id = ?";
 
         try (PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setString(1, trans.getStatus().toString());
-            stmt.setDate(2, new Date(trans.getDueDate().getTime()));
-            stmt.setString(3, trans.getNote());
-            stmt.setInt(4, trans.getId());
+            stmt.setString(2, trans.getNote());
+            stmt.setInt(3, trans.getAccount().getId());
+            stmt.setInt(4, trans.getCustomer().getId());
+            stmt.setDate(5, new Date(trans.getDueDate().getTime()));
+            stmt.setInt(6, trans.getId());
 
             stmt.executeUpdate();
             return stmt.getUpdateCount() > 0;

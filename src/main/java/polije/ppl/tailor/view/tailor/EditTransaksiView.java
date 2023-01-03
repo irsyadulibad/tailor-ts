@@ -26,7 +26,7 @@ import polije.ppl.tailor.view.util.SidebarTailorView;
  * @author Hafidz
  */
 public class EditTransaksiView extends javax.swing.JFrame {
-    
+
     private Transaction transaction;
     private Repository<Transaction> transRepo = new TransactionRepository();
     private Repository<TransactionDetail> detailRepo = new TransactionDetailRepository();
@@ -40,7 +40,7 @@ public class EditTransaksiView extends javax.swing.JFrame {
     public EditTransaksiView(Transaction trans) {
         this.setTitle("Edit Data Transaksi - Tailor TS");
         this.transaction = trans;
-        
+
         initComponents();
         fillInput();
         initTransparent();
@@ -51,7 +51,7 @@ public class EditTransaksiView extends javax.swing.JFrame {
         sidebar.add(new SidebarTailorView(this));
         sidebar.setBackground(new java.awt.Color(255, 255, 255, 0));
     }
-    
+
     private void fillInput() {
         namapelanggan.setText(transaction.getCustomer().getFullname());
         duedate.setDate(transaction.getDueDate());
@@ -59,7 +59,7 @@ public class EditTransaksiView extends javax.swing.JFrame {
         totalharga.setText(NumberUtil.formatDec(transaction.getTotal()));
         status.setSelectedItem(transaction.getStatus());
    }
-    
+
     private void initTransparent() {
         duedate.setOpaque(false);
         duedate.setBackground(new java.awt.Color(255, 255, 255, 0));
@@ -81,7 +81,7 @@ public class EditTransaksiView extends javax.swing.JFrame {
         catatan.setOpaque(false);
         catatan.setBackground(new java.awt.Color(255, 255, 255, 0));
     }
-    
+
     private void loadTable(List<TransactionDetail> details) {
         int no = 1;
         int total = 0;
@@ -108,7 +108,7 @@ public class EditTransaksiView extends javax.swing.JFrame {
 
         this.total = total;
         pensanan.setModel(model);
-        
+
     }
 
     /**
@@ -232,7 +232,7 @@ public class EditTransaksiView extends javax.swing.JFrame {
         transaction.setStatus((TransactionStatus)status.getSelectedItem());
         transaction.setDueDate(duedate.getDate());
         transRepo.update(transaction);
-        
+
         JOptionPane.showMessageDialog(this, "Data transaksi berhasil disimpan");
         new TransaksiPenjahitView().setVisible(true);
         this.dispose();
@@ -269,7 +269,7 @@ public class EditTransaksiView extends javax.swing.JFrame {
 
         /* Create and display the form */
 
-    
+
     private javax.swing.JComboBox customerInput;
     private javax.swing.JComboBox tailorInput;
     private javax.swing.JComboBox packageInput;

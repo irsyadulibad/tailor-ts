@@ -4,7 +4,31 @@
  */
 package polije.ppl.tailor.view.admin;
 
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+
+import com.toedter.calendar.JDateChooser;
+
+import polije.ppl.tailor.data.AccountRole;
+import polije.ppl.tailor.data.ComboItem;
+import polije.ppl.tailor.entity.Account;
+import polije.ppl.tailor.entity.Customer;
+import polije.ppl.tailor.entity.Package;
+import polije.ppl.tailor.entity.Transaction;
+import polije.ppl.tailor.entity.TransactionDetail;
+import polije.ppl.tailor.repository.AccountRepository;
+import polije.ppl.tailor.repository.CustomerRepository;
+import polije.ppl.tailor.repository.PackageRepository;
+import polije.ppl.tailor.repository.Repository;
+import polije.ppl.tailor.repository.TransactionDetailRepository;
+import polije.ppl.tailor.repository.TransactionRepository;
+import polije.ppl.tailor.util.NumberUtil;
 import polije.ppl.tailor.util.ViewUtil;
+import polije.ppl.tailor.view.util.SearchableComboBox;
 import polije.ppl.tailor.view.util.SidebarAdminView;
 
 /**
@@ -12,16 +36,40 @@ import polije.ppl.tailor.view.util.SidebarAdminView;
  * @author Hafidz
  */
 public class EditDataTransaksiView extends javax.swing.JFrame {
-
+    private Repository<Account> accRepo = new AccountRepository();
+    private Repository<Customer> custRepo = new CustomerRepository();
+    private Repository<Package> pkgRepo = new PackageRepository();
+    private TransactionRepository transRepo = new TransactionRepository();
+    private Repository<TransactionDetail> detailRepo = new TransactionDetailRepository();
+    private Transaction transaction;
     /**
      * Creates new form EditDataTransaksiView
      */
-    public EditDataTransaksiView() {
+    public EditDataTransaksiView(Transaction transaction) {
+        this.transaction = transaction;
         this.setTitle("Edit Data Transaksi - Tailor TS");
+
+        fillComboBox();
         initComponents();
 
         sidebar.add(new SidebarAdminView(this));
         sidebar.setBackground(new java.awt.Color(255, 255, 255, 0));
+
+        loadTable(detailRepo.get(new HashMap<>() {{
+            put("transaction_id", transaction.getId());
+        }}));
+
+        catatan.setText(transaction.getNote());
+        dateInput.setDate(transaction.getDate());
+        customerInput.setSelectedItem(new ComboItem(
+            transaction.getCustomer().getId(),
+            transaction.getCustomer().getFullname())
+        );
+
+        tailorInput.setSelectedItem(new ComboItem(
+            transaction.getAccount().getId(),
+            transaction.getAccount().getFullname())
+        );
     }
 
     /**
@@ -31,7 +79,7 @@ public class EditDataTransaksiView extends javax.swing.JFrame {
      */
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
-
+        dateInput = new JDateChooser();
         namapakaian = new javax.swing.JTextField();
         jumlah = new javax.swing.JTextField();
         harga = new javax.swing.JTextField();
@@ -83,6 +131,9 @@ public class EditDataTransaksiView extends javax.swing.JFrame {
         getContentPane().add(harga);
         harga.setBounds(735, 307, 90, 30);
 
+        dateInput.setBounds(680, 223, 230, 30);
+        getContentPane().add(dateInput);
+
         btn_simpan.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btn_simpanMouseClicked(evt);
@@ -128,6 +179,12 @@ public class EditDataTransaksiView extends javax.swing.JFrame {
 
         getContentPane().add(jScrollPane2);
         jScrollPane2.setBounds(410, 505, 510, 120);
+
+        btn_simpan2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btn_simpan2MouseClicked(evt);
+            }
+        });
         getContentPane().add(btn_simpan2);
         btn_simpan2.setBounds(837, 655, 90, 30);
 
@@ -169,12 +226,37 @@ public class EditDataTransaksiView extends javax.swing.JFrame {
 
     }//GEN-LAST:event_btn_simpanMouseClicked
 
+    private void btn_simpan2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_simpanMouseClicked
+        ComboItem customer = (ComboItem) customerInput.getSelectedItem();
+        ComboItem tailor = (ComboItem) tailorInput.getSelectedItem();
+        Date dueDate = dateInput.getDate();
+
+        transaction.setAccount(accRepo.get(tailor.getKey()));
+        transaction.setDueDate(dueDate);
+        transaction.setCustomer(custRepo.get(customer.getKey()));
+        transaction.setNote(catatan.getText());
+
+        transRepo.update(transaction);
+        JOptionPane.showMessageDialog(this, "Data transaksi berhasil disimpan");
+        new DataTransaksiView().setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btn_simpanMouseClicked
+
     private void btn_hapusMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_hapusMouseClicked
 
     }//GEN-LAST:event_btn_hapusMouseClicked
 
     private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
+        int row = jTable1.getSelectedRow();
+        String value = jTable1.getModel().getValueAt(row, 5).toString();
+        TransactionDetail detail = detailRepo.get(Integer.valueOf(value));
 
+        namapakaian.setText(detail.getClothName());
+        jumlah.setText(String.valueOf(detail.getQty()));
+        packageInput.setSelectedItem(new ComboItem(
+            detail.getPackage().getId(),
+            detail.getPackage().getName())
+        );
     }//GEN-LAST:event_jTable1MouseClicked
 
     private void btn_kembaliMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_kembaliMouseClicked
@@ -208,15 +290,89 @@ public class EditDataTransaksiView extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(EditDataTransaksiView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new EditDataTransaksiView().setVisible(true);
-            }
-        });
     }
 
+    private void loadTable(List<TransactionDetail> details) {
+        DefaultTableModel model = new DefaultTableModel();
+        int no = 1;
+        int total = 0;
+
+        model.addColumn("No");
+        model.addColumn("Nama Pakaian");
+        model.addColumn("Harga");
+        model.addColumn("Jumlah");
+        model.addColumn("Subtotal");
+        model.addColumn("ID");
+
+        for(TransactionDetail detail: details) {
+            int subTotal = detail.getPrice() * detail.getQty();
+            total += subTotal;
+
+            model.addRow(new Object[] {
+                no++,
+                detail.getClothName(),
+                NumberUtil.formatDec(detail.getPrice()),
+                NumberUtil.formatDec(detail.getQty()),
+                NumberUtil.formatDec(subTotal),
+                detail.getId()
+            });
+        }
+
+        // this.total = total;
+        jTable1.setModel(model);
+        ViewUtil.hideTableColumn(jTable1, 5);
+    }
+
+    private void fillComboBox() {
+        ComboItem[] items;
+        List<Customer> customers = custRepo.get();
+        List<Package> packages = pkgRepo.get();
+        List<Account> tailors = accRepo.get(new HashMap<>(){{
+            put("role", AccountRole.tailor.toString());
+        }});
+
+        items = new ComboItem[customers.size()];
+        for(int i = 0; i < customers.size(); i++) {
+            Customer customer = customers.get(i);
+            items[i] = new ComboItem(customer.getId(), customer.getFullname());
+        }
+
+        customerInput = new SearchableComboBox(items);
+        customerInput.setFont(new java.awt.Font("Ubuntu", 0, 16));
+        customerInput.setBorder(null);
+        customerInput.setBounds(420, 156, 490, 30);
+
+        items = new ComboItem[tailors.size()];
+        for(int i = 0; i < tailors.size(); i++) {
+            Account account = tailors.get(i);
+            items[i] = new ComboItem(account.getId(), account.getFullname());
+        }
+
+        tailorInput = new SearchableComboBox(items);
+        tailorInput.setFont(new java.awt.Font("Ubuntu", 0, 16));
+        tailorInput.setBorder(null);
+        tailorInput.setBounds(420, 223, 230, 30);
+
+        items = new ComboItem[packages.size()];
+        for(int i = 0; i < packages.size(); i++) {
+            Package pkg = packages.get(i);
+            items[i] = new ComboItem(pkg.getId(), pkg.getName());
+        }
+
+        packageInput = new SearchableComboBox(items);
+        packageInput.setFont(new java.awt.Font("Ubuntu", 0, 16));
+        packageInput.setBorder(null);
+        packageInput.setBounds(520, 307, 90, 30);
+
+        getContentPane().add(customerInput);
+        getContentPane().add(tailorInput);
+        getContentPane().add(packageInput);
+    }
+
+    private javax.swing.JComboBox customerInput;
+    private javax.swing.JComboBox tailorInput;
+    private javax.swing.JComboBox packageInput;
+    private JDateChooser dateInput;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel background;
     private javax.swing.JLabel btn_hapus;
