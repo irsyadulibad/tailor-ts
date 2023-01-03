@@ -3,6 +3,7 @@ package polije.ppl.tailor;
 import javax.swing.UIManager.LookAndFeelInfo;
 
 import polije.ppl.tailor.view.LoadingView;
+import polije.ppl.tailor.view.SplashScreen;
 
 /**
  * Hello world!
@@ -21,6 +22,6 @@ public class App
             }
         } catch(Exception e) { e.printStackTrace(); }
 
-        LoadingView.main(args);
+        SplashScreen.main(args);
     }
 }
