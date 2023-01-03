@@ -93,6 +93,7 @@ public class EditDataTransaksiView extends javax.swing.JFrame {
         btn_kembali = new javax.swing.JLabel();
         sidebar = new javax.swing.JPanel();
         background = new javax.swing.JLabel();
+        totalharga = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(1089, 708));
@@ -130,6 +131,10 @@ public class EditDataTransaksiView extends javax.swing.JFrame {
         });
         getContentPane().add(harga);
         harga.setBounds(735, 307, 90, 30);
+
+        totalharga.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
+        getContentPane().add(totalharga);
+        totalharga.setBounds(717, 450, 190, 30);
 
         dateInput.setBounds(680, 223, 230, 30);
         getContentPane().add(dateInput);
@@ -321,6 +326,7 @@ public class EditDataTransaksiView extends javax.swing.JFrame {
         // this.total = total;
         jTable1.setModel(model);
         ViewUtil.hideTableColumn(jTable1, 5);
+        totalharga.setText(NumberUtil.formatDec(transaction.getTotal()));
     }
 
     private void fillComboBox() {
@@ -387,5 +393,6 @@ public class EditDataTransaksiView extends javax.swing.JFrame {
     private javax.swing.JTextField jumlah;
     private javax.swing.JTextField namapakaian;
     private javax.swing.JPanel sidebar;
+    private javax.swing.JLabel totalharga;
     // End of variables declaration//GEN-END:variables
 }
