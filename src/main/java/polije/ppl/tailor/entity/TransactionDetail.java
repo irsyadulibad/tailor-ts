@@ -7,7 +7,7 @@ import jakarta.validation.constraints.NotNull;
 public class TransactionDetail implements Entity {
     public final static String tableName = "transaction_details";
 
-    private int id;
+    private Integer id;
 
     @NotNull(message = "Jumlah harus diisi")
     @Min(1)
@@ -33,11 +33,11 @@ public class TransactionDetail implements Entity {
         this.clothName = clothName;
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

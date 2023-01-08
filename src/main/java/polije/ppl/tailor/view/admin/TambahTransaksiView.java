@@ -56,6 +56,7 @@ public class TambahTransaksiView extends javax.swing.JFrame {
      */
     public TambahTransaksiView() {
         this.setTitle("Tambah Transaksi - Tailor TS");
+
         fillComboBox();
         initComponents();
         initTransparent();

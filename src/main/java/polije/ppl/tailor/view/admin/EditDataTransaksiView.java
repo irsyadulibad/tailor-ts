@@ -4,15 +4,18 @@
  */
 package polije.ppl.tailor.view.admin;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Set;
 
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 import com.toedter.calendar.JDateChooser;
 
+import jakarta.validation.ConstraintViolation;
 import polije.ppl.tailor.data.AccountRole;
 import polije.ppl.tailor.data.ComboItem;
 import polije.ppl.tailor.entity.Account;
@@ -27,6 +30,7 @@ import polije.ppl.tailor.repository.Repository;
 import polije.ppl.tailor.repository.TransactionDetailRepository;
 import polije.ppl.tailor.repository.TransactionRepository;
 import polije.ppl.tailor.util.NumberUtil;
+import polije.ppl.tailor.util.ValidationUtil;
 import polije.ppl.tailor.util.ViewUtil;
 import polije.ppl.tailor.view.util.SearchableComboBox;
 import polije.ppl.tailor.view.util.SidebarAdminView;
@@ -41,35 +45,26 @@ public class EditDataTransaksiView extends javax.swing.JFrame {
     private Repository<Package> pkgRepo = new PackageRepository();
     private TransactionRepository transRepo = new TransactionRepository();
     private Repository<TransactionDetail> detailRepo = new TransactionDetailRepository();
+    private List<TransactionDetail> details, deletedDetails = new ArrayList<>();
     private Transaction transaction;
+    private Integer activeDetail;
     /**
      * Creates new form EditDataTransaksiView
      */
     public EditDataTransaksiView(Transaction transaction) {
-        this.transaction = transaction;
         this.setTitle("Edit Data Transaksi - Tailor TS");
+        this.transaction = transaction;
+        this.details = detailRepo.get(new HashMap<>(){{
+            put("transaction_id", transaction.getId());
+        }});
 
         fillComboBox();
         initComponents();
+        fillInput();
+        loadTable();
 
         sidebar.add(new SidebarAdminView(this));
         sidebar.setBackground(new java.awt.Color(255, 255, 255, 0));
-
-        loadTable(detailRepo.get(new HashMap<>() {{
-            put("transaction_id", transaction.getId());
-        }}));
-
-        catatan.setText(transaction.getNote());
-        dateInput.setDate(transaction.getDate());
-        customerInput.setSelectedItem(new ComboItem(
-            transaction.getCustomer().getId(),
-            transaction.getCustomer().getFullname())
-        );
-
-        tailorInput.setSelectedItem(new ComboItem(
-            transaction.getAccount().getId(),
-            transaction.getAccount().getFullname())
-        );
     }
 
     /**
@@ -134,7 +129,7 @@ public class EditDataTransaksiView extends javax.swing.JFrame {
 
         totalharga.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
         getContentPane().add(totalharga);
-        totalharga.setBounds(717, 450, 190, 30);
+        totalharga.setBounds(727, 447, 190, 30);
 
         dateInput.setBounds(680, 223, 230, 30);
         getContentPane().add(dateInput);
@@ -228,7 +223,29 @@ public class EditDataTransaksiView extends javax.swing.JFrame {
     }//GEN-LAST:event_hargaActionPerformed
 
     private void btn_simpanMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_simpanMouseClicked
+        TransactionDetail detail = (activeDetail == null) ? new TransactionDetail() : details.get(activeDetail);
+        ComboItem pkgItem = (ComboItem) packageInput.getSelectedItem();
+        Package pkg = pkgRepo.get(pkgItem.getKey());
+        String price = harga.getText();
+        String qty = jumlah.getText();
 
+        detail.setPackage(pkg);
+        detail.setPrice(price.isBlank() ? 0 : Integer.parseInt(price));
+        detail.setQty(qty.isBlank() ? 0 : Integer.parseInt(qty));
+        detail.setClothName(namapakaian.getText());
+
+        Set<ConstraintViolation<TransactionDetail>> vols = ValidationUtil.validate(detail);
+
+        if(vols.size() > 0) {
+            JOptionPane.showMessageDialog(this, ValidationUtil.getErrorsAsString(vols, "\n"));
+            return;
+        }
+
+        if(activeDetail == null) details.add(detail);
+        activeDetail = null;
+
+        loadTable();
+        resetInputDetail();
     }//GEN-LAST:event_btn_simpanMouseClicked
 
     private void btn_simpan2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_simpanMouseClicked
@@ -241,6 +258,8 @@ public class EditDataTransaksiView extends javax.swing.JFrame {
         transaction.setCustomer(custRepo.get(customer.getKey()));
         transaction.setNote(catatan.getText());
 
+        manageDetails();
+
         transRepo.update(transaction);
         JOptionPane.showMessageDialog(this, "Data transaksi berhasil disimpan");
         new DataTransaksiView().setVisible(true);
@@ -248,26 +267,47 @@ public class EditDataTransaksiView extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_simpanMouseClicked
 
     private void btn_hapusMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_hapusMouseClicked
+        if(activeDetail == null) {
+            JOptionPane.showMessageDialog(this, "Anda harus memilih data terlebih dahulu");
+            return;
+        }
 
+        TransactionDetail detail = details.get(activeDetail);
+
+        if(detail.getId() != null) deletedDetails.add(detail);
+
+        details.remove((int) activeDetail);
+        activeDetail = null;
+
+        loadTable();
+        resetInputDetail();
     }//GEN-LAST:event_btn_hapusMouseClicked
 
     private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
-        int row = jTable1.getSelectedRow();
-        String value = jTable1.getModel().getValueAt(row, 5).toString();
-        TransactionDetail detail = detailRepo.get(Integer.valueOf(value));
+        int index = jTable1.rowAtPoint(evt.getPoint());
+        TransactionDetail detail = details.get(index);
+        activeDetail = index;
 
-        namapakaian.setText(detail.getClothName());
         jumlah.setText(String.valueOf(detail.getQty()));
+        harga.setText(String.valueOf(detail.getPrice()));
+        namapakaian.setText(detail.getClothName());
         packageInput.setSelectedItem(new ComboItem(
             detail.getPackage().getId(),
-            detail.getPackage().getName())
-        );
+            detail.getPackage().getName()
+        ));
     }//GEN-LAST:event_jTable1MouseClicked
 
     private void btn_kembaliMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_kembaliMouseClicked
         new DataTransaksiView().setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btn_kembaliMouseClicked
+
+    private void packageInputPropertyChange(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_statusPropertyChange
+        ComboItem pkgIpt = (ComboItem) packageInput.getSelectedItem();
+        Package pkget = pkgRepo.get(pkgIpt.getKey());
+
+        harga.setText(String.valueOf(pkget.getPrice()));
+    }//GEN-LAST:event_statusPropertyChange
 
     /**
      * @param args the command line arguments
@@ -297,7 +337,7 @@ public class EditDataTransaksiView extends javax.swing.JFrame {
         //</editor-fold>
     }
 
-    private void loadTable(List<TransactionDetail> details) {
+    private void loadTable() {
         DefaultTableModel model = new DefaultTableModel();
         int no = 1;
         int total = 0;
@@ -307,7 +347,6 @@ public class EditDataTransaksiView extends javax.swing.JFrame {
         model.addColumn("Harga");
         model.addColumn("Jumlah");
         model.addColumn("Subtotal");
-        model.addColumn("ID");
 
         for(TransactionDetail detail: details) {
             int subTotal = detail.getPrice() * detail.getQty();
@@ -319,14 +358,26 @@ public class EditDataTransaksiView extends javax.swing.JFrame {
                 NumberUtil.formatDec(detail.getPrice()),
                 NumberUtil.formatDec(detail.getQty()),
                 NumberUtil.formatDec(subTotal),
-                detail.getId()
             });
         }
 
         // this.total = total;
         jTable1.setModel(model);
-        ViewUtil.hideTableColumn(jTable1, 5);
-        totalharga.setText(NumberUtil.formatDec(transaction.getTotal()));
+        totalharga.setText(NumberUtil.formatDec(total));
+    }
+
+    private void fillInput() {
+        catatan.setText(transaction.getNote());
+        dateInput.setDate(transaction.getDate());
+        customerInput.setSelectedItem(new ComboItem(
+            transaction.getCustomer().getId(),
+            transaction.getCustomer().getFullname())
+        );
+
+        tailorInput.setSelectedItem(new ComboItem(
+            transaction.getAccount().getId(),
+            transaction.getAccount().getFullname())
+        );
     }
 
     private void fillComboBox() {
@@ -368,11 +419,40 @@ public class EditDataTransaksiView extends javax.swing.JFrame {
         packageInput = new SearchableComboBox(items);
         packageInput.setFont(new java.awt.Font("Ubuntu", 0, 16));
         packageInput.setBorder(null);
+        packageInput.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                packageInputPropertyChange(evt);
+            }
+        });
         packageInput.setBounds(520, 307, 90, 30);
 
         getContentPane().add(customerInput);
         getContentPane().add(tailorInput);
         getContentPane().add(packageInput);
+    }
+
+    private void resetInputDetail() {
+        harga.setText("");
+        jumlah.setText("");
+        namapakaian.setText("");
+    }
+
+    private void manageDetails() {
+        // Edit or add details
+        for(TransactionDetail detail: details) {
+            if(detail.getId() == null) {
+                detail.setTransaction(transaction);
+                detailRepo.add(detail);
+                continue;
+            };
+
+            detailRepo.update(detail);
+        }
+
+        // Delete details
+        for(TransactionDetail detail: deletedDetails) {
+            detailRepo.delete(detail.getId());
+        }
     }
 
     private javax.swing.JComboBox customerInput;
