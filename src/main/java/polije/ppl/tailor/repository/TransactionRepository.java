@@ -104,7 +104,7 @@ public class TransactionRepository implements Repository<Transaction> {
 
     public List<Transaction> searchByAccount(Account account, Map<String, Object> values) {
         int iterate = 0;
-        String sql = "SELECT * FROM "+ tableName +" WHERE ";
+        String sql = "SELECT * FROM "+ tableName +" WHERE (";
         List<Transaction> transactions = new ArrayList<>();
 
         for(String valueKey: values.keySet()) {
@@ -114,7 +114,7 @@ public class TransactionRepository implements Repository<Transaction> {
             iterate++;
         }
 
-        sql += " AND account_id = ?";
+        sql += ") AND account_id = ?";
 
         try(PreparedStatement stmt = conn.prepareStatement(sql)) {
             DatabaseUtil.prepareStmt(stmt, values);
