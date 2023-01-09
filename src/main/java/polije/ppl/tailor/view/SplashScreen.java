@@ -78,7 +78,6 @@ public class SplashScreen extends javax.swing.JFrame {
         try {
             for(int i = 1; i <= 8; i++) {
                 Thread.sleep(1000);
-                System.out.println("HEllo");
             }
         }catch(Exception e) { e.printStackTrace(); }
 
