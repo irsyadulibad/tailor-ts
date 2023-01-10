@@ -107,7 +107,7 @@ public class TambahTransaksiView extends javax.swing.JFrame {
             }
         });
         getContentPane().add(namapakaian);
-        namapakaian.setBounds(410, 307, 90, 30);
+        namapakaian.setBounds(410, 307, 118, 30);
 
         jumlah.setFont(new java.awt.Font("Ubuntu", 0, 14)); // NOI18N
         jumlah.setHorizontalAlignment(javax.swing.JTextField.LEFT);
@@ -118,7 +118,7 @@ public class TambahTransaksiView extends javax.swing.JFrame {
             }
         });
         getContentPane().add(jumlah);
-        jumlah.setBounds(630, 307, 90, 30);
+        jumlah.setBounds(690, 307, 45, 30);
 
         harga.setFont(new java.awt.Font("Ubuntu", 0, 14)); // NOI18N
         harga.setHorizontalAlignment(javax.swing.JTextField.LEFT);
@@ -134,7 +134,7 @@ public class TambahTransaksiView extends javax.swing.JFrame {
             }
         });
         getContentPane().add(harga);
-        harga.setBounds(735, 307, 90, 30);
+        harga.setBounds(749, 307, 76, 30);
 
         btn_kembali.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -263,7 +263,7 @@ public class TambahTransaksiView extends javax.swing.JFrame {
         packageInput = new SearchableComboBox(items);
         packageInput.setFont(new java.awt.Font("Ubuntu", 0, 16));
         packageInput.setBorder(null);
-        packageInput.setBounds(520, 307, 90, 30);
+        packageInput.setBounds(545, 307, 130, 30);
 
         getContentPane().add(customerInput);
         getContentPane().add(tailorInput);
