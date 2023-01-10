@@ -1,5 +1,6 @@
 package polije.ppl.tailor.service;
 
+import java.io.InputStream;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -12,8 +13,6 @@ import net.sf.jasperreports.engine.JasperCompileManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
-import net.sf.jasperreports.engine.design.JasperDesign;
-import net.sf.jasperreports.engine.xml.JRXmlLoader;
 import net.sf.jasperreports.view.JasperViewer;
 import polije.ppl.tailor.data.MostItemData;
 import polije.ppl.tailor.data.TransactionStatus;
@@ -57,11 +56,10 @@ public class ReportService {
 
     public void generate() {
         String query = composeQuery(true);
-        String path = getClass().getResource("/stubs/reports/transactionReport.jrxml").getPath();
 
         try(ResultSet rs = report.getResult(query, values)) {
-            JasperDesign design = JRXmlLoader.load(path);
-            JasperReport jr = JasperCompileManager.compileReport(design);
+            InputStream jasperFile = getClass().getResourceAsStream("/stubs/reports/transactionReport.jrxml");
+            JasperReport jr = JasperCompileManager.compileReport(jasperFile);
             JRResultSetDataSource rsDataSource = new JRResultSetDataSource(rs);
             JasperPrint jp = JasperFillManager.fillReport(jr, new HashMap<>(), rsDataSource);
 
