@@ -15,6 +15,7 @@ import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.engine.design.JasperDesign;
 import net.sf.jasperreports.engine.xml.JRXmlLoader;
 import net.sf.jasperreports.view.JasperViewer;
+import polije.ppl.tailor.data.MostItemData;
 import polije.ppl.tailor.data.TransactionStatus;
 import polije.ppl.tailor.entity.Transaction;
 import polije.ppl.tailor.repository.ReportRepository;
@@ -24,6 +25,7 @@ public class ReportService {
     private Date start, end;
     private TransactionStatus status;
     private TransactionRepository repo;
+    private ReportRepository report;
     private Calendar cal;
     private List<Object> values;
     private StringBuilder qb;
@@ -34,6 +36,7 @@ public class ReportService {
         this.status = status;
 
         repo = new TransactionRepository();
+        report = new ReportRepository();
         cal = Calendar.getInstance();
         values = new ArrayList<>();
 
@@ -46,8 +49,13 @@ public class ReportService {
         return repo.customQuery(query, values);
     }
 
+    public MostItemData getMostItems() {
+        String query = composeQuery(false)
+            .replace("SELECT *", "SELECT transaction_id");
+        return report.getMostItems(query, values);
+    }
+
     public void generate() {
-        ReportRepository report = new ReportRepository();
         String query = composeQuery(true);
         String path = getClass().getResource("/stubs/reports/transactionReport.jrxml").getPath();
 

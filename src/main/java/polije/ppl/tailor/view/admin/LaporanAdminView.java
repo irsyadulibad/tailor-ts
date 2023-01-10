@@ -5,8 +5,10 @@
 package polije.ppl.tailor.view.admin;
 
 import java.util.Date;
+
 import javax.swing.table.DefaultTableModel;
 
+import polije.ppl.tailor.data.MostItemData;
 import polije.ppl.tailor.data.TransactionStatus;
 import polije.ppl.tailor.entity.Transaction;
 import polije.ppl.tailor.service.ReportService;
@@ -29,8 +31,6 @@ public class LaporanAdminView extends javax.swing.JFrame {
         sidebar.add(new SidebarAdminView(this));
         sidebar.setBackground(new java.awt.Color(255, 255, 255, 0));
         startDate.setDate(new Date());
-
-        loadTable();
     }
 
     /**
@@ -41,6 +41,7 @@ public class LaporanAdminView extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        mostItems = new javax.swing.JLabel();
         sidebar = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
@@ -76,7 +77,7 @@ public class LaporanAdminView extends javax.swing.JFrame {
         jScrollPane1.setViewportView(jTable1);
 
         getContentPane().add(jScrollPane1);
-        jScrollPane1.setBounds(350, 230, 570, 330);
+        jScrollPane1.setBounds(361, 230, 570, 330);
 
         EksporData.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -127,6 +128,12 @@ public class LaporanAdminView extends javax.swing.JFrame {
         });
         getContentPane().add(status);
         status.setBounds(615, 180, 90, 24);
+
+        mostItems.setFont(new java.awt.Font("Ubuntu", 1, 16)); // NOI18N
+        mostItems.setForeground(new java.awt.Color(118, 159, 205));
+        mostItems.setText("jLabel1");
+        getContentPane().add(mostItems);
+        mostItems.setBounds(490, 595, 165, 19);
 
         BackGround.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/pages/Laporan.png"))); // NOI18N
         getContentPane().add(BackGround);
@@ -233,13 +240,31 @@ public class LaporanAdminView extends javax.swing.JFrame {
                 transaction.getStatus().toString(),
                 NumberUtil.formatDec(transaction.getTotal()),
             });
-            grandtotal += transaction.getTotal(); 
+            grandtotal += transaction.getTotal();
         }
 
         jTable1.setModel(model);
         total.setText(NumberUtil.formatDec(grandtotal));
+
+        printMostItems();
     }
 
+    private void printMostItems() {
+        StringBuilder most = new StringBuilder();
+        ReportService service = new ReportService(
+            startDate.getDate(),
+            endDate.getDate(),
+            (TransactionStatus) status.getSelectedItem()
+        );
+
+        MostItemData data = service.getMostItems();
+        most.append(data.getNames());
+        if(data.getQty() > 1) most.append(" (" + data.getQty() + ")");
+
+        mostItems.setText(most.toString());
+    }
+
+    private javax.swing.JLabel mostItems;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel BackGround;
     private javax.swing.JLabel EksporData;
