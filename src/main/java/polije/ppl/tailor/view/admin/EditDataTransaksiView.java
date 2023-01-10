@@ -60,6 +60,7 @@ public class EditDataTransaksiView extends javax.swing.JFrame {
 
         fillComboBox();
         initComponents();
+        initTransparent();
         fillInput();
         loadTable();
 
@@ -103,7 +104,7 @@ public class EditDataTransaksiView extends javax.swing.JFrame {
             }
         });
         getContentPane().add(namapakaian);
-        namapakaian.setBounds(410, 307, 90, 30);
+        namapakaian.setBounds(410, 307, 118, 30);
 
         jumlah.setFont(new java.awt.Font("Ubuntu", 0, 14)); // NOI18N
         jumlah.setHorizontalAlignment(javax.swing.JTextField.LEFT);
@@ -114,7 +115,7 @@ public class EditDataTransaksiView extends javax.swing.JFrame {
             }
         });
         getContentPane().add(jumlah);
-        jumlah.setBounds(630, 307, 90, 30);
+        jumlah.setBounds(690, 307, 45, 30);
 
         harga.setFont(new java.awt.Font("Ubuntu", 0, 14)); // NOI18N
         harga.setHorizontalAlignment(javax.swing.JTextField.LEFT);
@@ -125,12 +126,13 @@ public class EditDataTransaksiView extends javax.swing.JFrame {
             }
         });
         getContentPane().add(harga);
-        harga.setBounds(735, 307, 90, 30);
+        harga.setBounds(749, 307, 76, 30);
 
-        totalharga.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
+        totalharga.setFont(new java.awt.Font("Ubuntu", 0, 14)); // NOI18N
         getContentPane().add(totalharga);
         totalharga.setBounds(727, 447, 190, 30);
 
+        dateInput.setFont(new java.awt.Font("Ubuntu", 0, 14));
         dateInput.setBounds(680, 223, 230, 30);
         getContentPane().add(dateInput);
 
@@ -173,7 +175,7 @@ public class EditDataTransaksiView extends javax.swing.JFrame {
         jScrollPane1.setBounds(400, 340, 510, 80);
 
         catatan.setColumns(20);
-        catatan.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
+        catatan.setFont(new java.awt.Font("Ubuntu", 0, 14));
         catatan.setRows(5);
         jScrollPane2.setViewportView(catatan);
 
@@ -209,6 +211,45 @@ public class EditDataTransaksiView extends javax.swing.JFrame {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void initTransparent() {
+        dateInput.setOpaque(false);
+        dateInput.setBackground(new java.awt.Color(255, 255, 255, 0));
+
+        customerInput.setOpaque(false);
+        customerInput.setBackground(new java.awt.Color(255, 255, 255, 0));
+
+        tailorInput.setOpaque(false);
+        tailorInput.setBackground(new java.awt.Color(255, 255, 255, 0));
+
+        namapakaian.setOpaque(false);
+        namapakaian.setBackground(new java.awt.Color(255, 255, 255, 0));
+
+        jumlah.setOpaque(false);
+        jumlah.setBackground(new java.awt.Color(255, 255, 255, 0));
+
+        harga.setOpaque(false);
+        harga.setBackground(new java.awt.Color(255, 255, 255, 0));
+
+        totalharga.setOpaque(false);
+        totalharga.setBackground(new java.awt.Color(255, 255, 255, 0));
+
+        packageInput.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                packageInputPropertyChange(evt);
+            }
+        });
+        packageInput.setOpaque(false);
+        packageInput.setBackground(new java.awt.Color(255, 255, 255, 0));
+
+        jScrollPane2.setOpaque(false);
+        jScrollPane2.getViewport().setOpaque(false);
+        jScrollPane2.setBorder(null);
+        jScrollPane2.setViewportBorder(null);
+
+        catatan.setOpaque(false);
+        catatan.setBackground(new java.awt.Color(255, 255, 255, 0));
+    }
 
     private void namapakaianActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_namapakaianActionPerformed
 
@@ -420,14 +461,14 @@ public class EditDataTransaksiView extends javax.swing.JFrame {
         }
 
         packageInput = new SearchableComboBox(items);
-        packageInput.setFont(new java.awt.Font("Ubuntu", 0, 16));
+        packageInput.setFont(new java.awt.Font("Ubuntu", 0, 14));
         packageInput.setBorder(null);
         packageInput.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 packageInputPropertyChange(evt);
             }
         });
-        packageInput.setBounds(520, 307, 90, 30);
+        packageInput.setBounds(545, 307, 130, 30);
 
         getContentPane().add(customerInput);
         getContentPane().add(tailorInput);

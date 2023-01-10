@@ -95,6 +95,7 @@ public class TambahTransaksiView extends javax.swing.JFrame {
         setMinimumSize(new java.awt.Dimension(1088, 740));
         getContentPane().setLayout(null);
 
+        dateInput.setFont(new java.awt.Font("Ubuntu", 0, 14));
         dateInput.setBounds(680, 223, 230, 30);
         getContentPane().add(dateInput);
 
@@ -191,14 +192,14 @@ public class TambahTransaksiView extends javax.swing.JFrame {
         jScrollPane1.setBounds(400, 340, 510, 80);
 
         catatan.setColumns(20);
-        catatan.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
+        catatan.setFont(new java.awt.Font("Ubuntu", 0, 14));
         catatan.setRows(5);
         jScrollPane2.setViewportView(catatan);
 
         getContentPane().add(jScrollPane2);
         jScrollPane2.setBounds(410, 505, 510, 120);
 
-        grandTotal.setFont(new java.awt.Font("Ubuntu", 0, 16)); // NOI18N
+        grandTotal.setFont(new java.awt.Font("Ubuntu", 0, 14)); // NOI18N
         getContentPane().add(grandTotal);
         grandTotal.setBounds(730, 450, 180, 27);
 
@@ -261,7 +262,7 @@ public class TambahTransaksiView extends javax.swing.JFrame {
         }
 
         packageInput = new SearchableComboBox(items);
-        packageInput.setFont(new java.awt.Font("Ubuntu", 0, 16));
+        packageInput.setFont(new java.awt.Font("Ubuntu", 0, 14));
         packageInput.setBorder(null);
         packageInput.setBounds(545, 307, 130, 30);
 
