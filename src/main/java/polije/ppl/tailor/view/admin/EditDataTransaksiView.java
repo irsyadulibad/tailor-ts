@@ -75,6 +75,7 @@ public class EditDataTransaksiView extends javax.swing.JFrame {
      */
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
+
         dateInput = new JDateChooser();
         namapakaian = new javax.swing.JTextField();
         jumlah = new javax.swing.JTextField();
@@ -90,6 +91,7 @@ public class EditDataTransaksiView extends javax.swing.JFrame {
         sidebar = new javax.swing.JPanel();
         background = new javax.swing.JLabel();
         totalharga = new javax.swing.JLabel();
+        btn_delete = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(1089, 708));
@@ -203,6 +205,14 @@ public class EditDataTransaksiView extends javax.swing.JFrame {
         sidebar.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 0, 0));
         getContentPane().add(sidebar);
         sidebar.setBounds(0, 0, 277, 708);
+
+        btn_delete.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btn_deleteMouseClicked(evt);
+            }
+        });
+        getContentPane().add(btn_delete);
+        btn_delete.setBounds(410, 659, 80, 20);
 
         background.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/pages/Edit Data Transaksi.png"))); // NOI18N
         getContentPane().add(background);
@@ -343,6 +353,18 @@ public class EditDataTransaksiView extends javax.swing.JFrame {
         new DataTransaksiView().setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btn_kembaliMouseClicked
+
+    private void btn_deleteMouseClicked(java.awt.event.MouseEvent evt) {
+        int clicked = JOptionPane.showConfirmDialog(this, "Apakah anda yakin?");
+
+        if(clicked == 0) {
+            transRepo.delete(transaction.getId());
+
+            JOptionPane.showMessageDialog(this, "Data berhasil dihapus");
+            new DataTransaksiView().setVisible(true);
+            this.dispose();
+        }
+    }
 
     private void packageInputPropertyChange(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_statusPropertyChange
         ComboItem pkgIpt = (ComboItem) packageInput.getSelectedItem();
@@ -517,6 +539,7 @@ public class EditDataTransaksiView extends javax.swing.JFrame {
     private javax.swing.JTextField jumlah;
     private javax.swing.JTextField namapakaian;
     private javax.swing.JPanel sidebar;
+    private javax.swing.JLabel btn_delete;
     private javax.swing.JLabel totalharga;
     // End of variables declaration//GEN-END:variables
 }
