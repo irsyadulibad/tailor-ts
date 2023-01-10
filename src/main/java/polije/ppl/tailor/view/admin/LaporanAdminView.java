@@ -133,7 +133,7 @@ public class LaporanAdminView extends javax.swing.JFrame {
         mostItems.setForeground(new java.awt.Color(118, 159, 205));
         mostItems.setText("jLabel1");
         getContentPane().add(mostItems);
-        mostItems.setBounds(490, 595, 165, 19);
+        mostItems.setBounds(490, 595, 200, 19);
 
         BackGround.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/pages/Laporan.png"))); // NOI18N
         getContentPane().add(BackGround);
