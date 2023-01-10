@@ -63,7 +63,7 @@ public class ReportService {
             JRResultSetDataSource rsDataSource = new JRResultSetDataSource(rs);
             JasperPrint jp = JasperFillManager.fillReport(jr, new HashMap<>(), rsDataSource);
 
-            JasperViewer.viewReport(jp);
+            JasperViewer.viewReport(jp, false);
         } catch(Exception e) { e.printStackTrace(); }
     }
 
