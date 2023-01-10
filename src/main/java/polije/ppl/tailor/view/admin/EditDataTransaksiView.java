@@ -288,13 +288,14 @@ public class EditDataTransaksiView extends javax.swing.JFrame {
         TransactionDetail detail = details.get(index);
         activeDetail = index;
 
-        jumlah.setText(String.valueOf(detail.getQty()));
-        harga.setText(String.valueOf(detail.getPrice()));
-        namapakaian.setText(detail.getClothName());
         packageInput.setSelectedItem(new ComboItem(
             detail.getPackage().getId(),
             detail.getPackage().getName()
         ));
+
+        jumlah.setText(String.valueOf(detail.getQty()));
+        harga.setText(String.valueOf(detail.getPrice()));
+        namapakaian.setText(detail.getClothName());
     }//GEN-LAST:event_jTable1MouseClicked
 
     private void btn_kembaliMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_kembaliMouseClicked
@@ -347,6 +348,7 @@ public class EditDataTransaksiView extends javax.swing.JFrame {
         model.addColumn("Harga");
         model.addColumn("Jumlah");
         model.addColumn("Subtotal");
+        model.addColumn("ID");
 
         for(TransactionDetail detail: details) {
             int subTotal = detail.getPrice() * detail.getQty();
@@ -358,11 +360,12 @@ public class EditDataTransaksiView extends javax.swing.JFrame {
                 NumberUtil.formatDec(detail.getPrice()),
                 NumberUtil.formatDec(detail.getQty()),
                 NumberUtil.formatDec(subTotal),
+                detail.getId()
             });
         }
 
-        // this.total = total;
         jTable1.setModel(model);
+        ViewUtil.hideTableColumn(jTable1, 5);
         totalharga.setText(NumberUtil.formatDec(total));
     }
 

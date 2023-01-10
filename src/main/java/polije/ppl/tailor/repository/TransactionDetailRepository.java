@@ -145,8 +145,8 @@ public class TransactionDetailRepository implements Repository<TransactionDetail
         TransactionDetail detail = new TransactionDetail(
             result.getInt("qty"),
             result.getInt("price"),
-            new PackageRepository().get(transId),
-            new TransactionRepository().get(pkgId),
+            new PackageRepository().get(pkgId),
+            new TransactionRepository().get(transId),
             result.getString("cloth_name")
         );
 

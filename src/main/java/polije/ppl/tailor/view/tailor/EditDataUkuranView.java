@@ -46,7 +46,7 @@ public class EditDataUkuranView extends javax.swing.JFrame {
 
         initComponents();
         initTransparents();
-        fillClothType();
+        fillInput();
 
         loadTable();
     }
@@ -358,8 +358,12 @@ public class EditDataUkuranView extends javax.swing.JFrame {
         plg.setBounds(395, 176, 510, 30);
     }
 
-    private void fillClothType(){
+    private void fillInput(){
         tipepakaian.setText(measure.getClothType());
+        plg.setSelectedItem(new ComboItem(
+            measure.getCustomer().getId(),
+            measure.getCustomer().getFullname()
+        ));
     }
 
     private javax.swing.JComboBox plg;

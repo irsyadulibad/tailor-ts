@@ -411,13 +411,14 @@ public class TambahTransaksiView extends javax.swing.JFrame {
         TransactionDetail detail = details.get(index);
         activeDetail = index;
 
-        jumlah.setText(String.valueOf(detail.getQty()));
-        namapakaian.setText(detail.getClothName());
-        harga.setText(String.valueOf(detail.getPrice()));
         packageInput.setSelectedItem(new ComboItem(
             detail.getPackage().getId(),
             detail.getPackage().getName())
         );
+
+        jumlah.setText(String.valueOf(detail.getQty()));
+        namapakaian.setText(detail.getClothName());
+        harga.setText(String.valueOf(detail.getPrice()));
     }//GEN-LAST:event_jTable1MouseClicked
 
     private void btn_saveMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_saveMouseClicked

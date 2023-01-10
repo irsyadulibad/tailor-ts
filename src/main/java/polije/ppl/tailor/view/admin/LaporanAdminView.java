@@ -258,6 +258,12 @@ public class LaporanAdminView extends javax.swing.JFrame {
         );
 
         MostItemData data = service.getMostItems();
+
+        if(data.getNames() == null || data.getQty() == null) {
+            mostItems.setText("");
+            return;
+        }
+
         most.append(data.getNames());
         if(data.getQty() > 1) most.append(" (" + data.getQty() + ")");
 
