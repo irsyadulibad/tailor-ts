@@ -5,6 +5,7 @@
  */
 package polije.ppl.tailor.view.admin;
 
+import java.util.HashMap;
 import java.util.List;
 
 import javax.swing.table.DefaultTableModel;
@@ -118,11 +119,16 @@ public class DataTransaksiView extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void searchKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_searchKeyReleased
+        List<Transaction> transactions = transRepo.search(new HashMap<>() {{
+            put("total", search.getText());
+            put("status", search.getText());
+        }});
 
+        loadTable(transactions);
     }//GEN-LAST:event_searchKeyReleased
 
     private void searchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchActionPerformed
-
+        
     }//GEN-LAST:event_searchActionPerformed
 
     private void btn_tambahdataMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_tambahdataMouseClicked
